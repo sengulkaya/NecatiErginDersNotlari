@@ -9,3 +9,7 @@ https://github.com/mguludag/csd_cpp_notlari
 https://github.com/yusufabdulazizyilmaz/Bil-142
 
 https://github.com/umutkotankiran/Cpp
+
+https://github.com/umutkotankiran/Cpp_Advanced
+
+https://github.com/CSD-1993/KursNotlari
