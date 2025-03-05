@@ -5,5 +5,7 @@ ChatGPT den yardım alıp aldığım notlarda oldu
 NOT:Almış olduğum notlardan çok daha iyi notlar mevcuttur bunları altta paylaşacağım
 
 https://github.com/mguludag/csd_cpp_notlari
+
 https://github.com/yusufabdulazizyilmaz/Bil-142
+
 https://github.com/umutkotankiran/Cpp
