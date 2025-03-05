@@ -2346,8 +2346,7 @@ pointerlarda argüman alabilir
 
     void foo(const char* p = nullptr);
 
-    foo("mustafa");
-    foo();
+    foo("mustafa"); // değer girilmezse nullptr
 
 maximal munch
 
@@ -2801,7 +2800,7 @@ bu ayrıştırma kuralları hatalı kod ile sonuçlanabilir. Bu nedenle, pointer
 
             auto& r = foo; r'nin çıkarımı -> int(&r)(int) olur;
 
-        
+
          typedef int inta5[];
          int ar[5]{2,5,8,9,4};
          inta5 *p = &ar;
@@ -2810,12 +2809,15 @@ bu ayrıştırma kuralları hatalı kod ile sonuçlanabilir. Bu nedenle, pointer
 
          inta5& r = ar; // r ar dizisine referans tür eş ismi kullanmasaydık int(&r)[5] = ar; yazmamız gerekirdi
 
+         Referans dekleratörü olduğunda array decay uyglanmıyorsa şimdide function to pointer conversion uygulanmicak
+            int foo(int);  foo nun türü int(int) fonksiyon türü ile function pointer türünü birbirine karıştırmayalım
+
+            auto& r = foo; // int (&r)(int)
+
      3)auto && x = expr;
 
 
 Fonksiyonların auto keyword ile kullanılması
-
-int foo(int);
 
 int main()
 {
@@ -2839,6 +2841,49 @@ int&r = a; type ile expression farklı şeyler
 
     r'nin type'ı int&
     r'nin expression'ı int
+ 
+int x = 10;
+int* p = &x;
+
+auto& r = p; // int*& r = p; // pointera referans olan değişken
+
+int x = 10;
+int* p = &x;
+auto r = p;
+
+std::cout << &x<<'\n';
+std::cout << r; // x'in adresi
+
+auto r1 = &p; // burda p'nin adresini tutmuş olyor yani int** r1 = &p çıkarımı yapılıyor
+
+auto&& r = 20; r'nin tür çıkarımı -> int r = 20;
+
+int x = 10;
+
+auto&& r = x; r'nin tür çıkarımı -> int& &&r = x; // burda reference collapsing kuralları uygulanıyor çünkü
+referansa referans türü oluyor böylelikle r şöyle olmuş oluyor
+
+int& &&r = x; reference collapsing kuralına göre burda r lvalue reference -> int& r = x;
+
+NOT:using keywordü ile kullanımı şu şekilde
+
+using reftype = int&;
+
+int x = 10;
+reftype &r = x; // int& &r = x;
+
+Verdiğiniz örnekte `reference collapsing` (referans çöküşü) olayı meydana geliyor. C++'da, referansların referansı (`& &`)
+diye bir şey yoktur ve bunun yerine C++'da reference collapsing kuralları devreye girer. reference collapsing, `using` anahtar sözcüğü veya
+`template` kullanılarak referansların birleşimi (collapsing) ile ilgilidir.
+
+Örneğinizde, `reftype` zaten `int&` türünü temsil ediyor. Sonrasında `reftype &r` yazıldığında, `int& &` durumu oluşuyor ve reference collapsing kuralları uygulanıyor.
+
+### reference collapsing Kuralları
+
+1. `T& &` `T&` olur.
+2. `T&& &`  `T&` olur.
+3. `T& &&` `T&` olur.
+4. `T&& &&`  `T&&` olur.
  --------------------------------------------------------------------------------------------------------------------------------------------------
  Universal Reference veya Forwarding Reference 
 
@@ -2912,37 +2957,6 @@ int main() {
 Universal reference, C++11 ile gelen güçlü bir özellik olup, hem `lvalue` hem de `rvalue` referanslarını kabul edebilen ve 
 argümanların değer kategorisini koruyarak iletilmesini sağlayan bir referans türüdür. Bu özellik, özellikle şablon metaprogramlama ve 
 hareket semantiği işlemleri için önemlidir. Universal reference'lar, `T&&` şeklinde tanımlanır ve `std::forward` ile birlikte kullanılarak performans optimizasyonu sağlar.
-
-Basit örnekler:
-
-auto&& r = 20; r'nin tür çıkarımı -> int r = 20;
-
-int x = 10;
-
-auto&& r = x; r'nin tür çıkarımı -> int& &&r = x; // burda reference collapsing kuralları uygulanıyor çünkü
-referansa referans türü oluyor böylelikle r şöyle olmuş oluyor
-
-int& &&r = x; reference collapsing kuralına göre burda r lvalue reference -> int& r = x;
-
-NOT:using keywordü ile kullanımı şu şekilde
-
-using reftype = int&;
-
-int x = 10;
-reftype &r = x; // int& &r = x;
-
-Verdiğiniz örnekte `reference collapsing` (referans çöküşü) olayı meydana geliyor. C++'da, referansların referansı (`& &`) 
-diye bir şey yoktur ve bunun yerine C++'da reference collapsing kuralları devreye girer. reference collapsing, `using` anahtar sözcüğü veya 
-`template` kullanılarak referansların birleşimi (collapsing) ile ilgilidir.
-
-Örneğinizde, `reftype` zaten `int&` türünü temsil ediyor. Sonrasında `reftype &r` yazıldığında, `int& &` durumu oluşuyor ve reference collapsing kuralları uygulanıyor.
-
-### reference collapsing Kuralları
-
-1. `T& &` `T&` olur.
-2. `T&& &`  `T&` olur.
-3. `T& &&` `T&` olur.
-4. `T&& &&`  `T&&` olur.
  --------------------------------------------------------------------------------------------------------------------------------------------------
  decltype kullanım senaryoları
 
@@ -3051,19 +3065,55 @@ int main() {
 `decltype` anahtar kelimesi, C++'da tür çıkarımını daha esnek ve güçlü hale getiren önemli bir özelliktir. 
 Bu senaryolar, `decltype`'ın çeşitli kullanım alanlarını göstermektedir.
 
-NOT:1.KURAL SETİ:declytype'ın operandının isim olması durumunda tür çıkarımının yapılması farklı kural seti ile olur
+1.KURAL SETİ:declytype'ın operandının isim olması durumunda tür çıkarımının yapılması farklı kural seti ile olur
 int x;
 decltype(x) y; -> y'nin türü int
 decltype(a.y) z  -> a nesnesindeki y değerinin türü
-decltype(p->y) < -> p nesnesinin y değerinin türü
+decltype(p->y) < -> p nesnesinin y değerinin türü 
 
+decltype(x) foo(decltype(x)* p); // int foo(int* p )türünde bir fonksiyon bildirmiş olucaz
 
-2.KURAL SETİ: decltype'ın operandının expression olması durumunda yani isim olmadığı ifade olduğu durumda uygulanan kural seti farklıdır
+const int y { 435};
+
+decltype(x) y; // const variable must be initalize 
+
+intr& r = x;
+
+decltype(r) a; // int& çıkarımı olur ama hata verir referanslara ilk değer vermek zorundayız
+
+int&&r = 4;
+decltype(r) // int&& 
+
+int ar[30]{};
+decltype(ar) x // int[30];
+
+structlar ve classlar içinde aynı kural uygulanıyor
+
+dtruct Nec
+{
+    int x;
+    double* p;
+}
+
+Nec mynec;
+
+decltype(mynec.p); // double*
+decltype(mynec.x); // int
+
+Nec* necptr = &mynec;
+decltype(necptr->p); // double*
+
+2.KURAL SETİ: decltype'ın operandının expression olması durumunda yani isim olmadığı ifade olduğu durumda uygulanan kural seti ifadenin
+primary value kategorisine bağlıdır
 
 decltype(10) int
 decltype(x + 10) int
-decltype((x)) -> value categorysine göre yorumlanıyor int&
-
+decltype((x)) -> value categorysine göre yorumlanıyor x'in value kategorisi int&
+decltype((((x)))) -> yine value categorysine göre yorumlanıyor  int&
+decltype(+x) // PR value int
+decltype(x++) // PR value int
+decltype(++x) // L value int&
+decltype([a[3]) // L value
 buradan elde edilecek tür decltypa operand olan expressionun primary value kategorisine bağlı
 PR value ise -> T
 L value ise -> T&
@@ -3252,74 +3302,6 @@ int* ptr = &a;
 a ->ifadesinin türü int
 r ->ifadesinin türü int -> ifadenin türü referans olamaz
 ptr ->ifadesinin türü int* -> ifadenin türü pointer olabilir
---------------------------------------------------------------------------------------------------------------------------------------------------
-Reference collapsing, C++ dilinde referans tiplerinin birleşme kurallarıdır. C++'ta referanslar iki türde olabilir:
-lvalue referansları (T&) ve rvalue referansları (T&&). Bu referans türleri bazı durumlarda birbirleriyle birleşebilir,
-özellikle template'ler, auto anahtar kelimesi ve forward edilen argümanlar kullanıldığında.
-
-Reference collapsing kuralları şu şekildedir:
-
-1. `T&    &`   ->  `T&`
-2. `T&    &&`  ->  `T&`
-3. `T&&   &`   ->  `T&`
-4. `T&&   &&`  ->  `T&&`
-
-Bu kurallar, iki referans türü birleştiğinde sonuçta hangi tür referansın ortaya çıkacağını belirler. Örneğin, bir lvalue referansı ile bir rvalue referansı birleşirse,
-sonuç her zaman bir lvalue referansı olur.
-
-### Örnekler
-
-**Temel Örnek:**
-
-template <typename T>
-void func(T&& t); // T&& burada universal reference
-
-int main() {
-    int x = 5;
-    func(x); // T&& + int& = int&
-    func(5); // T&& + int&& = int&&
-}
-
-Bu örnekte, `func` şablon fonksiyonuna hem lvalue hem de rvalue argümanlar geçirilebilir. `T` türü çıkarılırken referansların birleşmesi kuralları uygulanır.
-
-**Detaylı Örnek:**
-
-template <typename T>
-void foo(T&& arg) {
-    bar(std::forward<T>(arg));
-}
-
-void bar(int&) {
-    std::cout << "lvalue ref\n";
-}
-
-void bar(int&&) {
-    std::cout << "rvalue ref\n";
-}
-
-int main() {
-    int a = 10;
-    foo(a);  // T deduced as int&, so T&& becomes int& && -> & lvalue
-    foo(10); // T deduced as int, so T&& becomes int&&  -> && rvalue
-}
-
-Bu örnekte, `foo` fonksiyonu çağrıldığında, `arg` için `T&&` referans tipi belirlenir ve bu tip `std::forward<T>` kullanılarak `bar` fonksiyonuna iletilir. `foo(a)` çağrısında,
-`a` bir lvalue olduğu için `T` `int&` olarak belirlenir ve `T&&` `int& &&` olur, bu da `int&`'ye dönüşür.
-
-`foo(10)` çağrısında ise `10` bir rvalue olduğu için
-`T` `int` olarak belirlenir ve `T&&` `int&&` olarak kalır.
-
-### Özet
-
-Reference collapsing, C++ dilinde referans türlerinin birleşme kurallarıdır ve bu kurallar, özellikle şablon metaprogramlama ve perfect forwarding (mükemmel iletme) gibi
-ileri düzey konularda önemli bir rol oynar. Bu kurallar, referans türlerinin birleşmesi durumunda hangi tür referansın oluşacağını belirler ve bu sayede kodun doğru çalışmasını sağlar.
---------------------------------------------------------------------------------------------------------------------------------------------------
-int foo(int); -> foo fonksiyonunun türü int(int)
---------------------------------------------------------------------------------------------------------------------------------------------------
-int foo(int);
-
-auto& r = foo; -> auto çıkarımı -> int(&r)(int)
-r(5); r foo ya referans
 --------------------------------------------------------------------------------------------------------------------------------------------------
 autonun kullanılması gerektiği mantıklı yerlerden biri
 
