@@ -473,7 +473,25 @@ Yukarıdaki örnekte kullanılan return deyimi C++'da geçerli, C'de geçersizdi
 
 
                                                                                  ********* 2-DERS NOTLARI *********
+c dilinde void* türünden başka bişka bir pointer türe türe implicit conversion var ama c++ dilinde yok
 
+
+    int x = 5;
+    void* vptr = &x;
+    int* p = &vptr; // C de geçerli C++ 'da geçersiz
+
+aritmetik türlerden pointer türlerine pointer türlerden aritmetik türlerine farklı pointer türleri arasında c dilinde örtülü dönüşüm var ama c++ dilinde yok
+--------------------------------------------------------------------------------------------------------------------------------------------------
+const correctness const kullanılması gereken yerde cost kullanılması demek bir yerde bile ihmal edilmesi demek kod kalitesini bozar 
+
+C ile C++ arasında const farklılığı
+
+c dilinde aritmetik türlerde const ifadesi kullanılsa bile C dilinde constant expr gerektiği yerlerde ibile kullanılmıyor garantidi yok
+c++ dilinde ilk değerini const ile alan nesneler const gereknen yerlerde bunu garanyi eder yani const expressiondır
+
+C dilinde const nesnelerin initialize edilmesi zorunlu değil
+C++ dilinde const nesnelerşin initialize edilmesi zorunlu
+--------------------------------------------------------------------------------------------------------------------------------------------------
 **Const Correctness**, bir değişkenin, fonksiyonun veya nesnenin **değiştirilemez** olduğunu açıkça belirtmek için kullanılan bir prensiptir. 
 Kodun güvenliğini ve okunabilirliğini artırır, yanlışlıkla değişiklik yapılmasını engeller.
 
@@ -716,7 +734,7 @@ std::vector<int> arr2 = {1, 2, 3, 4, 5};
 // Bu, array to pointer decay olmadığı için hata verecektir:
 // int* ptr1 = arr1;  // HATA!
 // int* ptr2 = arr2;  // HATA!
-```
+
 ✔ Eğer ham gösterici almak isterseniz `data()` fonksiyonunu kullanabilirsiniz:
 
 int* ptr1 = arr1.data();
@@ -739,7 +757,18 @@ int* ptr2 = arr2.data();
 - Dizinin boyut bilgisi kaybolur, dikkat edilmelidir.
 - Eğer dizi boyutunu korumak istiyorsanız `std::array` veya `std::vector` kullanabilirsiniz. 🚀
 --------------------------------------------------------------------------------------------------------------------------------------------------
-36.49
+global değişkenler default olarak external linkage
+
+static yaparsak internal linkage olur
+
+c dilinde static anahtar kelimesiyle nietelemediğimiz sürece global alanda tanımlanan değerler external linkage
+
+c++ dilinde const anahtar değerle tanımanlmş değişkenler internal linkage
+
+hem const hemde external linkage yapmak istersek extern anahtar kelimesini kullanmalıyız
+
+extern const int x = 5; // external linkage
+--------------------------------------------------------------------------------------------------------------------------------------------------
 C++ dilinde "linkage" (bağlama), bir sembolün (değişken, fonksiyon, sınıf, vs.) derleme birimleri (translation units) arasında nasıl erişilebileceğini ve 
 bağlanabileceğini belirler. Linkage, sembollerin programın farklı bölümlerinde nasıl tanımlandığını ve kullanıldığını yönetir. Üç ana tür linkage vardır: 
 internal linkage (içsel bağlama), external linkage (dışsal bağlama) ve no linkage (bağlantısızlık).
@@ -880,6 +909,11 @@ Bu örnekte, `globalVar` değişkeni `file1.cpp` içinde tanımlanmış ve `head
 
 Linkage kurallarını doğru bir şekilde kullanmak, C++ projelerinde sembol erişimini kontrol etmek ve çoklu tanım hatalarından kaçınmak için kritik öneme sahiptir.
 --------------------------------------------------------------------------------------------------------------------------------------------------
+int x = 10; // C dilinde const olmalı
+int y = x; // C dilinde hata çünkü static ömürlü değişkenlere ilk değer veren ifadeler constant expression olmalı C++ dilinde bu geçerlidir
+
+global değişkenler c ve c++ dilinde main çağırılmadan önce initialize edilir
+--------------------------------------------------------------------------------------------------------------------------------------------------
 NOT:C++’ta **basic types** (temel türler) ve **user-defined types** (kullanıcı tanımlı türler), dilde kullanılan veri türlerini iki ana kategoriye ayırır.
 
 ### 1. Basic Types (Temel Türler)
@@ -902,9 +936,15 @@ Başlıca kullanıcı tanımlı türler şunlardır:
 - **typedefs / using**: Mevcut türlere yeni isimler vermek için kullanılır.
 
 NOT:Structlarda c++ dilinde class olarak geçer class ile arasındaki tek fark default olarak acces public olması
+
+c de struct anahtar kelimesinden kurtulmak istiyorsak typedef kullanmalıyız
+
+typedef struct Nec {
+int x;
+}Nec;
 --------------------------------------------------------------------------------------------------------------------------------------------------
-NOT: C'de doğal türlerden bir değerin bir numaralandırma türünden değişkene atanması geçerlidir. C++'da 
-bir numaralandırma türünden bir nesneye ancak söz konusu numaralandırma türüne ilişkin bir 
+NOT: C'de aritmetik türlerden bir değerin bir enum türünden değişkene atanması geçerlidir. C++'da 
+bir enum türünden bir nesneye ancak söz konusu numaralandırma türüne ilişkin bir 
 “numaralandırma değişmezi” (enumaration constant) atanabilir. 
 enum Position {ON, OFF, HOLD}; 
 void foo() 
@@ -912,6 +952,56 @@ void foo()
     enum Position pos = 1; 
 }
 pos değişkenine yapılan atama C‟de geçerli iken C++‟da geçersizdir.
+
+enum Color
+{
+    White, Gray, Red
+};
+enum Pos
+{
+    Open,Ajar,Close
+};
+
+
+void main() {
+
+    enum Color mycolor;
+    int x = 2;
+
+    enum Pos pos = Gray; // Sadece C de geçerli
+    mycolor = 5; // Sadece C de geçerli
+    mycolor = x; // Sadece C de geçerli
+
+    int ival = mycolor; // C de ve C++ dilinde geçerli(C++ için kötü bir durum) Enum türlerinden tam sayı türlerine dönüşüm
+}
+
+Color mycolor = 2; // C++ dilinde geçersiz
+
+farklı enumaration türlerinede dönüşüm yok 
+
+Color mycolor = Close;
+
+Ama maalesef c++ dilinde geleneksel enuamaration türleri(UNSCOPED ENUMS VEYA CONVENTIONAL ENUMS YADA TRADITIONAL)
+
+Enum türlerinden aritmetik türlere  dönüşüm var bu c++ dili için kötü bir durum diyor hoca
+
+Color mycolor = Gray;
+int x = mycolor;
+
+bunun için SCOPED ENUMS eklendi(enum class)
+
+modern c++dan sonra UNSCOPED ENUMS kullanılması hoş görülmez çünkü günümüzde kullanılmasına pek gerek görülmeyebilir
+
+undrlying type modern cpp ile eklendi enum Color : int {White,Gray}; C diline 23 standardı ile eklendi
+
+enum Color {Blue,red,Black};
+enum TrafficLight {Blue,red,Black};
+
+aynı scopeta birden fazla numaralarndırm türü oluşturursak isim çakışması durumu olabilir çünkü bu isimler namspace scopeta olmuş oluyor bu yüzden
+C++da SCOPED ENUMLAR sayesinde farklı scopeta olmuş olurlar 
+--------------------------------------------------------------------------------------------------------------------------------------------------
+C++ dilinde C kütüphanelerini include etmek için başına c konulur
+#include <ctime>
 --------------------------------------------------------------------------------------------------------------------------------------------------
 NOT:C++ dilinde `#define` kullanarak makro oluşturmak, bazı sorunlara yol açabileceği için önerilmez. `#define` ile oluşturulan makrolar, 
 C dilinden miras alınmıştır ve ön işleme aşamasında (preprocessing) çalışır. Ancak C++’ta artık daha güvenli ve esnek olan **const**,
@@ -1064,9 +1154,21 @@ struct Point {
 Point p = {1, 2}; // Aggregate initialization, p.x = 1, p.y = 2
 
 ### Özet
+--------------------------------------------------------------------------------------------------------------------------------------------------
+C++ Dilinde main fonksiyonunun geri dönüş değeri int olmak zorundadır
 
-C++ dilinde nesnelerin ilkdeğer verilmesi için çeşitli yöntemler bulunmaktadır. Bu yöntemlerin doğru ve etkili kullanımı, programın güvenliği ve performansı açısından büyük önem taşır. 
-Her yöntemin farklı kullanım senaryoları ve kuralları vardır, bu yüzden hangi yöntemin hangi durumda kullanılacağını bilmek, başarılı C++ programları yazmanın anahtarıdır.
+c++ dilinde geri dönüş değeri fonksiyonun geri dönüş değeri olmak zorundadır
+
+global yada static değişeğişkenler hayata zero initalize ile başlar
+--------------------------------------------------------------------------------------------------------------------------------------------------
+uniform initalizationda narrowing conversion söz konusudur
+
+    double x{ 5.5 };
+    int z { x }; // narrowing conversion(daraltıcı dönüşüm)
+
+daraltıcı dönüşüme karşı bizi korur veri kaybını önler
+
+uniform initialization'ın getirilmesinin bir diğer nedenide most vexing pars
 --------------------------------------------------------------------------------------------------------------------------------------------------
 "Most Vexing Parse," C++ dilinde oldukça karmaşık ve kafa karıştırıcı bir sözdizimsel sorun olarak bilinir. Bu terim, C++'ta bir bildirimin aslında bir değişken bildirimi olarak düşünüldüğünde
 bir fonksiyon bildirimi olarak yorumlanabileceği durumu tanımlar. Bu, özellikle sınıf türlerinin nesnelerini başlatmak için parantezli ilkleme kullanırken ortaya çıkabilir.
@@ -1089,7 +1191,7 @@ Bu fonksiyon, hiçbir parametre almayan ve `A` türünde bir değer döndüren b
 
 Most Vexing Parse durumunu önlemek için birkaç farklı yaklaşım kullanılabilir:
 
-#### 1. Küme Parantezi Kullanımı
+#### 1. Küme Parantezi Kullanımı(Brace intialization yada uniform initalization)
 
 C++11 ve sonrasında küme parantezleri `{}` kullanarak nesneleri başlatabilirsiniz. Bu yöntem, listenin ilk değeri vermesi olarak bilinir ve most vexing parse sorununu önler.
 
@@ -1110,34 +1212,7 @@ int main() {
 Nesneleri başlatmak için doğrudan atama kullanarak sorunları önleyebilirsiniz.
 
 int main() {
-    A a(5); // Doğru: Bu, a isimli bir nesne tanımlamasıdır.
-}
-
-### Örneklerle Açıklama
-
-Aşağıda, Most Vexing Parse örneğini ve bu sorunun nasıl çözülebileceğini gösteren örnekler verilmiştir:
-
-#### Yanlış Kullanım
-
-class Widget {
-public:
-    Widget(int x) {}
-};
-
-int main() {
-    Widget w(); // Most Vexing Parse: Bu, w isimli bir fonksiyon bildirimi olarak yorumlanır.
-}
-
-#### Doğru Kullanım - Küme Parantezi
-
-int main() {
-    Widget w{5}; // Doğru: Bu, w isimli bir nesne tanımlamasıdır.
-}
-
-#### Doğru Kullanım - Doğrudan Atama
-
-int main() {
-    Widget w = Widget(5); // Doğru: Bu, w isimli bir nesne tanımlamasıdır.
+    A a(5);(direct intialization) // Doğru: Bu, a isimli bir nesne tanımlamasıdır.
 }
 
 ### Özet
@@ -1145,248 +1220,218 @@ int main() {
 Most Vexing Parse, C++'ta değişken ve fonksiyon bildirimleri arasındaki sözdizimsel belirsizliklerden kaynaklanır. Bu tür sorunlardan kaçınmak için küme parantezi `{}` 
 kullanarak ilkleme yapabilir veya doğrudan atama yöntemlerini tercih edebilirsiniz. Bu, kodun daha okunabilir ve güvenilir olmasını sağlar.
 --------------------------------------------------------------------------------------------------------------------------------------------------
-C++ dilinde "as-if rule" (sanki kuralı) derleyici optimizasyonları bağlamında kullanılan bir kavramdır. Bu kural, 
-derleyicinin kodu optimize ederken belirli değişiklikler yapmasına izin verir, ancak bu değişiklikler programın gözlemlenebilir davranışını (observable behavior) 
-değiştirmemelidir. Başka bir deyişle, derleyici, programın sonuçlarını veya yan etkilerini değiştirmeyen tüm optimizasyonları yapabilir.
+### **"As-if Rule" (Sanki Kuralı) - C++** (observable behaviour)
 
-### As-If Rule Nedir?
+**As-if rule** (Sanki kuralı), C++ ve diğer dillerde derleyicinin **optimizasyon** yaparken programın **dışarıdan gözlemlenebilir davranışını(observable behaviour)** 
+değiştirmemesini garanti eden bir prensiptir.
 
-"As-if rule", derleyicinin kodu sanki orijinal haliyle çalışıyormuş gibi optimize etmesine izin verir. Derleyici, aşağıdaki şartlar sağlandığı 
-sürece kodu yeniden düzenleyebilir, talimatları yeniden sıralayabilir veya bazı kod parçalarını tamamen kaldırabilir:
+Bu kural, derleyiciye **kodun çalışma şeklini değiştirmeden** herhangi bir dönüşüm yapma özgürlüğü tanır. **Dışarıdan gözlemlenebilir davranış** derken şunlar kast edilir:
+- **Bellek ve dosya işlemleri** (girdi-çıktı işlemleri, `std::cout`, `std::cin` vb.)
+- **Açık şekilde tanımlanmış yan etkiler** (örneğin, bir değişkenin değerinin değiştirilmesi)
+- **Concurrency (çoklu iş parçacığı) ile ilgili etkileşimler**
 
-1. Programın gözlemlenebilir davranışı değişmemelidir.
-2. Programın sonuçları aynı kalmalıdır.
-3. Programın yan etkileri (örneğin, çıktı üretme, değişkenlerin değerlerini değiştirme) aynı kalmalıdır.
+Eğer bir optimizasyon, programın dışarıdan gözlemlenebilir davranışını değiştirmiyorsa, derleyici onu yapabilir.
 
-### Gözlemlenebilir Davranış Nedir?
+### **As-if Rule’un Çalışma Mantığı**
+C++ standardına göre, bir program **"sanki" (as-if) orijinal kodu çalıştırıyormuş gibi davranmalıdır**. Yani:
+- **Gereksiz hesaplamalar kaldırılabilir.**
+- **Kod farklı bir sırayla çalıştırılabilir.**
+- **Bazı ifadeler hiç çalıştırılmayabilir.**
 
-Gözlemlenebilir davranış, bir programın dış dünyaya sunduğu tüm etkileri içerir. Bu, özellikle şunları kapsar:
+Ancak, **dış dünyadan gözlemlenebilir herhangi bir değişiklik olmamalıdır**.
 
-- `volatile` nesnelerin değerlerinin değiştirilmesi.
-- I/O işlemleri (örneğin, ekrana yazdırma).
-- Programın dışarıdan gözlemlenebilir herhangi bir durumu.
+### **As-if Rule Örnekleri**
 
-### Örneklerle Açıklama
-
-#### Örnek 1: Basit Kod
-
-Aşağıdaki kod parçasını ele alalım:
-
-int foo(int x) {
-    int y = x * 2;
-    return y + 3;
-}
-
-Derleyici, yukarıdaki kodu aşağıdaki gibi optimize edebilir:
-
-int foo(int x) {
-    return x * 2 + 3;
-}
-
-Her iki kod da aynı sonucu üretir ve aynı yan etkilere sahiptir, bu yüzden bu optimizasyon "as-if rule" ile uyumludur.
-
-#### Örnek 2: Döngü Optimizasyonu
-
-Bir döngü içeren aşağıdaki kodu düşünelim:
-
-for (int i = 0; i < 1000; ++i) {
-    std::cout << "Hello, World!\n";
-}
-
-Derleyici, bu kodu aşağıdaki gibi optimize edemez:
-
-std::cout << std::string(1000, "Hello, World!\n");
-
-Çünkü her `std::cout` çağrısı bir yan etki yaratır (ekrana yazdırma) ve bu yan etkiler aynı sırada ve aynı şekilde olmalıdır.
-
-#### Örnek 3: Yan Etkisi Olmayan Kod (side effect)
-
-Bir yan etkisi olmayan kod parçasını ele alalım:
+#### **1. Kullanılmayan Değişkenlerin Kaldırılması (Dead Code Elimination)**
 
 void foo() {
-    int x = 42;
-    int y = x + 1;
+    int x = 5; // x hiçbir yerde kullanılmıyor
 }
 
-Derleyici, bu kodu tamamen kaldırabilir:
+🔹 **Ne olur?**
+- `x` değişkeni gereksizdir.
+- Derleyici, `int x = 5;` ifadesini tamamen kaldırabilir.
 
-void foo() {
+#### **2. Sabit İfadelerin Önceden Hesaplanması (Constant Folding)**
+
+int getValue() {
+    return 2 * 3 + 4; // 6 + 4 = 10
 }
 
-Çünkü `x` ve `y` değişkenleri kullanılmamakta ve gözlemlenebilir hiçbir etki yaratmamaktadır.
+🔹 **Ne olur?**
+- Derleyici `2 * 3 + 4` ifadesini **derleme zamanında 10** olarak hesaplar.
+- Sonuç, direkt `return 10;` olarak değiştirilebilir.
 
-### As-If Rule ve Derleyici Optimizasyonları
+#### **3. Gereksiz Fonksiyon Çağrılarının Kaldırılması (Function Inlining)**
 
-Derleyiciler, performansı artırmak için çeşitli optimizasyon teknikleri kullanır. Ancak, bu optimizasyonların "as-if rule" ile uyumlu olması gerekir. 
-Bu kural, programcıların kod yazarken belirli bir davranışı bekleyebilmelerini sağlar ve derleyicilerin bu davranışı bozmadan performansı artırmalarına olanak tanır.
-
-Özetle, "as-if rule", derleyicinin kodu optimize ederken programın gözlemlenebilir davranışını değiştirmemesini sağlayan bir prensiptir. Bu sayede, 
-derleyiciler kodu daha verimli hale getirebilirken, programcılar da bekledikleri sonuçları alırlar.
---------------------------------------------------------------------------------------------------------------------------------------------------
-5)İşlem Kodu Üretilmeyen Bağlam ( Unevaluated Context ) nedir:
-
-C++ dilinde, "işlem kodu üretilmeyen bağlam" (unevaluated context), derleme sürecinde ifadelerin değerlerinin hesaplanmadığı,
-ancak türlerinin belirlenebildiği bir bağlamı ifade eder.Bu bağlam, derleme zamanında türlerin çıkarılmasını sağlar, ancak ifadelerin
-gerçekten çalıştırılması veya değerlerinin hesaplanması gerekmez.
-
-Unevaluated context, genellikle şablon meta-programlama, tür çıkarımı veya tür dönüşümleri gibi durumlarda kullanılır. Örneğin:
-
-sizeof operatörü: sizeof operatörü, bir türün bellekte kapladığı boyutu döndürür, ancak ifadenin değerini hesaplamaz.
-Bu bağlamda, ifadenin değeri hesaplanmaz, sadece ifadenin türü belirlenir.
-
-Örnek:
-
-int x = 42;
-size_t size = sizeof(x); // x ifadesinin türü elde edilir, ancak değeri hesaplanmaz
-decltype operatörü: decltype operatörü, bir ifadenin türünü döndürür, ancak ifadenin kendisini değerlendirmez. 
-Bu bağlamda, ifadeyi değerlendirmek yerine sadece türü belirlenir.
-
-Örnek:
-
-int x = 42;
-decltype(x) y; // x'in türüne göre y'nin türü belirlenir, ancak x'in değeri kullanılmaz
-
-Şablon tür parametreleri: Şablon parametreleri genellikle unevaluated context içinde kullanılır. Bu durumda, şablon türü belirlenirken 
-parametrelerin türleri kullanılır ancak ifadelerin değerleri hesaplanmaz. Unevaluated context, derleme zamanında türlerin belirlenmesini sağlayarak, 
-türlerle ilgili bilgi gerektiren işlemlerde kullanılır. Ancak ifadelerin değerlerinin gerçekten hesaplanmasına veya çalıştırılmasına 
-ihtiyaç duyulmadığı durumlarda bu bağlam kullanılır.
-
-template <typename T>
-void printSize() {
-    std::cout << sizeof(T) << std::endl;  // 'T' türü üzerinden hesaplama yapılır.
-}
+inline int square(int x) { return x * x; }
 
 int main() {
-    printSize<int>();  // Burada 'int' türünün boyutu kullanılır.
+    int a = square(5);
 }
+
+🔹 **Ne olur?**
+- Normalde `square(5)` fonksiyon çağrılır.
+- **Derleyici, fonksiyonu çağırmak yerine direkt `int a = 5 * 5;` olarak değiştirir.**
+- `square` fonksiyonu **aslında çağrılmaz**.
+
+#### **4. Kodun Yeniden Sıralanması (Instruction Reordering)**
+
+#include <iostream>
+
+void foo() {
+    int x = 10;
+    int y = 20;
+    std::cout << "Hello\n";
+    int z = x + y;
+}
+
+🔹 **Ne olur?**
+- `x` ve `y` değişkenlerinin atanması **`std::cout` işleminden önce veya sonra** gerçekleşebilir.
+- Ancak, `std::cout << "Hello\n";` çıktısı **mutlaka aynı kalmalıdır**.
+- Derleyici, yan etki içermeyen `int z = x + y;` işlemini önce veya sonra çalıştırabilir.
+
+### **As-if Rule Ne Yapamaz? (Örnekler)**
+
+Derleyici **programın gözlemlenebilir davranışını değiştiremez!**
+
+#### ❌ **Yan Etkisi Olan Bir İşlem Kaldırılamaz**
+
+void foo() {
+    int x = 5;
+    std::cout << x;  // x kullanıldığı için derleyici kaldırmaz
+}
+
+🔹 **Ne olur?**
+- `std::cout << x;` bir **gözlemlenebilir yan etkiye** sahiptir.
+- `x` değişkeni kullanıldığı için derleyici **onu kaldırmaz**.
+
+#### ❌ **Girdi-Çıktı Sırası Değiştirilemez**
+
+std::cout << "Merhaba";
+std::cout << " Dünya";
+
+🔹 **Ne olur?**
+- `"Merhaba Dünya"` çıktısı **aynı kalmalıdır**.
+- Derleyici `" Dünya"` yazdırmasını `"Merhaba"`dan önceye alamaz.
+
+### **Sonuç**
+
+✅ **As-if Rule**, derleyiciye agresif optimizasyon yapma özgürlüğü tanır, ancak programın **gözlemlenebilir davranışını** değiştirmemesini garanti eder.
+✅ Bellek ve çıktı işlemleri korunurken, gereksiz hesaplamalar ve kod parçaları kaldırılabilir.
+✅ Derleyiciler **sadece sanki orijinal kod çalışıyormuş gibi optimize ederler**, ancak **görünür değişiklikler yapamazlar**.
+--------------------------------------------------------------------------------------------------------------------------------------------------
+C++'ta **unevaluated context** (işlem kodu üretilmeyen bağlam), bir ifadenin **derleme zamanı** 
+sırasında yalnızca sözdizimsel olarak işlendiği, ancak **gerçek bir değer hesaplanmadığı** ve yürütülmediği bağlamları ifade eder.
+
+Bu tür bağlamlarda ifadeler değerlendirilmez, yani:
+- **Yan etkileri olmaz** (örneğin, bir değişken artırılmaz).
+- **Derleyici yalnızca tür veya boyut bilgisine ihtiyaç duyar**.
+
+### **Unevaluated Context Olan Durumlar**
+
+1. **`sizeof` operatörü**
+2. **`decltype` ifadesi**
+3. **`noexcept` operatörü**
+4. **`typeid` operatörü** (ancak operandın statik türü biliniyorsa)
+5. **Konsept gereksinimleri (`requires` ifadeleri)**
+6. **Lambda ifadelerinin `decltype` içinde kullanımı**
+
+## **1. `sizeof` Operatörü**
+`sizeof` operatörünün operandı **unevaluated context** içindedir. Operand değerlendirilmez ve sadece tür bilgisi kullanılır.
+
+Örnek:
+
+int x = 10;
+sizeof(x++); // x++ işlemi GERÇEKLEŞMEZ, x'in değeri değişmez
+
+Burada `x++` ifadesi `sizeof` içinde olduğu için çalıştırılmaz, dolayısıyla `x`'in değeri aynı kalır.
+
+## **2. `decltype` İfadesi**
+`decltype` ifadesinin içindeki ifadeler değerlendirilmez, yalnızca **tür bilgisi** alınır.
+
+Örnek:
+
+int x = 10;
+decltype(x++) y; // x++ değerlendirilmiyor, sadece türü belirleniyor
+
+Burada `x++` çalıştırılmaz, ancak türü `int` olarak belirlenir ve `y` değişkeni bu türe göre tanımlanır.
+
+## **3. `noexcept` Operatörü**
+Bir fonksiyonun istisna atıp atmadığını kontrol eden `noexcept` operatörü de **unevaluated context** içinde çalışır.
+
+Örnek:
+
+void func() noexcept {}
+bool b = noexcept(func()); // func() ÇAĞRILMAZ, sadece istisna fırlatıp fırlatmadığı kontrol edilir
+
+Burada `func()` çağrılmıyor, sadece istisna atıp atmadığı derleme zamanında kontrol ediliyor.
+
+## **4. `typeid` Operatörü**
+`typeid` operatörü, eğer operandı **statik olarak bilinen bir tür** ise çalıştırılmaz. 
+Ancak, operand **polimorfik bir nesne** ise (sanal fonksiyonları olan bir sınıf), çalışma zamanında değerlendirilebilir.
+
+Örnek:
+
+struct Base { virtual ~Base() {} };
+struct Derived : Base {};
+
+Base* b = new Derived();
+const std::type_info& ti = typeid(*b); // ÇALIŞMA ZAMANINDA değerlendirilir
+
+int main() {
+
+    std::cout << ti.name(); // Struct Derived
+}
+
+Ancak:
+
+int x = 5;
+typeid(x++); // x++ değerlendirilmiyor, sadece türü kullanılıyor
+
+Burada `x++` çalıştırılmaz.
+
+## **5. `requires` İfadeleri (Konseptler - C++20)**
+C++20 ile gelen `requires` ifadelerinde, konseptin sağlanıp sağlanmadığını kontrol etmek için yazılan kod **unevaluated context** içinde olur.
+
+Örnek:
+
+template<typename T>
+concept Addable = requires(T a, T b) {
+    a + b; // Burada a + b DEĞERLENDİRİLMEZ, yalnızca geçerli olup olmadığı kontrol edilir
+};
+
+Burada `a + b` işlemi gerçekten yapılmaz, sadece yazılabilir olup olmadığı kontrol edilir.
+
+## **6. Lambda İçinde `decltype` Kullanımı**
+Lambda ifadeleri, `decltype` içinde kullanıldığında değerlendirilmez.
+
+Örnek:
+
+auto lambda = [](int x) { return x * 2; };
+decltype(lambda(5)) result; // lambda(5) çağrılmaz, sadece dönüş türü belirlenir
+
+Burada `lambda(5)` çağrılmaz, sadece dönüş tipi belirlenir.
+
+## **Özet**
+**Unevaluated context** içinde olan ifadeler **değerlendirilmez, çalıştırılmaz ve yan etki oluşturmaz**. 
+Bunlar genellikle derleme zamanında **tür bilgisi veya geçerlilik kontrolü** için kullanılır.
+
+**Örnek Kullanım Alanları:**
+- **`sizeof`** → Bellek boyutunu hesaplamak için
+- **`decltype`** → Bir ifadenin türünü almak için
+- **`noexcept`** → İstisna fırlatma durumunu kontrol etmek için
+- **`typeid`** → Tür bilgisine erişmek için
+- **`requires` (C++20)** → Konsept kontrolü için
+
+Bunların hiçbirinde gerçek bir **hesaplama veya işlem** yapılmaz, sadece derleyici seviyesi kontroller gerçekleştirilir.
 ******************************************************************************************************************************
 
 
                                                                                          ********* 3-DERS NOTLARI *********                   
-NOT:
-C++'ta **`auto` return type**, bir fonksiyonun dönüş türünü açıkça belirtmeden, derleyicinin dönüş türünü otomatik olarak 
-çıkarmasına (deduction) izin veren bir özelliktir. **`auto` dönüş türleri**, modern C++'ta (C++11 ve sonrasında) kodun 
-esnekliğini artırmak, karmaşık dönüş türlerini basitleştirmek ve şablonlarla çalışmayı kolaylaştırmak için sıkça kullanılır.
+AAA(ALMOST ALWAYS AUTO) demek kullanabildiğin her yerde auto kullan
 
-### **`auto` Return Type Kullanımı**
-
-#### 1. **C++11: Derleyicinin Tür Çıkarımı**
-C++11'de, dönüş türü çıkarımı için `auto` kullanılabilir. Ancak, bu sadece **tek bir return ifadesi** durumunda çalışır. Örnek:
-
-#include <iostream>
-
-auto add(int a, int b) {
-    return a + b; // Derleyici dönüş türünü çıkarır: int
-}
-
-int main() {
-    std::cout << add(2, 3) << std::endl; // Çıktı: 5
-    return 0;
-}
-
-Bu örnekte:
-- Derleyici, `a + b` ifadesinin türüne bakarak fonksiyonun dönüş türünü `int` olarak çıkarır.
-
-#### 2. **C++14: Daha Gelişmiş `auto` Return Type**
-C++14'te, birden fazla `return` ifadesi olsa bile derleyici tüm ifadeleri karşılaştırarak dönüş türünü çıkarabilir:
-
-#include <iostream>
-
-auto conditional_add(bool flag, int a, double b) {
-    if (flag) {
-        return a;  // int
-    } else {
-        return b;  // double
-    }
-}
-
-int main() {
-    std::cout << conditional_add(true, 2, 3.5) << std::endl;  // Çıktı: 2
-    std::cout << conditional_add(false, 2, 3.5) << std::endl; // Çıktı: 3.5
-    return 0;
-}
-
-Bu durumda:
-- Derleyici, tüm `return` ifadelerinin türüne bakar ve ortak bir dönüş türü (`double`, çünkü `int` türü `double`'a dönüştürülebilir) belirler.
-
-#### 3. **C++14: Trailing Return Type ile Kullanım**
-Bazı durumlarda dönüş türünü açıkça belirtmek gerekebilir. Bu durumda **`auto`** ile **trailing return type** kullanılabilir:
-
-#include <iostream>
-#include <vector>
-
-auto get_vector_size(const std::vector<int>& vec) -> std::size_t {
-    return vec.size();
-}
-
-int main() {
-    std::vector<int> numbers = {1, 2, 3, 4};
-    std::cout << "Vector size: " << get_vector_size(numbers) << std::endl; // Çıktı: 4
-    return 0;
-}
-
-Burada:
-- `-> std::size_t` ifadesi, dönüş türünü açıkça belirtir.
-- Bu, karmaşık dönüş türlerinde veya okuma kolaylığı için kullanılabilir.
-
-#### 4. **C++20: `auto` ile `constexpr` Fonksiyonlar**
-C++20 ile `auto` dönüş türü, `constexpr` fonksiyonlarda da kullanılabilir:
-
-#include <iostream>
-
-constexpr auto square(int x) {
-    return x * x; // Derleyici dönüş türünü çıkarır: int
-}
-
-int main() {
-    constexpr int result = square(5); // Derleme zamanında hesaplanır
-    std::cout << "Square of 5: " << result << std::endl; // Çıktı: 25
-    return 0;
-}
-
-### **Ne Zaman Kullanılır?**
-
-1. **Karmaşık Türler**:
-   - Karmaşık veya uzun dönüş türlerini yazmaktan kaçınmak için.
-
-   auto find_element(const std::vector<int>& vec) {
-       return vec.begin(); // std::vector<int>::iterator türü çıkarılır
-   }
-
-2. **Şablonlarla Çalışırken**:
-   - Şablonlu fonksiyonlarda dönüş türü esnekliğini artırmak için.
-
-   template <typename T, typename U>
-   auto multiply(T a, U b) {
-       return a * b;
-   }
-
-3. **Genel Tür Çıkarımı**:
-   - Dönüş türünü, fonksiyon içindeki `return` ifadelerine göre belirlemek için.
-
-### **Örnek: `std::vector` ile Kullanımı**
-
-#include <iostream>
-#include <vector>
-
-auto find_max(const std::vector<int>& vec) {
-    return *std::max_element(vec.begin(), vec.end()); // int çıkarılır
-}
-
-int main() {
-    std::vector<int> numbers = {10, 20, 30, 40};
-    std::cout << "Max element: " << find_max(numbers) << std::endl; // Çıktı: 40
-    return 0;
-}
-
-### **Özet**
-
-- **`auto` return type**, fonksiyonun dönüş türünü otomatik olarak çıkarmak için kullanılır.
-- C++11'de tek bir `return` ifadesiyle, C++14'te ise birden fazla ifadeyi destekler.
-- Karmaşık türlerde, şablonlarla veya okunabilirliği artırmak için kullanılabilir.
-- Modern C++ standartları (`constexpr`, `trailing return`) ile güçlü bir kombinasyon oluşturur.
---------------------------------------------------------------------------------------------------------------------------------------------------
-1)C++ dilinde, "expression" ve "statement" terimleri farklı anlamlara gelir ve programın yapı taşlarını oluştururlar. İşte bu terimlerin tanımları ve aralarındaki farklar:
+C++ dilinde, "expression" ve "statement" terimleri farklı anlamlara gelir ve programın yapı taşlarını oluştururlar. İşte bu terimlerin tanımları ve aralarındaki farklar:
 
 ### Expression (İfade)
 
@@ -1462,7 +1507,7 @@ x = y + 1; // expression statement
 
 Bu ayrım, C++ programlama dilinde kod yazarken oldukça önemlidir ve doğru kullanım, kodun doğru ve beklenen şekilde çalışmasını sağlar.
 --------------------------------------------------------------------------------------------------------------------------------------------------
-2)C++ dilinde, bir ifadenin (expression) türünü anlamak için ifadelerin değer kategorilerine (value categories) ayrılması gerekir. 
+C++ dilinde, bir ifadenin (expression) türünü anlamak için ifadelerin değer kategorilerine (value categories) ayrılması gerekir. 
 Bu değer kategorileri, ifadenin bellekte bir nesneyi temsil edip etmediğini ve eğer ediyorsa, bu nesnenin yaşam süresinin ne kadar olduğunu belirtir. 
 C++'ta üç temel (primary) değer kategorisi vardır: lvalue, prvalue ve xvalue. Bu kategoriler, bir ifadenin nasıl değerlendirildiğini ve hangi bağlamlarda kullanılabileceğini belirler.
 
@@ -1487,7 +1532,7 @@ C++'ta üç temel (primary) değer kategorisi vardır: lvalue, prvalue ve xvalue
     int y = x + 5;  // x + 5 bir prvalue'dir.
     std::string("hello") // geçici bir std::string nesnesi, bir prvalue'dir.
 
-3. **Xvalue (Expiring Value)**
+3. **Xvalue (eXpiring Value)**
     - Bellekte bir nesneyi temsil eder, ancak bu nesne yakında yok olacak veya taşınacak (moved-from) bir nesnedir.
     - Xvalue ifadeleri genellikle kaynakları taşımak için kullanılır.
 
@@ -1495,9 +1540,8 @@ C++'ta üç temel (primary) değer kategorisi vardır: lvalue, prvalue ve xvalue
 
     std::string s1 = "hello";
     std::string s2 = std::move(s1); // std::move(s1) bir xvalue'dir.
-
 --------------------------------------------------------------------------------------------------------------------------------------------------
-3)C++ dilinde, ifadelerin (expressions) nasıl değerlendirileceğini ve hangi bağlamlarda kullanılabileceğini anlamak için değer 
+C++ dilinde, ifadelerin (expressions) nasıl değerlendirileceğini ve hangi bağlamlarda kullanılabileceğini anlamak için değer 
 kategorileri (value categories) kullanılır. Birincil (primary) değer kategorileri olan lvalue, prvalue ve xvalue dışında, 
 bu değer kategorilerinin birleşiminden oluşan daha genel kategoriler de vardır. Bu birleşik (combined) değer kategorileri, daha geniş anlamda ifadelerin nasıl işleneceğini tanımlar.
 
@@ -1542,38 +1586,62 @@ bu değer kategorilerinin birleşiminden oluşan daha genel kategoriler de vard�
 
 - **Glvalue (Generalized Lvalue):** lvalue ve xvalue ifadelerinin birleşimidir. Bellekte bir nesneyi temsil eder.
 - **Rvalue (Right Value):** prvalue ve xvalue ifadelerinin birleşimidir. Bellekte kısa ömürlü veya geçici bir nesneyi temsil eder.
-
-Bu birleşik değer kategorileri, C++ dilinde ifadelerin nasıl değerlendirileceğini ve hangi bağlamlarda kullanılabileceğini daha geniş 
-bir perspektifte anlamamıza yardımcı olur. Özellikle kaynak yönetimi, nesnelerin ömrü ve taşınma semantiklerinin (move semantics) anlaşılmasında büyük önem taşır.
 --------------------------------------------------------------------------------------------------------------------------------------------------
-4)referanslar derleyici açısından pointer ile aynıdır kısacası pointerların maskelenmiş halidir
-
-primary value category
+privmary value category
     L value
-    PR value -> pure R value
+    PR value -> Pure R value
     X value -> eXpiring value
+
+combined value category
+    L value ve X value demek -> GL value demek
+    PR value ve X Value demek -> R value demek
+
+++x // C de R value C++ Da L value
+--x // C de R value C++ Da L value
+
+ama x++ R value
+
+comma operatör ( , ) virgül operatörü C de R value C++ da L value expression oluşturuyor
+
+turnory operatörü C de R value C++da L value expression oluşturur 
+--------------------------------------------------------------------------------------------------------------------------------------------------
+referanslar derleyici açısından pointer ile aynıdır kısacası pointerların maskelenmiş halidir arka planda pointer işlemi görür
+bazı yerlerde pointer semantiği uygun olmadığı için referanslar gelmiştir
 
 NOT:Referanslar default initialize edilemez
 
-int& r; //syntax error
+    int& r; //syntax error
+
+    referansların data type'ı aynı olmak zorundadır
+
+    referanslar bir kez başlatıldıktan sonra başka bir nesneye referans olamazlar(re-bindeble değil)
+        int x = 10;
+        int y = 10;
+        int&r = x;
+        r = y; // burda y'yi x'e atamak anlamına geliyor y'yi referans almıyor
 
 int x = 5;
 
 int& r1 = x++ // son ek ++ operatörü c++ dilinde rvalue olduğu için syntax error 
 int& r1 = ++x // ön ek ++ operatörü c++ dilinde lvalue olduğu için geçerli
 
-int x = 10;
+int x = 5;
+int& r = x;
+
+std::cout << &r << '\n'; // x'in adresine ulaşılır
+
+int x = 10; 
 int y = 5;
-int* const p = &x; // p pointerı yalnızca x in adresini tutacağı güvencesini veriyor yani p nin adresi değişemez
+int* const p = &x; // p pointerı yalnızca x in adresini tutacağı güvencesini veriyor yani p nin adresi değişemez hayatı boyunca sadece x'in adresini göstericek
 bu pointer türünün 3 adı vardır
 // const pointer to int
 // top level const
 // right const 
 
 p = &y // syntax error
-*p = 50 // geçerli
+*p = y // geçerli
 
-const int* p = &x // p adlı pointerin içeriği dereferance edilemez sadece okuma amaçlıdır ama adresi değişebilir
+const int* p = &x // p adlı pointerin içeriği dereferance edilemez sadece okuma amaçlıdır(read-only pointer) ama adresi değişebilir
 bu pointer türünün 3 adı vardır
 // pointer to const int
 // low level const
@@ -1588,6 +1656,9 @@ const int* p const = &x; // p adlı pointerin gösterdiği yerde adresi de deği
 *p = 20; // syntax error
 p = &y; // syntax error
 
+*p oluşturduğu ifade L Value
+*p++ ve *p-- R value
+
 NOT:Pointerları referans almak için kullanılan syntax biçimi şöyledir
 
 int x{} // zero initialization
@@ -1595,14 +1666,27 @@ int y{36} // direct list initialization
 int* p = &x; // x in adresi p pointera atandı p nin içinde 0 değeri var
 int*& r = p; //p adlı pointer r adlı referansa atandı r demek artık x demek çünkü p x adlı değişkenin adresini gösteriyor
 
-r = &y; // p = &y  r referansı p ye referans olduğu için p'ye y'nin adresi atanıyor
+r = &y; // p = &y r referansı p ye referans olduğu için p'ye y'nin adresi atanıyor
 *p = 678; // y'nin değeri 678 oluyor
-
-NOT:
 
 int foo(); // r value 
 
 NOT:call by value ile pass by value aynı şey demek
+
+NOT:
+void func(T& r) // ifadesi bir mutator bir ifadenin değerini değiştiryor anlamına gelir
+void func(T* r) // mutator
+void func(const T& r) // accessor
+void func(const T* r) // accessor
+T& func() // böyle bir fonksioyn gördüğümüzde bu fonksiyon bize bir nesne döndürüyor demeliyiz bu fonksişyona çağrı yaparak bir nesneyi kullanma hakkına erişmiş oluyoruz
+T* func() // nesnenin adresini döndüren fonksiyon  
+const T& func(); // nesneye ulaşmak için kullanılır nesneninde const olması gerekir
+const T* func(); // nesneye ulaşmak için kullanılır nesneninde const olması gerekir
+
+MÜLAKAT SORUSU
+
+C dilinde foo(x) adında bir çağrı görüyorsak bunun call by value olduğunu anlarız
+ama C++ dilinde bilemeyiz çünkü referans semantiği kullanılmış olabilir
 
 NOT:Otomatik ömürlü (automatic storage duration) bir nesnenin adresini döndürmek mantıklı değildir çünkü bu nesne, 
 fonksiyonun bitiminde yok olur ve bellekteki adresi geçersiz hale gelir. Otomatik ömürlü nesneler, tanımlandıkları 
@@ -1648,7 +1732,7 @@ int main()
     return 0;
 }
 
-Bu kodda `foo` fonksiyonu, `g`nin adresini döndürmeye çalışıyor. Ancak `foo` sona erdiğinde `g` yok olur ve `x` 
+Bu kodda `foo` fonksiyonu, `g`nin adresini döndürmeye çalışıyor. g otomatik ömürlü bir nesne olduğu için tanımsız davranış olur `foo` sona erdiğinde `g` yok olur ve `x` 
 geçersiz bir adresi işaret eder. `*x` ifadesi tanımsız davranışa yol açar.
 
 ### Doğru Yaklaşım
@@ -1682,6 +1766,24 @@ Eğer fonksiyondan bir nesnenin adresini döndürmek istiyorsanız, o nesnenin s
 Bu yaklaşımlar, döndürülen adresin geçerli kalmasını sağlar. Ancak, dinamik ömürlü nesnelerle çalışırken 
 bellek yönetimi önemlidir ve `delete` ile bellek serbest bırakılmalıdır.
 
+volatile
+volatile niteleyicisi, bir değişkenin program dışı kaynaklar (örneğin, donanım veya başka bir iş parçacığı) tarafından değiştirilebileceğini belirtir. 
+Bu, derleyicinin bu değişken üzerinde optimizasyon yapmaması gerektiğini garanti eder.
+
+volatile int flag = 0;
+while (flag == 0) {
+    // Bu döngü, 'flag' değişkeninin program dışı bir kaynak tarafından değiştirilebileceğini belirtir.
+}
+
+const volatile Birlikte Kullanımı
+const volatile niteleyicileri birlikte kullanıldığında, değişkenin program tarafından değiştirilemeyeceğini, ancak program dışı kaynaklar tarafından 
+değiştirilebileceğini belirtir. Bu, özellikle donanım kayıtları veya çok iş parçacıklı programlama durumlarında kullanışlıdır.
+
+const volatile int statusRegister = 0xFF;
+while (statusRegister == 0xFF) {
+    // 'statusRegister' değişkeni program tarafından değiştirilemez, ancak donanım tarafından değiştirilebilir.
+}
+
 NOT:lvalue referans ve rvalue ataması 
 
 int g = 45;
@@ -1698,11 +1800,10 @@ int* foo() // yukarıdaki referans tanımlamasının pointer karşılığı bu �
 
 int main()
 {
-
     int &x = foo(); x ile foo lvalue referans olduğu için x değişkeni g değişkenine referanstır
+    ++*foo() // çağrısı aslında derleyici tarafından ++(*(foo())) ifadesi olarak ele alınır
 
     return 0;
-
 }
 
 int g = 45;
@@ -1714,11 +1815,9 @@ int foo() // foo burda rvalue
 
 int main()
 {
-
     int &x = foo(); x lvalue referans olduğu için bir lvalue değerine rvalue atanamaz derleme hatası verir
 
     return 0;
-
 }
 
 int g = 45;
@@ -1730,12 +1829,9 @@ int foo() // r value
 
 int main()
 {
-
-    int x = foo(); // x in kendisi burda lvalue ama aldığı değer rvalue yani
-    olan şey aslında x = 45;
+    int x = foo(); // x in kendisi burda lvalue ama aldığı değer rvalue yani olan şey aslında x = 45;
 
     return 0;
-
 }
 
 int foo()
@@ -1746,11 +1842,9 @@ int foo()
 
 int main()
 {
-
     int x = foo();
 
     return 0;
-
 }
 
 NOT:Pointer array var ama pointer referance yok
@@ -1762,11 +1856,11 @@ NOT:Array decay ve array pointer farklılığı
 
 int a[5] = {1,2,3,4,5};
 
-int* p = a; // array decay olarak geçer a dizisinin ilk elemanının adresini tutar
+int* p = a; // array decay olarak geçer a dizisinin ilk elemanının adresini tutar(türü int)
 
-int (*p)[5] = &a; // p, a dizisinin tamamının adresini tutar ve p, a dizisini işaret eden bir pointer olur
+int (*p)[10] = &a; // p, a dizisinin tamamının adresini tutar ve p, a dizisini işaret eden bir pointer olur(türü int[5])
 
-int (&r)[5] = a; // r, a dizisinin tamamına referans olan bir referans değişkenidir.
+int (&r)[10] = a; // r, a dizisinin tamamına referans olan bir referans değişkenidir.
 
 NOT:Dizinin tamamının adresini döndürmek ve dizinin ilk elamanını döndürmek arasında ki fark  
 
@@ -1840,22 +1934,24 @@ Bir diziyle ilgili genel işlem yapan işlev tanımlanabiliyordu. Böyle işlevl
 argüman olarak gönderiliyordu. Dizinin başlangıç adresini işleve göndermek için gösterici kullanıyordu. Peki,
 böyle bir işlevin parametresi bir referans olabilir mi? Hayır! referanslarla bu iş göstericilerle olduğu gibi
 yapılamaz. Ancak, örneğin 10 elemanlı int türden bir diziyi gösteren gösterici olduğu gibi 10 elemanlı int türden
-bir dizinin yerine geçecek bir referans da tanımlanabilir. Aşağıdaki kodu inceleyin:
+bir dizinin yerine geçecek bir referans da tanımlanabilir. 
+
 #include <iostream>
 using namespace std;
 void display(const int(&r)[10])
 {
-}
 int k;
 for (k = 0; k < 10; ++k)
 cout << r[k] << " ";
 cout << endl;
+}
+
 int main()
 {
-}
 const int a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 display(a);
 return 0;
+}
 Referanslar daha çok, tek bir nesneyi adres yöntemiyle işleve geçirmek amacıyla kullanılabilir. Örneğin tek bir
 int değer ya da tek bir yapı değişkeni referans yoluyla işleve geçirilebilir. Ancak int türden bir dizi ya da bir yapı
 dizisi bu yöntemle işleve doğal bir biçimde geçirilemez.
@@ -1863,7 +1959,8 @@ dizisi bu yöntemle işleve doğal bir biçimde geçirilemez.
 Sözdizimsel açıdan referansların göstericilere göre kullanım alanları daha dardır. Gösterici dizileri olur ama
 referans dizileri olamaz. Göstericileri gösteren göstericiler olabilir ama referansların yerine geçen referanslar
 olamaz.
-Ancak şüphesiz bir göstericinin yerine geçen bir referans olabilir. Aşağıdaki kodu inceleyin:
+Ancak şüphesiz bir göstericinin yerine geçen bir referans olabilir.
+
 #include <iostream>
 int main()
 {
@@ -1885,14 +1982,11 @@ void func(const int(*&r)[5])
     }
 }
 
-
 int main()
 {
-
     int a[5]{ 1,2,3,4,5 };
     int(*p)[5]{ &a };
     func(p);
-
 }
 --------------------------------------------------------------------------------------------------------------------------------------------------
 Pointer referansları, pointer'ların kendilerine referans vermemizi sağlayan bir C++ dil özelliğidir. Bu, bir pointer değişkenini bir fonksiyona aktarırken, 
@@ -1983,7 +2077,6 @@ Burada:
 - `&` referans anlamına gelir.
 - `ref` artık `pointer` değişkeninin referansıdır.
 
-
 ### 4. **Pointer Referansı ve Dereferans Farkı**
 
 - Dereferans (`*`) bir pointer'ın işaret ettiği değere ulaşmayı sağlar:
@@ -2041,7 +2134,7 @@ int* unsafePointer() {
 - Bellek yönetimi ve performans iyileştirme gibi durumlarda faydalıdır.
 - Yanlış kullanıldığında bellek sızıntılarına veya `nullptr` dereferansına yol açabilir.
 --------------------------------------------------------------------------------------------------------------------------------------------------
-5)Dangling Pointer Nedir:
+Dangling Pointer Nedir:
 
 Dangling pointer (asılı gösterici), bellekte geçersiz veya serbest bırakılmış bir adresi işaret eden bir göstericidir. 
 Bu durum, bellek hatalarına ve tanımsız davranışlara yol açar. Bir gösterici, hedeflediği bellek alanı geçerli olmadığı 
@@ -2123,7 +2216,6 @@ nesneler, fonksiyonun sona ermesiyle geçersiz hale gelirler. Bu nesnelerin adre
    }
   
 Dangling pointer'lar bellek hatalarına ve program çökmesine yol açabilir, bu yüzden dikkatle yönetilmelidir.
-
 --------------------------------------------------------------------------------------------------------------------------------------------------
 NOT: referanslarda ampersand operatöründen sonra const yazmak anlamlı değildir
 çünkü referanslar zaten tek bir yeri gösterdiği için default olarak const'tur
@@ -2131,6 +2223,12 @@ gösterdiği yer değişmeyeceği için const niteliğini ampersand operatörün
 
 int x = 10;
 int& const r = x; // default olarak zaten orda gizli bir const bulunur yazmaya gerek yoktur
+
+int x = 10;
+const int& r = x;
+
+int y = r + 5; // böyle bir ifade kullanırsak burda r'nin değeri hala 10dur y'nin değeri 15 olur
+std::cout << y;
 --------------------------------------------------------------------------------------------------------------------------------------------------
 NOT:Bir fonksiyonun setter veya getter olduğunu nereden anlarız
 
@@ -2139,10 +2237,10 @@ anlaşılır bu tarz fonksiyonlar gördüğümüzde anlamamız gereken şey bu f
 
 void foo(const T &r) // Const anahtar kelimesi olduğu için sadece okuma amacıyla kullanılır 
 --------------------------------------------------------------------------------------------------------------------------------------------------
-7)Bir fonksiyon veya değişken const & ise hem lvalue değer hemde rvalue değer kabul eder
+Bir fonksiyon veya değişken const & ise hem lvalue değer hemde rvalue değer kabul eder
 
 double x = 2.67;
-const int& r = x;
+const int& r = x; // farklı türden olsa bile
 
 int temp = x;
 const int& r = temp;
@@ -2154,11 +2252,9 @@ void foo(int &r) // sadece lvalue alır
 
 int main()
 {
-
     int x = 5;
 
-    foo(x + 5); // syntax error hem lvalue hemde rvalue değeri verilmiş
-
+    foo(x + 5); // pr value olduğu için hata
 }
 
 void foo(const int &r) //  lvalue ve rvalue alır
@@ -2184,18 +2280,16 @@ Nec foo();
 
 int main()
 {
-
     func(foo()); // func fonksiyonu const olduğu için hem rvalue hemde lvalue değeri kabul eder
 }
 
-Nec func(Nec&); // func fonksionu lvalue referans aldığı için foo fonksiyonu yine atanamaz çünkü foo rvalue
+Nec func(Nec&); 
 Nec foo();
 
 int main()
 {
-    func(foo()); // syntax error
+    func(foo()); // func fonksionu lvalue referans aldığı için foo fonksiyonu yine atanamaz çünkü foo rvalue
 }
-
 
 void bar(Nec&);
 Nec& foo();
@@ -2205,11 +2299,275 @@ int main()
     bar(foo()) // GEÇERLİ bar fonksiyonu lvalue referans değeri alıyor 
     foo fonkisiyonuda referans döndürdüğü için lvalue referans olmuş oluyor
 }
+--------------------------------------------------------------------------------------------------------------------------------------------------
+func(&x) operatörünün oluşturduğu ifade PR value
+func(nullptr) PR value
+string literalleri L value
+a[3] gibi bir ifade L value
+
+pointer array
+ 	int x = 5;
+	int y = 5;
+	int* p[2]{ &x,&y };
+
+pointer değişkenler default initalize edilebilir ama iyi bir uygulama değildir
+int* p; // wild pointer denir
 ******************************************************************************************************************************
 
                                                                              ********* 4-DERS NOTLARI *********
 
- 1)C++ dilinde ellipsis (`...`) parametresi, bir fonksiyonun değişken sayıda argüman alabilmesini sağlar. 
+default argument
+
+    function declerationda isim vermeye gerek olmaz çünkü kullanmayacağız
+    defaul argument bildirimi function delcerationda yer alması gerekir
+
+    default argument compiler time'a yönelik
+
+    int foo(int, int, int = 10); 
+
+    int main()
+    {
+        foo(5,6); // foo(5,6,50)
+    }
+
+    int foo(int, int = 20, int); // sentaks hatası çünkü 2.parametre için default argument bildirilmişken sağ taraftaki değer için bildirilmemiş C++ dilinde bu zorunlu
+
+referanslardaa default argument alabilir
+
+    int x = 10;
+    void foo(int& = x); // argüman gönderilmezse globlal x değişkeni kullanılır
+
+    void foo(int y = x + 5); // argüman gönderilmezse foo fonksiyonu x + 5 olarak kullaınılır
+
+    int foo(int = 2,int = 5);
+    int bar(int x = foo()); // argüman girilmezse foo fonksiyonun değeri geçilecek // arka planda bar(foo(2,5)) şeklinde çağırmış oluyoruz aslında
+
+pointerlarda argüman alabilir
+
+    void foo(const char* p = nullptr);
+
+    foo("mustafa");
+    foo();
+
+maximal munch
+
+    int g = 10;
+
+    void func(int *= &g); // maximal munch kuralı  
+
+int x = 5;
+
+void foo(int a = ++x)
+{
+    std::cout<<a;
+}
+
+int main()
+{
+foo(); // foo(++x); x = 6
+foo(); // foo(++x); x = 7
+foo(); // foo(++x); x = 8
+
+}
+
+int func()
+{
+static int x = 0;
+
+return ++x;
+}
+
+void bar(int x = func())
+{
+    std::cout<<x;
+}
+
+int main()
+{
+    bar(); // bar(func()) x = 1
+    bar(); // bar(func()) x = 2
+    bar(); // bar(func()) x = 3
+
+
+re-decleration ile argümanların kümülatif şekilde ele alınması
+    samet.h
+    void foo(int,int,int);
+
+    #include "samet.h"
+    void foo(int,int, = 0); // re-decleration
+
+    int main()
+    {
+    foo(2,4); // foo(2,4,0)
+    }
+
+    samet.h
+    void foo(int,int,int =0);
+
+    #include "samet.h"
+    void foo(int,int = 10); //  üstteki satır olmasaydı bu re-decleration haat verirdi çünkü default argument alan ifadenin
+    sağ tarafındaki ifadede default argument almak zorunda 
+
+     int main()
+    {
+    foo(4); // foo(4,10,0)
+    }
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Fonksiyonların 2.ci paramterlerine default değer geçmek için veya default argüman geçilmeyen
+ değerlere default değer geçmek için wrapper tekniği kullanılır
+
+burada bir wrapper fonksiyon olan `call_foo` tanımlıyoruz ve `foo` fonksiyonuna çağrı yaparken parametrelerin sırasını değiştiriyoruz
+Bu tür kullanım, fonksiyonların parametrelerinin varsayılan değerlerini geçersiz kılmak için faydalı olabilir. Örneğinizde, `call_foo` fonksiyonu,
+`foo` fonksiyonunun ikinci ve üçüncü parametrelerinin sırasını değiştiriyor.
+
+### Kodun Detaylı Açıklaması
+
+**Orijinal Fonksiyon (`foo`)**:
+
+void foo(int x, int y, int z);
+
+Bu fonksiyon, üç tamsayı parametresi (`x`, `y`, `z`) alır. Burada sadece deklarasyonu yapılmıştır, yani fonksiyonun gövdesi belirtilmemiştir.
+
+**Wrapper Fonksiyon (`call_foo`)**:
+
+void call_foo(int x, int z, int y = 10)
+{
+    foo(x, y, z);
+}
+
+Bu fonksiyon, `foo` fonksiyonuna yapılan çağrıyı sarmalar ve parametrelerin sırasını değiştirir. Burada şu noktalar önemlidir:
+1. `call_foo` fonksiyonu üç parametre alır: `x`, `z`, ve varsayılan olarak `y`.
+2. `y` parametresinin varsayılan değeri 10'dur.
+3. `call_foo`, `foo` fonksiyonuna çağrı yaparken `x`, `y`, `z` parametrelerini sırasıyla geçirir. Yani, `call_foo` fonksiyonuna verilen
+`z` parametresi, `foo` fonksiyonuna üçüncü parametre olarak geçer.
+
+### Örnek Kullanım
+
+Bu fonksiyonların nasıl kullanılacağını göstermek için bir örnek yazalım:
+
+#include <iostream>
+
+// Orijinal fonksiyonun tanımı
+void foo(int x, int y, int z)
+{
+    std::cout << "foo called with x: " << x << ", y: " << y << ", z: " << z << std::endl;
+}
+
+// Wrapper fonksiyonun tanımı
+void call_foo(int x, int z, int y = 10)
+{
+    foo(x, y, z);
+}
+
+int main()
+{
+    call_foo(1, 3);      // x: 1, y varsayılan: 10, z: 3
+    call_foo(2, 4, 20);  // x: 2, y: 20, z: 4
+
+    return 0;
+}
+
+### Çıktı
+
+Bu örnek kodu çalıştırdığınızda aşağıdaki çıktıyı alırsınız:
+
+foo called with x: 1, y: 10, z: 3
+foo called with x: 2, y: 20, z: 4
+
+### Açıklama
+
+1. `call_foo(1, 3)` çağrısında, `x` 1, `z` 3 olarak verilmiştir. `y` için varsayılan değer 10 kullanılır. Bu durumda `foo` fonksiyonu `foo(1, 10, 3)` şeklinde çağrılır.
+2. `call_foo(2, 4, 20)` çağrısında, `x` 2, `z` 4 ve `y` 20 olarak verilmiştir. Bu durumda `foo` fonksiyonu `foo(2, 20, 4)` şeklinde çağrılır.
+
+Bu örnek, varsayılan parametre değerlerini kullanarak ve parametre sırasını değiştirerek fonksiyon çağrılarını sarmalamanın bir yolunu göstermektedir.
+Bu, kodun esnekliğini artırabilir ve fonksiyon çağrılarında daha fazla kontrol sağlar.
+ --------------------------------------------------------------------------------------------------------------------------------------------------
+ Default argümanlarlar eksik bilgi girildiğini de kontrol edebilir
+
+ Bu kod, `print_date` fonksiyonunu kullanarak tarihleri yazdırmak için tasarlanmıştır. Fonksiyon, gün (`d`), ay (`m`) ve yıl (`y`) parametrelerini alır.
+ Eğer herhangi bir parametre belirtilmezse (`-1` olarak geçilirse), o parametre için varsayılan değer olarak mevcut tarih bilgilerini kullanır.
+
+İşte kodun açıklaması:
+
+1. **Kod Başlangıcı:**
+
+   #define _CRT_SECURE_NO_WARNINGS // tanımlaması, bazı güvenlik uyarılarını devre dışı bırakmak için Visual Studio'da yaygın olarak kullanılır.
+
+   #include <iostream>
+   #include <ctime>
+ f
+2. **`print_date` Fonksiyonu:**
+
+   void print_date(int d = -1, int m = -1, int y = -1);
+
+   void print_date(int d, int m, int y)
+   {
+       if (y == -1) { // Yıl parametresi -1 ise (default argument used)
+           std::time_t sec;
+           std::time(&sec);
+           std::tm* p = std::localtime(&sec);
+           y = p->tm_year + 1900;
+
+           if (m == -1)
+           {
+               m = p->tm_mon + 1;
+
+               if (d == -1)
+                   d = p->tm_mday;
+           }
+       }
+       std::cout << d << "-" << m << "-" << y << std::endl;
+   }
+
+   - `print_date` fonksiyonu, gün (`d`), ay (`m`) ve yıl (`y`) parametreleri alır.
+
+   - Eğer `y` parametresi `-1` ise, fonksiyon mevcut zamanı almak için `std::localtime` fonksiyonunu kullanır. Bu işlem, `std::time_t` türünden bir zamanı
+   alır ve bu zamanı yerel zaman dilimindeki bir `tm` yapısına çözer.
+
+   - `p->tm_year + 1900` ifadesi, `tm` yapısındaki yıl bilgisini gerçek yıl olarak elde etmek için kullanılır (1900 yılını ekler).
+
+   - Eğer `m` parametresi `-1` ise, `tm` yapısındaki ay bilgisini (`p->tm_mon + 1`) kullanır.
+
+   - Eğer `d` parametresi `-1` ise, `tm` yapısındaki gün bilgisini (`p->tm_mday`) kullanır.
+
+  - Son olarak, belirtilen gün, ay ve yıl bilgilerini standart çıkış (`std::cout`) üzerinde formatlı olarak yazdırır.
+
+3. **`main` Fonksiyonu:**
+
+   int main()
+   {
+       print_date(4, 6, 1987); // Belirtilen tarih: 4-6-1987
+       print_date(4, 6);       // Belirtilen ay ve gün, ancak yıl eksik: 4-6-Mevcut yıl
+       print_date(4);          // Sadece gün belirtilmiş: 4-Mevcut ay-Mevcut yıl
+       print_date();           // Hiçbir şey belirtilmemiş: Mevcut gün-Mevcut ay-Mevcut yıl
+
+       return 0;
+   }
+
+   - `main` fonksiyonu, `print_date` fonksiyonunu farklı parametre kombinasyonları ile çağırarak çalıştırır.
+   - İlk çağrıda tam tarih (gün, ay, yıl) belirtilirken, diğer çağrılarda eksik parametreler verilerek fonksiyonun varsayılan değerleri kullanması sağlanır.
+   - Her çağrı sonucunda ekrana yazdırılan tarih bilgileri, `print_date` fonksiyonunun işleyişini ve varsayılan parametre kullanımını gösterir.
+
+Bu şekilde, `print_date` fonksiyonu, belirtilen veya varsayılan tarih bilgilerini doğru şekilde işleyerek ekrana yazdırır.
+
+NOT:
+emre.h
+
+void foo(int, int, int);
+
+// #include "emre.h"
+
+void foo (int, int = 10, int); NOT: bu satırdaki gibi bir bildirim yaparak fonksiyonu tanımladığımızda
+default argüman geçmemizde herhangi bir sorun yoktur
+
+ÖRNEK2
+
+void foo(int, int, int = 0); fakat burda dikkat edilmesi gereken husus bu satırdaki bildirim olmasaydı
+
+void foo(int, int = 10, int); bu satırdaki
+bildirim hata verirdi çünkü 2.parametredeki default argüman alıyorsa sağındaki parametre de default argüman almak zorundadır
+--------------------------------------------------------------------------------------------------------------------------------------------------
+ C++ dilinde ellipsis (`...`) parametresi, bir fonksiyonun değişken sayıda argüman alabilmesini sağlar. 
  Bu tür fonksiyonlar "variadic functions" olarak adlandırılır. 
 
 ### Kullanımı
@@ -2256,7 +2614,7 @@ int main() {
 2. **Standart Kitaplık Kullanımı**: C++'da variadic fonksiyonlar yerine genellikle şablonlar (`templates`) ve diğer standart kütüphane özellikleri kullanılır. 
 Örneğin, `std::initializer_list`, `std::vector` veya `variadic templates` gibi.                                                                     
  --------------------------------------------------------------------------------------------------------------------------------------------------
- 2)C++ dilinde "maximal munch" kuralı, lexer (lexical analyzer) tarafından kodu tararken mümkün olan en uzun token'ı 
+C++ dilinde "maximal munch" kuralı, lexer (lexical analyzer) tarafından kodu tararken mümkün olan en uzun token'ı 
  tanımlamaya çalışmasını ifade eder. Bu kural, token'ların ayrıştırılması sırasında belirsizlikleri çözmek için kullanılır. 
  Kısaca, birden fazla geçerli token dizisi olduğunda, en uzun olanı seçilir.
 
@@ -2362,210 +2720,98 @@ Bu doğru sentaksta:
 Maximal munch kuralı, `*=` gibi operatörlerin en uzun geçerli token olarak ayrıştırılmasını sağlar. Ancak doğru C++ sentaksı kullanılmadığında, 
 bu ayrıştırma kuralları hatalı kod ile sonuçlanabilir. Bu nedenle, pointer ve atama işlemlerini doğru kullanarak hatasız kod yazmak önemlidir.
  --------------------------------------------------------------------------------------------------------------------------------------------------
- 3)Fonksiyonların 2.ci paramterlerine default değer geçmek için veya default argüman geçilmeyen
- değerlere default değer geçmek için wrapper tekniği kullanılır
-
-burada bir wrapper fonksiyon olan `call_foo` tanımlıyoruz ve `foo` fonksiyonuna çağrı yaparken parametrelerin sırasını değiştiriyoruz
-Bu tür kullanım, fonksiyonların parametrelerinin varsayılan değerlerini geçersiz kılmak için faydalı olabilir. Örneğinizde, `call_foo` fonksiyonu, 
-`foo` fonksiyonunun ikinci ve üçüncü parametrelerinin sırasını değiştiriyor.
-
-### Kodun Detaylı Açıklaması
-
-**Orijinal Fonksiyon (`foo`)**:
-
-void foo(int x, int y, int z);
-
-Bu fonksiyon, üç tamsayı parametresi (`x`, `y`, `z`) alır. Burada sadece deklarasyonu yapılmıştır, yani fonksiyonun gövdesi belirtilmemiştir.
-
-**Wrapper Fonksiyon (`call_foo`)**:
-
-void call_foo(int x, int z, int y = 10)
-{
-    foo(x, y, z);
-}
-
-Bu fonksiyon, `foo` fonksiyonuna yapılan çağrıyı sarmalar ve parametrelerin sırasını değiştirir. Burada şu noktalar önemlidir:
-1. `call_foo` fonksiyonu üç parametre alır: `x`, `z`, ve varsayılan olarak `y`.
-2. `y` parametresinin varsayılan değeri 10'dur.
-3. `call_foo`, `foo` fonksiyonuna çağrı yaparken `x`, `y`, `z` parametrelerini sırasıyla geçirir. Yani, `call_foo` fonksiyonuna verilen 
-`z` parametresi, `foo` fonksiyonuna üçüncü parametre olarak geçer.
-
-### Örnek Kullanım
-
-Bu fonksiyonların nasıl kullanılacağını göstermek için bir örnek yazalım:
-
-#include <iostream>
-
-// Orijinal fonksiyonun tanımı
-void foo(int x, int y, int z)
-{
-    std::cout << "foo called with x: " << x << ", y: " << y << ", z: " << z << std::endl;
-}
-
-// Wrapper fonksiyonun tanımı
-void call_foo(int x, int z, int y = 10)
-{
-    foo(x, y, z);
-}
-
-int main()
-{
-    call_foo(1, 3);      // x: 1, y varsayılan: 10, z: 3
-    call_foo(2, 4, 20);  // x: 2, y: 20, z: 4
-
-    return 0;
-}
-
-### Çıktı
-
-Bu örnek kodu çalıştırdığınızda aşağıdaki çıktıyı alırsınız:
-
-foo called with x: 1, y: 10, z: 3
-foo called with x: 2, y: 20, z: 4
-
-### Açıklama
-
-1. `call_foo(1, 3)` çağrısında, `x` 1, `z` 3 olarak verilmiştir. `y` için varsayılan değer 10 kullanılır. Bu durumda `foo` fonksiyonu `foo(1, 10, 3)` şeklinde çağrılır.
-2. `call_foo(2, 4, 20)` çağrısında, `x` 2, `z` 4 ve `y` 20 olarak verilmiştir. Bu durumda `foo` fonksiyonu `foo(2, 20, 4)` şeklinde çağrılır.
-
-Bu örnek, varsayılan parametre değerlerini kullanarak ve parametre sırasını değiştirerek fonksiyon çağrılarını sarmalamanın bir yolunu göstermektedir. 
-Bu, kodun esnekliğini artırabilir ve fonksiyon çağrılarında daha fazla kontrol sağlar.
- --------------------------------------------------------------------------------------------------------------------------------------------------
- 4)Default argümanlarlar eksik bilgi girildiğini de kontrol edebilir
-
- Bu kod, `print_date` fonksiyonunu kullanarak tarihleri yazdırmak için tasarlanmıştır. Fonksiyon, gün (`d`), ay (`m`) ve yıl (`y`) parametrelerini alır.
- Eğer herhangi bir parametre belirtilmezse (`-1` olarak geçilirse), o parametre için varsayılan değer olarak mevcut tarih bilgilerini kullanır.
-
-İşte kodun açıklaması:
-
-1. **Kod Başlangıcı:**
-
-   #define _CRT_SECURE_NO_WARNINGS // tanımlaması, bazı güvenlik uyarılarını devre dışı bırakmak için Visual Studio'da yaygın olarak kullanılır.
-
-   #include <iostream>
-   #include <ctime>
- f
-2. **`print_date` Fonksiyonu:**
-
-   void print_date(int d = -1, int m = -1, int y = -1);
-
-   void print_date(int d, int m, int y)
-   {
-       if (y == -1) { // Yıl parametresi -1 ise (default argument used)
-           std::time_t sec;
-           std::time(&sec);
-           std::tm* p = std::localtime(&sec);
-           y = p->tm_year + 1900;
-
-           if (m == -1)
-           {
-               m = p->tm_mon + 1;
-
-               if (d == -1)
-                   d = p->tm_mday;
-           }
-       }
-       std::cout << d << "-" << m << "-" << y << std::endl;
-   }
-
-   - `print_date` fonksiyonu, gün (`d`), ay (`m`) ve yıl (`y`) parametreleri alır.
-   
-   - Eğer `y` parametresi `-1` ise, fonksiyon mevcut zamanı almak için `std::localtime` fonksiyonunu kullanır. Bu işlem, `std::time_t` türünden bir zamanı 
-   alır ve bu zamanı yerel zaman dilimindeki bir `tm` yapısına çözer.
-   
-   - `p->tm_year + 1900` ifadesi, `tm` yapısındaki yıl bilgisini gerçek yıl olarak elde etmek için kullanılır (1900 yılını ekler).
-   
-   - Eğer `m` parametresi `-1` ise, `tm` yapısındaki ay bilgisini (`p->tm_mon + 1`) kullanır.
-   
-   - Eğer `d` parametresi `-1` ise, `tm` yapısındaki gün bilgisini (`p->tm_mday`) kullanır.
-  
-  - Son olarak, belirtilen gün, ay ve yıl bilgilerini standart çıkış (`std::cout`) üzerinde formatlı olarak yazdırır.
-
-3. **`main` Fonksiyonu:**
-
-   int main()
-   {
-       print_date(4, 6, 1987); // Belirtilen tarih: 4-6-1987
-       print_date(4, 6);       // Belirtilen ay ve gün, ancak yıl eksik: 4-6-Mevcut yıl
-       print_date(4);          // Sadece gün belirtilmiş: 4-Mevcut ay-Mevcut yıl
-       print_date();           // Hiçbir şey belirtilmemiş: Mevcut gün-Mevcut ay-Mevcut yıl
-
-       return 0;
-   }
-
-   - `main` fonksiyonu, `print_date` fonksiyonunu farklı parametre kombinasyonları ile çağırarak çalıştırır.
-   - İlk çağrıda tam tarih (gün, ay, yıl) belirtilirken, diğer çağrılarda eksik parametreler verilerek fonksiyonun varsayılan değerleri kullanması sağlanır.
-   - Her çağrı sonucunda ekrana yazdırılan tarih bilgileri, `print_date` fonksiyonunun işleyişini ve varsayılan parametre kullanımını gösterir.
-
-Bu şekilde, `print_date` fonksiyonu, belirtilen veya varsayılan tarih bilgilerini doğru şekilde işleyerek ekrana yazdırır.
-
-NOT:
-emre.h
-
-void foo(int, int, int); 
-
-// #include "emre.h"
-
-void foo (int, int = 10, int); NOT: bu satırdaki gibi bir bildirim yaparak fonksiyonu tanımladığımızda
-default argüman geçmemizde herhangi bir sorun yoktur 
-
-ÖRNEK2
-
-void foo(int, int, int = 0); fakat burda dikkat edilmesi gereken husus bu satırdaki bildirim olmasaydı
-
-void foo(int, int = 10, int); bu satırdaki
-bildirim hata verirdi çünkü 2.parametredeki default argüman alıyorsa sağındaki parametre de default argüman almak zorundadır
- --------------------------------------------------------------------------------------------------------------------------------------------------
- 5)Auto keywordü ile Type deduction(Tür Çıkarımı) 
+ Auto keywordü ile Type deduction(Tür Çıkarımı) 
 
  NOT:auto type deduction da tür çıkarımı auto keywordüne yapılır auto bir type holder olarak ele alınır
  auto ya karşılık gelen tür ile değişkenin türü aynı olmak zorunda değil
 
- Constluğun düşmesi:
+ default initialize edilemez
 
- const int x = 10;
+ auto x;
 
- auto y = x; // constluk düşer -> int y olur autoda referans olsaydı düşmeyecekti
+ ilk değer veren ifadenin türü neyse auto'ya karşlılık gelen tür o tür
 
- Referansın düşmesi(böyle demek pek doğru değil aslında çünkü bir expressionun türü referans olamaz):
+ auto x = 10;
 
- int x = 10;
- int& r = x;
+ 3 auto ifadesinde auto için yapılan çıkarımlar farklı
+     1)auto x = expr;
+        auto x = 10;
 
- auto y = r; //int y olarak ele alınyor r const olsada yine aynı şekilde değerlendirilecekti
+        Constluğun düşmesi:
 
- Dizilerde auto kullanımı:
+        const int x = 10;
 
- int ar[5]{};
+        auto y = x; // constluk düşer -> int y olur y referans olsaydı düşmeyecekti
+    
+         Referansın düşmesi(böyle demek pek doğru değil aslında çünkü bir expressionun türü referans olamaz):
 
- auto x = ar; // x-> int * x
+         int x = 10;
+         int& r = x;
 
-Dizi const olsaydı:
+         auto y = r; //int y olarak ele alınyor r const olsada yine aynı şekilde değerlendirilecekti
 
-const int ar[5]{};
+         int x = 132;
+         const int& r = x;
+         auto y = r; // y int
 
-auto x = ar; x-> const int* x  // low level const olduğu için constluk düşmez (top level olsaydı düşerdi)
+          Dizilerde auto kullanımı:
+            int ar[5]{};
 
-Referansların dizilerle kullanılması:
+            auto x = ar; // x-> int * x
 
-int ar[5] {1,4,5,5,2};
+            Dizi const olsaydı:
+            const int ar[5]{};
 
-auto &r = ar; // r bir referans olduğu için array decay uygulanmaz
+            auto x = ar; x-> const int* x  // low level const gösteriği yer const olduğu için burda constluk düşmez (top level olsaydı düşerdi)
 
-r'nin tür çıkarımı -> int (&r)[5]
+            auto p = "Kaveh" // p nin türü const char*
+
+            int foo(int);
+
+            auto x = foo; function to pointer conversion uygulanıyor int(*)(int) x'in türü bu auto keywordü kullanılmasaydı
+            int(*x)(int) = foo yazmamız gerekirdi
+
+     2)auto &x = expr;
+        auto& r = 10 // l value expreesiona r valur expreesion ile ilk değer veremeyiz
+        const olsaydı hata vermezdi
+
+        constluğun düşmemesi
+        
+            const int x = 5;
+            auto& r = x; // const int r = x buradaki const düşseydi const olmayan referansı const nesneye bağlamış olurduk zaten sentaks hatası olurdu 
+        
+        Referansların dizilerle kullanılması ve array decay uygulanmaması
+
+            int ar[5] {1,4,5,5,2};
+
+            auto &r = ar; // r bir referans olduğu için array decay uygulanmaz
+
+            r'nin tür çıkarımı -> int(&r)[5]
  
-ar const olsaydı bu sefer çıkarım ->  const int (&r)[5] olurdu
+            ar const olsaydı bu sefer çıkarım ->  const int (&r)[5] olurdu
 
-Referansın string ile kullanılması
+        Referansın string ile kullanılması
 
-auto x = "sample"; x'in çıkarımı const char *
-auto& y = "sample"; y'nin çıkarımı const char (&y)[5]
+            auto x = "sample"; x'in çıkarımı const char *
+            auto& y = "sample"; y'nin çıkarımı const char (&y)[5]
 
-Referansların fonksiyonlarla kullanılması:
+        Referansların fonksiyonlarla kullanılması:
 
-int foo(int) -> int(int)
+            int foo(int) -> int(int)
 
-auto& r = foo; r'nin çıkarımı -> int(&r)(int) olur;
+            auto& r = foo; r'nin çıkarımı -> int(&r)(int) olur;
+
+        
+         typedef int inta5[];
+         int ar[5]{2,5,8,9,4};
+         inta5 *p = &ar;
+
+         tür eş ismi kullanmasaydık int(*)[5] = &ar şeklinde kullanmamız gerekirdi
+
+         inta5& r = ar; // r ar dizisine referans tür eş ismi kullanmasaydık int(&r)[5] = ar; yazmamız gerekirdi
+
+     3)auto && x = expr;
+
 
 Fonksiyonların auto keyword ile kullanılması
 
@@ -2585,8 +2831,16 @@ const int x = 5;
 auto &r = x; // eğer constluk düşseydi const nesneye const olmayan referansı bağlamış olucaktık
  
   r'nin çıkarımı ->  const int& r
+
+bir ifadenin türü referans türü olamaz
+
+int a = 5;
+int&r = a; type ile expression farklı şeyler
+
+    r'nin type'ı int&
+    r'nin expression'ı int
  --------------------------------------------------------------------------------------------------------------------------------------------------
- 6)Universal Reference veya Forwarding Reference 
+ Universal Reference veya Forwarding Reference 
 
  **Universal Reference** terimi, C++11'de Scott Meyers tarafından ortaya atılmış bir terimdir. Universal reference, 
  bir fonksiyon şablonunda veya `auto` ile kullanılan ve hem `lvalue` hem de `rvalue` referanslarını kabul edebilen 
@@ -2690,7 +2944,7 @@ diye bir şey yoktur ve bunun yerine C++'da reference collapsing kuralları devr
 3. `T& &&` `T&` olur.
 4. `T&& &&`  `T&&` olur.
  --------------------------------------------------------------------------------------------------------------------------------------------------
- 7)decltype kullanım senaryoları
+ decltype kullanım senaryoları
 
  `decltype` C++11'de tanıtılan bir anahtar kelimedir ve bir ifadenin türünü sorgulamak için kullanılır. 
  `decltype`'ın çeşitli kullanım senaryoları vardır. İşte bazıları:
@@ -2817,7 +3071,7 @@ X value ise -> T&&
 
 NOT:decltype'ın operandı olan ifade için işlem kodu üretilmez UNEVELUATED CONTEXT
 --------------------------------------------------------------------------------------------------------------------------------------------------
-8)function pointer to conversion, function decay de denir(fonksiyon bozunması) bir fonksiyonun adresini bir fonksiyon işaretçisi (pointer) türüne dönüştürmeyi ifade eder. 
+function pointer to conversion, function decay de denir(fonksiyon bozunması) bir fonksiyonun adresini bir fonksiyon işaretçisi (pointer) türüne dönüştürmeyi ifade eder. 
 Fonksiyon işaretçileri, belirli bir işlevi referans alıp bu işlevi daha sonra çağırmak için kullanılan işaretçilerdir. 
 Bu tür işaretçiler, dinamik işlev çağırma, callback mekanizmaları ve programın esnekliğini artırmak amacıyla kullanılır.
 
@@ -2999,7 +3253,7 @@ a ->ifadesinin türü int
 r ->ifadesinin türü int -> ifadenin türü referans olamaz
 ptr ->ifadesinin türü int* -> ifadenin türü pointer olabilir
 --------------------------------------------------------------------------------------------------------------------------------------------------
-9)Reference collapsing, C++ dilinde referans tiplerinin birleşme kurallarıdır. C++'ta referanslar iki türde olabilir:
+Reference collapsing, C++ dilinde referans tiplerinin birleşme kurallarıdır. C++'ta referanslar iki türde olabilir:
 lvalue referansları (T&) ve rvalue referansları (T&&). Bu referans türleri bazı durumlarda birbirleriyle birleşebilir,
 özellikle template'ler, auto anahtar kelimesi ve forward edilen argümanlar kullanıldığında.
 
