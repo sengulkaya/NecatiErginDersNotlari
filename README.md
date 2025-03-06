@@ -1,6 +1,5 @@
 Bu ders Notları 1 TEMMUZ 2024 Necati Ergin Hocanın vermiş olduğu C++ Kursu eğitiminde alınmıştır 
-notları güncelliyorum yavaş yavaş tüm derslerde ki notları ekleyeceğim ChatGPT den yardım alıp aldığım notlarda mevcut
-C'den eksik olduğum yerler olduğu için 
+notları yavaş yavaş güncelliyorum ChatGPT den yardım alıp aldığım notlarda mevcut C'den eksik olduğum yerler olduğu için
 
 Necati Hocanın eğitimlerinden haberdar olmak için: https://plepa.com/
 
