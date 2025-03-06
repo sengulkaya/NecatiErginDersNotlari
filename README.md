@@ -2,7 +2,7 @@ Bu ders Notları 1 TEMMUZ 2024 Necati Ergin Hocanın vermiş olduğu C++ Kursu e
 notları güncelliyorum yavaş yavaş tüm derslerde ki notları ekleyeceğim ChatGPT den yardım alıp aldığım notlarda mevcut
 C'den eksik olduğum yerler olduğu için 
 
-NOT:Not alırken Umut Kotankırandan örnek almaya çalıştım almış olduğum notlardan çok daha iyi notlar mevcuttur bunları altta paylaşacağım
+NOT: Not alırken Umut Kotankırandan örnek almaya çalıştım almış olduğum notlardan çok daha iyi notlar mevcuttur bunları altta paylaşacağım
 
 https://github.com/mguludag/csd_cpp_notlari
 
