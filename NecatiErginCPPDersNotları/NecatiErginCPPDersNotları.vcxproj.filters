@@ -9,9 +9,20 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Notlar">
+      <UniqueIdentifier>{e40c3ae0-d814-481d-82b7-cb2f1b7685f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Notlar\01_01_07_2024">
+      <UniqueIdentifier>{6134b522-eeda-44f2-ad2a-d1869f222103}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Notlar\02_03_07_2024">
+      <UniqueIdentifier>{3cab5167-123e-4237-9c96-d502f4e386b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Notlar\03_08_07_2024">
+      <UniqueIdentifier>{6191a9a4-d7e1-46e5-8e9a-72bf88690b0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Notlar\04_10_07_2024">
+      <UniqueIdentifier>{044038bf-ab64-4bdd-ac02-b727c88f0130}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -21,9 +32,24 @@
     <ClCompile Include="notlar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\01_01_07_2024\main.cpp">
+      <Filter>Notlar\01_01_07_2024</Filter>
+    </ClCompile>
+    <ClCompile Include="..\02_03_07_2024\main.cpp">
+      <Filter>Notlar\02_03_07_2024</Filter>
+    </ClCompile>
+    <ClCompile Include="..\03_08_07_2024\main.cpp">
+      <Filter>Notlar\03_08_07_2024</Filter>
+    </ClCompile>
+    <ClCompile Include="..\04_10_07_2024\main.cpp">
+      <Filter>Notlar\04_10_07_2024</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sample.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

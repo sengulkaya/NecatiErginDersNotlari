@@ -130,10 +130,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\01_01_07_2024\main.cpp" />
+    <ClCompile Include="..\02_03_07_2024\main.cpp" />
+    <ClCompile Include="..\03_08_07_2024\main.cpp" />
+    <ClCompile Include="..\04_10_07_2024\main.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="notlar.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="sample.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
