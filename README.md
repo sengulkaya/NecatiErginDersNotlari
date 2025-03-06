@@ -14,7 +14,7 @@ https://github.com/umutkotankiran/Cpp_Advanced
 
 https://github.com/CSD-1993/KursNotlari
 
-İşlenen Konuların Sırası:
+İşlenen Konuların Sırası için Rasul Mammadova teşekkürler
 
 01:
 Differences C and C++
