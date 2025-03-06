@@ -6,7 +6,9 @@ Necati Hocanın eğitimlerinden haberdar olmak için: https://plepa.com/
 
 Necati Hocanın Linkedin hesabı: https://www.linkedin.com/in/necatiergn/
 
-NOT: Not alırken Umut Kotankırandan örnek almaya çalıştım almış olduğum notlardan çok daha iyi notlar mevcuttur bunları altta paylaşacağım
+Not: Not alırken Umut Kotankırandan örnek almaya çalıştım almış olduğum notlardan çok daha iyi notlar mevcuttur bunları altta paylaşacağım
+
+Rica: Bir sorun görürseniz lütfen iletmekten çekinmeyin emreturksever39@gmail.com
 
 https://github.com/mguludag/csd_cpp_notlari
 
