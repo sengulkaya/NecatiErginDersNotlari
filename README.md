@@ -158,6 +158,7 @@ search, search_n, includes, bitset, set, reset, flip, test, any, none, all, to_s
 
 50:
 structured binding, dynamic objects, operator new, get_new_handler, set_new_handler, writing our own new_handler, placement new, operator delete
+
 51:
 new operator, memory library, pointer-like classes, smart pointers(unique_ptr, shared_ptr and weak_ptr(not so smart) ), unique_ptr (exclusive ownership), default_delete, make_unique, reset, release, get
 
