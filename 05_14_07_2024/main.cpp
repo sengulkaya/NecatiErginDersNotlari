@@ -157,8 +157,9 @@ qualified name(nitelenmiş isim):
     void foo(int foo)
     {
 
-        foo(foo); // recursive fonksiyon çağrısı başarısız olur çünkü isim arama kurallarına göre derleiyici ilk block scopeta arama yapar foo parametresi
-                     bloce scopeta olduğu için  fonksiyonun ismi olarak görmez foo fonksiyonu ise namespace scopeta(global scope) global isim maskeleniyor
+        foo(foo); // recursive fonksiyon çağrısı başarısız olur çünkü isim arama kurallarına göre derleyici ismi ilk functin prototype scopeta arar foo parametresi
+                     functin prototype scopeta olduğu için fonksiyon ismi olarak görmez foo fonksiyonu ise namespace scopeta(global scope) olduğu için isim maskeleniyor 
+                     foo fonksiyonunu çağırmak için scope resolution operatörünü kullanmamız gerek
                      terms does not evaluate to a function taking 1 arguments bunun bir fonksiyon ismi olmadığını söylüyor
 
         ::foo(foo); -> global fonksiyonu recursive olarak çağırmak istiyorsak unary scope resolution operatorü kullanmalıyız
