@@ -1,4 +1,4 @@
-Bu ders Notları 1 TEMMUZ 2024 Necati Ergin Hocanın vermiş olduğu C++ Kursu eğitiminde alınmıştır 
+Bu ders Notları 1 TEMMUZ 2024 Necati Ergin Hocanın vermiş olduğu C++ Kursu eğitiminde alınmıştır toplam 67 ders var 
 notları yavaş yavaş güncelliyorum ChatGPT den yardım alıp aldığım notlarda mevcut C'den eksik olduğum yerler olduğu için
 
 Necati Hocanın eğitimlerinden haberdar olmak için: https://plepa.com/
@@ -149,3 +149,18 @@ std::array, to_array, container adapters(stack, queue, priority_queue), data str
 
 47:
 std::tuple with reference, tie, apply, advanced function pointers, pointer to member, member function pointer, functional library, reference_wrapper, generate, ref, cref, std::bind, not_fn
+
+48:
+functional library, bind, mem_fn, function, invoke, generate, generate_n, fill_n, sorted_range algorithms, set_intersection, set_union, set_difference, set_symmetric_difference, search
+
+49:
+search, search_n, includes, bitset, set, reset, flip, test, any, none, all, to_string, to_ulong, to_ullong, binary search algorithm(binary_search), lower_bound, max, min, max_element, min_element, minmax_element, structure binding
+
+50:
+structured binding, dynamic objects, operator new, get_new_handler, set_new_handler, writing our own new_handler, placement new, operator delete
+
+51:
+new operator, memory library, pointer-like classes, smart pointers(unique_ptr, shared_ptr and weak_ptr(not so smart) ), unique_ptr (exclusive ownership), default_delete, make_unique, reset, release, get
+
+52:
+unique_ptr, partial specialization of unique_ptr for arrays, sink functions, shared_ptr, reference counter, use_count, make_shared
