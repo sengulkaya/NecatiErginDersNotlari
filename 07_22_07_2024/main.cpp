@@ -39,7 +39,7 @@ function overloadingte kaldık 2 tane ayrı soru var
 		void foo(const T&)
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function overload resolution
-	hoca sezgiyle konuyu bilmemiz arasında ki yere dikkat çekiyor
+	hoca sezgiyle davranmak arasında konuyu bilmemiz arasında ki yere dikkat çekiyor
 		void foo(long double);
 		void foo(char);
 
@@ -49,24 +49,24 @@ function overload resolution
 			foo: ambigious call to overloaded function
 		}
 	
-	eğer ortada functon overlaoding varsa derleyici bu fonksiyonlardan hangisinin çağırıldığını anlamak için function overload resolution sürecini yürütüyor
+	eğer ortada function overlaoding varsa derleyici bu fonksiyonlardan hangisinin çağırıldığını anlamak için function overload resolution sürecini yürütüyor
 	bu süreç 
 	
 	a)sentaks hatasıyla sonuçlanabilir
 		iki ayrı nedenle sentaks hatası olabilir
 			
-			1)n tane overlaod olmasına karşın overloadlardan hiç biri fonksiyon çağrısıyla uyumlu değildir yani fucntion overlaoding var ama uygun fonksiyon yok
+			1)n tane overlaod olmasına karşın overloadlardan hiç biri fonksiyon çağrısıyla uyumlu değildir yani function overlaoding var ama uygun fonksiyon yok
 			
 			2)ambiguity(hoca çift anlamlılık hatası diyor)
 				2 yada daha fazla overload arasında dilin kuralları bunlardan birinin seçilmesini sağlayacak bir kriter sunmuyor buda çağırılabilir buda çağırılabilir 
 				yani birbilerine üstünlüğü yok böyle durumda hata vericek ama verdiği hata nedeni çağrılabilecek fonksiyonun olmaması değil 2 yada daha fazla fonksiyon olması fakat
 				bunların arasında dilin kurallarınca birinin seçilmesini sağlayacak bir kriterin bulunmayışı
 	
-	b)sentak hatası olmaz
+	b)sentaks hatası olmaz
 		eğer sentaks hatası yoksa derleyici dilin kurallarına göre hangi fonksiyonun çağırıldğını anlamış ve fonksiyon çağrısına o fonksiyonu bağlamış olacak
 
 	function overlaod resolution kuralları
-		derleyici funcstion overlaod resolutionu kademe kademe yürütüyor 
+		derleyici function overlaod resolutionu kademe kademe yürütüyor 
 			1)derleyici fonksiyonun çağırıldığı noktada aynı isimli olan ve aynı scopeta visible olan fonksiyonların bir listesini çıkartıyor listesini çıkartırken
 			kaç tane overload var onları tespit ediyor buna function overload set diyebiliriz
 				enum Color {Blue,Black,Red};
@@ -83,18 +83,18 @@ function overload resolution
 					foo(12); // çağırılmaya 6 tane aday fonksiyon var
 				}
 				1.aşama(function overlaod set aday fonksiyonların belirlenmesi)
-					derleyici function overload set'i oluşturucak bu seti oluştururken fonskyino çağrıısnda kullanılan argümanların hiç bir şekilde konuyla alakası yok
+					derleyici function overload set'i oluşturucak bu seti oluştururken fonksiyon çağrısında kullanılan argümanların hiç bir şekilde konuyla alakası yok
 					bu aşama bittiğinde derleyici artık 6 tane overload olduğunu biliyor bu aşamadan geçen fonksiyonlara CANDIDATE FUNCTIONS deniyor(aday fonksiyonlar) 
-					6 tane aday fonksiyon var demek bu eğer bu aşamada zaten candidate functions yoksa zaten isim aramada hata oalcak demek
+					6 tane aday fonksiyon var demek bu eğer bu aşamada zaten candidate functions yoksa zaten isim aramada hata olacak demek
 				
 				2.aşama(viable functions)
-					2 yada daha fazla candidate functrions varsa derleyici fonksiyon çağırısında kullanılan argüman yada argümanlarla dilin kurallarına göre legal olarak çağırılabilen
+					2 yada daha fazla candidate functions varsa derleyici fonksiyon çağırısında kullanılan argüman yada argümanlarla dilin kurallarına göre legal olarak çağırılabilen
 					fonksiyonları ayıracak burdan ayrılan fonksiyonlara VIABLE FUNCTIONS deniyor bir fonksiyonun viable olması için fonksiyon çağrısında ki argüman yada
 					argümanlardan ilgili parametre değişkeni yada değişkenlerine geçerli dönüşümün olması gerekiyor eğer bu aşamada 1 tane bile viable fonksiyon olmasaydı
 					sentaks hatası olur 1 tane viable fonksiyon varsa zaten function overlaod resolution süreci bitecek başka fonksiyonun çağırılma ihtimali yok
 						
 				fonksiyon nasıl viable olur
-					1)fonksşton çağrısındaki kullanılan argüman sayısıyla ilgili fonksiyonun parametre sayısı aynı olması gerekir default aegument'da dikkate alınıyor burda
+					1)fonksiyon çağrısındaki kullanılan argüman sayısıyla ilgili fonksiyonun parametre sayısı aynı olması gerekir default aegument'da dikkate alınıyor burda
 					2)dilin kurallarına göre argüman olan ifadenin türünden fonksiyonun parametre değişkenine örtülü dönüşümü gerçekleşebilecek veri kaybı olması önemli değil
 					önemli olan böyle bir dönüşüm var mı
 
@@ -306,7 +306,7 @@ const overloading
 
 		int main()
 		{
-			const x{12};
+			const int x{12};
 
 			foo(&x);// const int* olan çağırılır,
 
@@ -317,12 +317,12 @@ const overloading
 	eğer biri call by value biri call by reference ise bu yine function overloadingtir tipik olarak böyle bir overloading tercih edilmez
 	eğer bu fonksiyonlara l value ile çağrı yaparsak her ikiside viable olur call by value ile call by reference birbirinden üstün değildir bu yüzden ambiguity olur 
 		void funct(int);
-		void funct(int&); // const int & ol
+		void funct(int&);
 
 		int main()
 		{
 			int x{};
-			func(x);
+			func(x); // int& olan çağırılır
 
 			func(10) // r value ile çağırırsak int& olan viable olmadığı için int parametleri olan fonksiyon çağırılır
 			
@@ -421,7 +421,7 @@ const overloading
 
 				int main()
 				{
-					func(123);
+					func(123); // const int& çağırılır
 				}
 
 		hoca önemli bir yere değiniyor
@@ -446,14 +446,14 @@ const overloading
 					}
 				2)std::move fonksiyonu
 					hoca yanlış isimlendirilmiş bir fonksiyon olduğunu söylüyor ismini görenler sanki taşıma yapıyormuş gibi anlıyor 
-					bir l value argümanı doğrudan kullanmak yerine bu fonksiyona çağrı yaptığımızda derleyici bu çağrı ifadesindeki argümanı r value olarak görecek move fonksiyonun geri
-					dönüş değeri X value &&move
+					bir l value argümanı doğrudan kullanmak yerine bu fonksiyona çağrı yaptığımızda derleyici bu çağrı ifadesindeki argümanı r value olarak 
+					görecek move fonksiyonun geri dönüş değeri X value &&move
 
 					foo(std::move(x)); // compile timeda ele alınan sadece ifadenin value kategorisini değiştiriyor
 					
 					void foo(T&&) 
 					{
-						bar(move(t)); // r value olarak gönderiyoruz sadece t yi yollarsak l value olur
+						bar(std::move(t)); // r value olarak gönderiyoruz sadece t yi yollarsak l value olur
 					}
 
 					void foo(const T&)
@@ -492,5 +492,12 @@ overload olan fonksiyonların birden fazla fonksiyonları varsa ne olur?
 		func(12u,12u,5.f); // 2. fonksiyon çağırılacak 3.parametrede daha iyi 1. ve 2. parametrede daha kötü değil
 	}
 	 
+	 void foo(char&){};
+	 void foo(char&&){};
 
+	 int main()
+	 {
+		char c{};
+		foo(+c); // R value expression
+	 }
 */
