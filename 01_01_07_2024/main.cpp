@@ -242,7 +242,8 @@ tekniğini ifade eder. Bu teknik, ifadenin tamamının değerlendirilmesine gere
 ### Short-Circuit Evaluation'ın Avantajları
 
 - **Performans**: Gereksiz hesaplamalardan kaçınılır. Özellikle uzun ve karmaşık ifadelerde performans avantajı sağlar.
-- **Yan Etkiler**: İkinci operandın yan etkileri (örneğin, fonksiyon çağrıları) varsa, bu yan etkiler yalnızca ihtiyaç duyulduğunda gerçekleşir. Bu, kodun daha güvenli ve öngörülebilir olmasını sağlar.
+- **Yan Etkiler**: İkinci operandın yan etkileri (örneğin, fonksiyon çağrıları) varsa, bu yan etkiler yalnızca ihtiyaç duyulduğunda gerçekleşir. Bu, kodun daha güvenli ve 
+öngörülebilir olmasını sağlar.
 
 ### Yan Etkiler ve Dikkat Edilmesi Gereken Noktalar
 

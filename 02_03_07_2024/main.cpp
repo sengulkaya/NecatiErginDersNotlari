@@ -1,6 +1,6 @@
 ﻿/*
 
-c dilinde void* türünden başka bişka bir pointer türe türe implicit conversion var ama c++ dilinde yok
+c dilinde void* türünden başka bir pointer türe implicit conversion var ama c++ dilinde yok
 
 
     int x = 5;
@@ -547,7 +547,7 @@ bir sabit veya işlev yerine makro kullanıldığında, yanlış bir türle ça�
 int main() {
     double radius = 2.5;
     double area = PI * SQUARE(radius); // Hatalı sonuç!
-    // Makro genişleyince `3.14 * 2.5 * 2.5` yerine `3.14 * 2.5 * 2.5` olur.
+    // Makro genişleyince `3.14 * 2.5 * 2.5` yerine `(3.14 * 2.5) * 2.5` olur.
     return 0;
 }
 
