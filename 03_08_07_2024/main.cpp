@@ -1,163 +1,10 @@
 /*
 
-AAA(ALMOST ALWAYS AUTO) demek kullanabildiðin her yerde auto kullan
-
-C++ dilinde, "expression" ve "statement" terimleri farklý anlamlara gelir ve programýn yapý taþlarýný oluþtururlar. Ýþte bu terimlerin tanýmlarý ve aralarýndaki farklar:
-
-### Expression (Ýfade)
-
-Bir **expression** (ifade), bir deðeri hesaplayan veya deðerlendiren bir kod parçasýdýr. Ýfadeler tek baþýna bir deðer üretebilir
-veya yan etkilere neden olabilir. Ýfadeler, çeþitli operatörler ve operandlar kullanýlarak oluþturulabilir.
-
-Ýfadelerin bazý örnekleri:
-
-1. **Sabitler**: `42`, `'a'`, `3.14`
-2. **Deðiþkenler**: `x`, `y`, `z`
-3. **Aritmetik Ýfadeler**: `x + y`, `a * b - c`
-4. **Fonksiyon Çaðrýlarý**: `foo()`, `bar(x, y)`
-5. **Üyelik Ýfadeleri**: `obj.member`, `ptr->member`
-6. **Yöntem Çaðrýlarý**: `obj.method()`
-7. **Dizine Eriþim**: `array[index]`
-
-Ýfadeler genellikle bir deðeri deðerlendirir ve bir sonuç döndürür. Örneðin, `x + y` ifadesi `x` ve `y` deðerlerini toplar ve sonuç olarak toplamý döndürür.
-
-### Expression Statement (Ýfade Cümlesi)
-
-Bir **expression statement** (ifade cümlesi), bir veya daha fazla ifadeyi içerebilen, belirli bir eylemi gerçekleþtiren ve genellikle bir noktalý virgül (`;`)
-ile biten bir kod parçasýdýr. Ýfade cümleleri, programýn akýþýný kontrol eder ve belirli iþlemleri gerçekleþtirir.
-
-expression statement bazý örnekleri:
-
-1. **Basit Ýfade Cümlesi**: Bir ifadeyi içerir ve bir noktalý virgül ile biter.
-    x = y + 1; // Basit ifade cümlesi
-
-2. **Deklarasyon Cümlesi**: Bir deðiþken veya fonksiyon bildirir.
-
-    int a = 5; // Deðiþken bildirimi
-
-3. **Kontrol Akýþý Cümleleri**: `if`, `for`, `while` gibi yapýlarý içerir.
-
-    if (x > 0) {
-        y = x;
-    }
-    for (int i = 0; i < 10; ++i) {
-        sum += i;
-    }
-
-4. **Dönüþ Cümlesi**: Bir fonksiyondan deðer döndürür.
-
-    return x + y;
-
-5. **Blok Cümlesi**: Birden fazla ifade cümlesini bir blokta gruplar.
-
-    {
-        int x = 10;
-        int y = 20;
-        int z = x + y;
-    }
-
-### expression ve statement Cümleleri Arasýndaki Fark
-
-- **expression**, bir deðeri hesaplar veya deðerlendirir ve genellikle bir deðer döndürür. Ýfade cümlesi içinde kullanýlabilirler.
-- **expression statement**, programýn yürütme akýþýný kontrol eder ve genellikle belirli bir görevi yerine getirir. Bir ifadeyi içerir ve bir noktalý virgül ile biter.
-
-Örneðin:
-
-// Ýfade:
-x + y
-
-// Ýfade cümlesi:
-x = y + 1; // expression statement
-
-Ýfade, sadece `x + y` deðerini hesaplar. Ancak ifade cümlesi, `x` deðiþkenine `y + 1` deðerini atar ve bir eylemi tamamlar.
-
-### Özet
-
-- **Expression (Ýfade)**: Bir deðeri hesaplayan veya deðerlendiren bir kod parçasýdýr. Bir sonuç döndürür.
-- **Statement (Ýfade Cümlesi)**: Bir veya daha fazla ifadeyi içerebilir ve belirli bir eylemi gerçekleþtiren bir kod parçasýdýr. Noktalý virgül ile biter ve programýn akýþýný kontrol eder.
-
-Bu ayrým, C++ programlama dilinde kod yazarken oldukça önemlidir ve doðru kullaným, kodun doðru ve beklenen þekilde çalýþmasýný saðlar.
---------------------------------------------------------------------------------------------------------------------------------------------------
-C++ dilinde, bir ifadenin (expression) türünü anlamak için ifadelerin deðer kategorilerine (value categories) ayrýlmasý gerekir.
-Bu deðer kategorileri, ifadenin bellekte bir nesneyi temsil edip etmediðini ve eðer ediyorsa, bu nesnenin yaþam süresinin ne kadar olduðunu belirtir.
-C++'ta üç temel (primary) deðer kategorisi vardýr: lvalue, prvalue ve xvalue. Bu kategoriler, bir ifadenin nasýl deðerlendirildiðini ve hangi baðlamlarda kullanýlabileceðini belirler.
-
-### Primary Value Categories (Birincil Deðer Kategorileri)
-
-1. **Lvalue (Left Value)**
-    - Bellekte bir konumu temsil eder ve bu konumda bir nesneye iþaret eder.
-    - Lvalue ifadeleri, deðiþtirilebilir (mutable) nesneleri temsil eder.
-    - Bir lvalue ifadesi, bir deðiþkenin adý olabilir veya bir referans olabilir.
-
-    #### Örnekler:
-
-    int x = 10;  // x bir lvalue'dir.
-
-2. **Prvalue (Pure Rvalue)**
-    - Geçici bir deðeri temsil eder, doðrudan bellekte bir nesneyi temsil etmez.
-    - Prvalue ifadeleri genellikle hesaplama sonuçlarýdýr ve kýsa ömürlüdür.
-    - Prvalue ifadeleri, fonksiyon dönüþ deðerleri veya geçici (temporary) nesneler olabilir.
-
-    #### Örnekler:
-
-    int y = x + 5;  // x + 5 bir prvalue'dir.
-    std::string("hello") // geçici bir std::string nesnesi, bir prvalue'dir.
-
-3. **Xvalue (eXpiring Value)**
-    - Bellekte bir nesneyi temsil eder, ancak bu nesne yakýnda yok olacak veya taþýnacak (moved-from) bir nesnedir.
-    - Xvalue ifadeleri genellikle kaynaklarý taþýmak için kullanýlýr.
-
-    #### Örnekler:
-
-    std::string s1 = "hello";
-    std::string s2 = std::move(s1); // std::move(s1) bir xvalue'dir.
---------------------------------------------------------------------------------------------------------------------------------------------------
-C++ dilinde, ifadelerin (expressions) nasýl deðerlendirileceðini ve hangi baðlamlarda kullanýlabileceðini anlamak için deðer
-kategorileri (value categories) kullanýlýr. Birincil (primary) deðer kategorileri olan lvalue, prvalue ve xvalue dýþýnda,
-bu deðer kategorilerinin birleþiminden oluþan daha genel kategoriler de vardýr. Bu birleþik (combined) deðer kategorileri, daha geniþ anlamda ifadelerin nasýl iþleneceðini tanýmlar.
-
-### Combined Value Categories (Birleþik Deðer Kategorileri)
-
-1. **Glvalue (Generalized Lvalue)**
-    - lvalue ve xvalue ifadelerinin birleþimidir.
-    - Bellekte bir nesneyi temsil eder.
-    - Nesnenin adresi alýnabilir.
-
-    #### Özellikler:
-    - Bellekte bir konumu iþaret eder.
-    - Nesneye doðrudan eriþilebilir ve bu nesne deðiþtirilebilir.
-
-    #### Örnekler:
-
-    int x = 42;
-    int &ref = x;       // ref bir lvalue'dir.
-    int &&rref = 42;    // rref bir xvalue'dir.
-
-    // Glvalue örnekleri
-    x = 5;              // x bir lvalue (dolayýsýyla bir glvalue) ifadesidir.
-    std::move(x) = 10;  // std::move(x) bir xvalue (dolayýsýyla bir glvalue) ifadesidir.
-
-2. **Rvalue (Right Value)**
-    - prvalue ve xvalue ifadelerinin birleþimidir.
-    - Bellekte kýsa ömürlü veya geçici (temporary) bir nesneyi temsil eder.
-    - Kaynaklarýn taþýnmasý ve geçici nesnelerin kullanýmý için kullanýlýr.
-
-    #### Özellikler:
-    - Bellekte bir konumu iþaret etmez, dolayýsýyla adresi alýnamaz.
-    - Genellikle hesaplama sonuçlarý veya geçici nesnelerdir.
-
-    #### Örnekler:
-
-    int y = 42;
-    int z = y + 5;      // y + 5 bir prvalue'dir (dolayýsýyla bir rvalue).
-    int &&rref = 42;    // 42 bir prvalue'dir (dolayýsýyla bir rvalue).
-    std::move(y);       // std::move(y) bir xvalue'dir (dolayýsýyla bir rvalue).
-
-### Kategori Özeti
-
+AAA(ALMOST ALWAYS AUTO) kullanabildiðin her yerde auto kullan
+---------------------------------------------------------------------
 - **Glvalue (Generalized Lvalue):** lvalue ve xvalue ifadelerinin birleþimidir. Bellekte bir nesneyi temsil eder.
 - **Rvalue (Right Value):** prvalue ve xvalue ifadelerinin birleþimidir. Bellekte kýsa ömürlü veya geçici bir nesneyi temsil eder.
---------------------------------------------------------------------------------------------------------------------------------------------------
+
 privmary value category
     L value
     PR value -> Pure R value
@@ -204,6 +51,7 @@ std::cout << &r << '\n'; // x'in adresine ulaþýlýr
 int x = 10;
 int y = 5;
 int* const p = &x; // p pointerý yalnýzca x in adresini tutacaðý güvencesini veriyor yani p nin adresi deðiþemez hayatý boyunca sadece x'in adresini göstericek
+
 bu pointer türünün 3 adý vardýr
 // const pointer to int
 // top level const
@@ -212,7 +60,8 @@ bu pointer türünün 3 adý vardýr
 p = &y // syntax error
 *p = y // geçerli
 
-const int* p = &x // p adlý pointerin içeriði dereferance edilemez sadece okuma amaçlýdýr(read-only pointer) ama adresi deðiþebilir
+const int* p = &x // p adlý pointer low level const olduðu için içeriði dereferance edilemez sadece okuma amaçlýdýr(read-only pointer) ama adresi deðiþebilir
+
 bu pointer türünün 3 adý vardýr
 // pointer to const int
 // low level const
@@ -245,11 +94,11 @@ int foo(); // r value
 NOT:call by value ile pass by value ayný þey demek
 
 NOT:
-void func(T& r) // ifadesi bir mutator bir ifadenin deðerini deðiþtiryor anlamýna gelir
+void func(T& r) // ifadesi bir mutator bir ifadenin deðerini deðiþtiriyor anlamýna gelir
 void func(T* r) // mutator
 void func(const T& r) // accessor
 void func(const T* r) // accessor
-T& func() // böyle bir fonksioyn gördüðümüzde bu fonksiyon bize bir nesne döndürüyor demeliyiz bu fonksiþyona çaðrý yaparak bir nesneyi kullanma hakkýna eriþmiþ oluyoruz
+T& func() // böyle bir fonksiyon gördüðümüzde bu fonksiyon bize bir nesne döndürüyor demeliyiz bu fonksiyona çaðrý yaparak bir nesneyi kullanma hakkýna eriþmiþ oluyoruz
 T* func() // nesnenin adresini döndüren fonksiyon
 const T& func(); // nesneye ulaþmak için kullanýlýr nesneninde const olmasý gerekir
 const T* func(); // nesneye ulaþmak için kullanýlýr nesneninde const olmasý gerekir
@@ -340,11 +189,6 @@ bellek yönetimi önemlidir ve `delete` ile bellek serbest býrakýlmalýdýr.
 volatile
 volatile niteleyicisi, bir deðiþkenin program dýþý kaynaklar (örneðin, donaným veya baþka bir iþ parçacýðý) tarafýndan deðiþtirilebileceðini belirtir.
 Bu, derleyicinin bu deðiþken üzerinde optimizasyon yapmamasý gerektiðini garanti eder.
-
-volatile int flag = 0;
-while (flag == 0) {
-    // Bu döngü, 'flag' deðiþkeninin program dýþý bir kaynak tarafýndan deðiþtirilebileceðini belirtir.
-}
 
 const volatile Birlikte Kullanýmý
 const volatile niteleyicileri birlikte kullanýldýðýnda, deðiþkenin program tarafýndan deðiþtirilemeyeceðini, ancak program dýþý kaynaklar tarafýndan
@@ -447,7 +291,7 @@ Burada `&a` ifadesi, `a` dizisinin tamamýný iþaret eden bir pointer anlamýna gel
 
 Dolayýsýyla `&a + i` ifadesi aslýnda þu anlama gelir:
 - `&a` dizisinin baþlangýç adresi (`int (*)[10]` türünde).
-- `+ i` bu adresin üzerine `i` tane `int[10]` boyutu kadar ekleme yapar. Yani her adýmda 10 * sizeof(int) = 40byte boyutu kadar aralýklarla ilerler.
+- `+ i` bu adresin üzerine `i` tane `int[10]` boyutu kadar ekleme yapar. Yani her adýmda 10 * 40 sizeof(int) = 40byte boyutu kadar aralýklarla ilerler.
 
 Bu nedenle, bu döngüde her iterasyonda dizinin her seferinde 40 eleman uzunluðunda bir blok atlayarak ilerlemesini saðlýyoruz.
 Adresleri bastýrýyoruz, bu adresler büyük ihtimalle bellek bloklarý arasýnda büyük aralýklara sahip olacaktýr.
@@ -462,7 +306,7 @@ Bu döngüde `a + i` ifadesi kullanýlýyor. `a` ifadesi, dizinin baþlangýç adresini
 
 Dolayýsýyla `a + i` ifadesi þu anlama gelir:
 - `a` dizisinin baþlangýç adresi (`int*` türünde).
-- `+ i` bu adresin üzerine `i` tane `int` boyutu kadar ekleme yapar. Yani her adýmda 1 * sizeof(int) boyutu atlar.
+- `+ i` bu adresin üzerine `i` tane `int` boyutu kadar ekleme yapar. Yani her adýmda 1 * 4 sizeof(int) 4byte boyutu atlar.
 
 Bu nedenle, bu döngüde her iterasyonda dizinin bir sonraki `int` elemanýna geçerek ilerleriz. Adresleri bastýrýyoruz ve bu adresler
 her seferinde sadece 1 * sizeof(int) = 4byte boyutu kadar aralýklarla ilerler.
@@ -474,22 +318,25 @@ a ifadesi veya a + 0 ifadesi, dizinin ilk elemanýnýn adresini döner.
 
 NOT:Referanslara Farklý Türden Bir Nesne ile Ýlkdeðer Verilmesi Durumu
 
-Bir referansýn ayný türden bir deðiþkenle ilkdeðer verilerek tanýmlanmasý gerektiðini belirtmiþtik.
-Referansýns farklý türden bir deðiþkenle ilkdeðer verilerek tanýmlanmasý geçersizdir. Aþaðýdaki örneði
-inceleyin:
+Bir referansýn ayný türden bir deðiþkenle ilkdeðer verilerek tanýmlanmasý gerekir
+Referansýns farklý türden bir deðiþkenle ilkdeðer verilerek tanýmlanmasý geçersizdir.
+
 void func
 {
 double d = 10.5;
 int &r = d; //Geçersiz
 //...
 }
+
 Ancak const bir referansa baþka türden bir nesne ile ilk deðer verilmesi geçerlidir:
+
 void func()
 {
 double d = 10.5;
 const int &r = d; // Geçerli
 //...
 }
+
 Bu durumda önce const referansa baðlanan farklý türden nesnenin deðeri, referansýn türünden yaratýlacak
 geçici bir nesneye atanýr. Referans da bu geçici nesneye baðlanýr. Yani derleyici aþaðýdaki gibi bir kod üretir:
 
@@ -509,20 +356,20 @@ bir dizinin yerine geçecek bir referans da tanýmlanabilir.
 
 #include <iostream>
 using namespace std;
+
 void display(const int(&r)[10])
 {
-int k;
-for (k = 0; k < 10; ++k)
-cout << r[k] << " ";
-cout << endl;
+    for (int k = 0; k < 10; ++k)
+    cout << r[k] << " ";
+    cout << endl;
 }
 
 int main()
 {
-const int a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-display(a);
-return 0;
+    const int a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    display(a);
 }
+
 Referanslar daha çok, tek bir nesneyi adres yöntemiyle iþleve geçirmek amacýyla kullanýlabilir. Örneðin tek bir
 int deðer ya da tek bir yapý deðiþkeni referans yoluyla iþleve geçirilebilir. Ancak int türden bir dizi ya da bir yapý
 dizisi bu yöntemle iþleve doðal bir biçimde geçirilemez.
@@ -532,16 +379,14 @@ referans dizileri olamaz. Göstericileri gösteren göstericiler olabilir ama refer
 olamaz.
 Ancak þüphesiz bir göstericinin yerine geçen bir referans olabilir.
 
-#include <iostream>
 int main()
 {
+    int x = 10;
+    int *ptr = &x;
+    int *&r = ptr;
+    *r = 20;
+    std::cout << "x = " << x << std::endl;
 }
-int x = 10;
-int *ptr = &x;
-int *&r = ptr;
-*r = 20;
-std::cout << "x = " << x << std::endl;
-return 0;
 --------------------------------------------------------------------------------------------------------------------------------------------------
 bir diziyi iþaret eden bir pointer referansý (pointer-to-array reference)
 
@@ -561,7 +406,7 @@ int main()
 }
 --------------------------------------------------------------------------------------------------------------------------------------------------
 Pointer referanslarý, pointer'larýn kendilerine referans vermemizi saðlayan bir C++ dil özelliðidir. Bu, bir pointer deðiþkenini bir fonksiyona aktarýrken,
-fonksiyonun sadece pointer'ýn iþaret ettiði deðeri deðil, pointer'ýn kendisini de deðiþtirebilmesine olanak tanýr. Þimdi bunu daha detaylý bir þekilde inceleyelim.
+fonksiyonun sadece pointer'ýn iþaret ettiði deðeri deðil, pointer'ýn kendisini de deðiþtirebilmesine olanak tanýr.
 
 ### 1. **Pointer ve Pointer Referansý**
 
@@ -583,9 +428,7 @@ fonksiyonun sadece pointer'ýn iþaret ettiði deðeri deðil, pointer'ýn kendisini d
   int* ptr = &x;
 
   int*& ref = ptr; // ref, ptr'nin referansý
-  ref = &y;        // ref üzerinden ptr deðiþtirildi
-
-  Artýk `ptr` deðiþkeni `y`'nin adresini tutar.
+  ref = &y;        // ref üzerinden ptr deðiþtirildi Artýk `ptr` deðiþkeni `y`'nin adresini tutar.
 
 ### 2. **Pointer Referansý Neden Kullanýlýr?**
 
@@ -707,16 +550,16 @@ int* unsafePointer() {
 --------------------------------------------------------------------------------------------------------------------------------------------------
 Dangling Pointer Nedir:
 
-Dangling pointer (asýlý gösterici), bellekte geçersiz veya serbest býrakýlmýþ bir adresi iþaret eden bir göstericidir.
+Dangling pointer bellekte geçersiz veya serbest býrakýlmýþ bir adresi iþaret eden bir göstericidir.
 Bu durum, bellek hatalarýna ve tanýmsýz davranýþlara yol açar. Bir gösterici, hedeflediði bellek alaný geçerli olmadýðý
 halde kullanýlmaya çalýþýldýðýnda dangling pointer durumu ortaya çýkar.
 
 1. **Otomatik Ömürlü Nesne Adresini Döndürme:**
 
-   Otomatik ömürlü (automatic storage duration) n
+   Otomatik ömürlü (automatic storage duration) 
 ### Dangling Pointer Örnekleri
 
-nesneler, fonksiyonun sona ermesiyle geçersiz hale gelirler. Bu nesnelerin adresini döndürmek dangling pointer oluþturur.
+otomatik ömürlü nesneler, fonksiyonun sona ermesiyle geçersiz hale gelirler. Bu nesnelerin adresini döndürmek dangling pointer oluþturur.
 
    int* foo() {
        int x = 10;
