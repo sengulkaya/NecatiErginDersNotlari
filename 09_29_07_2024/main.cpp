@@ -711,7 +711,7 @@ SINIF NESNELERÝNÝN HAYATA BAÞLAMASI VE HAYATLARININ SONLANMASI
 			Myclass(double);
 			Myclass(int,int); // function overload resolution burdada geçerli olacak
 
-		5)sýnýfýn constructorý private olabilir
+		5)sýnýfýn constructorý private ve protected olabilir ama clientlar tarafýndan çaðýrýlmasý sentaks hatasý
 
 		6)class definition içinde de tanýmý yapýlabilir(örtülü olarak inline olurlar)
 
