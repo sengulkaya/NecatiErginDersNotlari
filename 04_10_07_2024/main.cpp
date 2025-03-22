@@ -608,7 +608,6 @@ int main() {
    `lvalue` veya `rvalue` olup olmadığını doğru şekilde belirler ve ilgili referansı çağırır.
  --------------------------------------------------------------------------------------------------------------------------------------------------
  decltype kullanım senaryoları
-
 1.KURAL SETİ:declytype'ın operandının isim olması durumunda tür çıkarımının yapılması türüne göre olur
 int x;
 decltype(x) y; -> y'nin türü int
