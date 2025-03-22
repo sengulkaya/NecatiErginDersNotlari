@@ -10,7 +10,7 @@ default argument
 
     int main()
     {
-        foo(5,6); // foo(5,6,50)
+        foo(5,6); // foo(5,6,10)
     }
 
     int foo(int, int = 20, int); // sentaks hatası çünkü 2.parametre için default argument bildirilmişken sağ taraftaki değer için bildirilmemiş C++ dilinde bu zorunlu
@@ -74,9 +74,9 @@ re-decleration ile argümanların kümülatif şekilde ele alınması
     samet.h
     void foo(int,int,int);
 
-    #include "samet.h"
     samet.cpp
-    void foo(int,int, = 0); // re-decleration
+    #include "samet.h"
+    void foo(int,int,int = 0); // re-decleration
 
     int main()
     {
@@ -103,8 +103,6 @@ burada bir wrapper fonksiyon olan `call_foo` tanımlıyoruz ve `foo` fonksiyonun
 Bu tür kullanım, fonksiyonların parametrelerinin varsayılan değerlerini geçersiz kılmak için faydalı olabilir. Örneğinizde, `call_foo` fonksiyonu,
 `foo` fonksiyonunun ikinci ve üçüncü parametrelerinin sırasını değiştiriyor.
 
-### Kodun Detaylı Açıklaması
-
 **Orijinal Fonksiyon (`foo`)**:
 
 void foo(int x, int y, int z);
@@ -123,10 +121,6 @@ Bu fonksiyon, `foo` fonksiyonuna yapılan çağrıyı sarmalar ve parametrelerin
 2. `y` parametresinin varsayılan değeri 10'dur.
 3. `call_foo`, `foo` fonksiyonuna çağrı yaparken `x`, `y`, `z` parametrelerini sırasıyla geçirir. Yani, `call_foo` fonksiyonuna verilen
 `z` parametresi, `foo` fonksiyonuna üçüncü parametre olarak geçer.
-
-### Örnek Kullanım
-
-Bu fonksiyonların nasıl kullanılacağını göstermek için bir örnek yazalım:
 
 #include <iostream>
 
@@ -161,9 +155,6 @@ foo called with x: 2, y: 20, z: 4
 
 1. `call_foo(1, 3)` çağrısında, `x` 1, `z` 3 olarak verilmiştir. `y` için varsayılan değer 10 kullanılır. Bu durumda `foo` fonksiyonu `foo(1, 10, 3)` şeklinde çağrılır.
 2. `call_foo(2, 4, 20)` çağrısında, `x` 2, `z` 4 ve `y` 20 olarak verilmiştir. Bu durumda `foo` fonksiyonu `foo(2, 20, 4)` şeklinde çağrılır.
-
-Bu örnek, varsayılan parametre değerlerini kullanarak ve parametre sırasını değiştirerek fonksiyon çağrılarını sarmalamanın bir yolunu göstermektedir.
-Bu, kodun esnekliğini artırabilir ve fonksiyon çağrılarında daha fazla kontrol sağlar.
  --------------------------------------------------------------------------------------------------------------------------------------------------
  Default argümanlarlar eksik bilgi girildiğini de kontrol edebilir
 
@@ -178,7 +169,7 @@ Bu, kodun esnekliğini artırabilir ve fonksiyon çağrılarında daha fazla kon
 
    #include <iostream>
    #include <ctime>
- f
+ 
 2. **`print_date` Fonksiyonu:**
 
    void print_date(int d = -1, int m = -1, int y = -1);
@@ -398,7 +389,7 @@ bu ayrıştırma kuralları hatalı kod ile sonuçlanabilir. Bu nedenle, pointer
 
  auto x = 10;
 
- 3 auto ifadesinde auto için yapılan çıkarımlar farklı
+ 3 auto ifadesinde auto için yapılan çıkarımlar farklıdır
      1)auto x = expr;
         auto x = 10;
 
@@ -474,13 +465,12 @@ bu ayrıştırma kuralları hatalı kod ile sonuçlanabilir. Bu nedenle, pointer
 
          inta5& r = ar; // r ar dizisine referans tür eş ismi kullanmasaydık int(&r)[5] = ar; yazmamız gerekirdi
 
-         Referanslarda array decay uyglanmıyorsa şimdide function to pointer conversion uygulanmicak
-            int foo(int);  foo nun türü int(int) fonksiyon türü ile function pointer türünü birbirine karıştırmayalım
+         Referanslarda nasıl array decay uyglanmıyorsa şimdide function to pointer conversion uygulanmicak
+            int foo(int);  foo nun türü int(int) fonksiyon türü(function type) ile function pointer türünü birbirine karıştırmayalım
 
             auto& r = foo; // int (&r)(int)
 
      3)auto && x = expr;
-
 
 Fonksiyonların auto keyword ile kullanılması
 
@@ -616,118 +606,8 @@ int main() {
 3. **std::forward Kullanımı:**
    Universal reference ile iletilen argümanları doğru şekilde yönlendirmek için `std::forward` kullanılmalıdır. `std::forward` argümanın
    `lvalue` veya `rvalue` olup olmadığını doğru şekilde belirler ve ilgili referansı çağırır.
-
-### Özet
-
-Universal reference, C++11 ile gelen güçlü bir özellik olup, hem `lvalue` hem de `rvalue` referanslarını kabul edebilen ve
-argümanların değer kategorisini koruyarak iletilmesini sağlayan bir referans türüdür. Bu özellik, özellikle şablon metaprogramlama ve
-hareket semantiği işlemleri için önemlidir. Universal reference'lar, `T&&` şeklinde tanımlanır ve `std::forward` ile birlikte kullanılarak performans optimizasyonu sağlar.
  --------------------------------------------------------------------------------------------------------------------------------------------------
  decltype kullanım senaryoları
-
- `decltype` C++11'de tanıtılan bir anahtar kelimedir ve bir ifadenin türünü sorgulamak için kullanılır.
- `decltype`'ın çeşitli kullanım senaryoları vardır. İşte bazıları:
-
-### 1. Bir İfadenin Türünü Öğrenmek
-
-Bir ifadenin türünü öğrenmek için `decltype` kullanılabilir. Bu, özellikle karmaşık ifade türlerini tespit etmek için yararlıdır.
-
-int x = 5;
-decltype(x) y = 10; // y is of type int
-
-### 2. Şablon (Template) Tür Çıkarımı
-
-`decltype`, şablonlarda tür çıkarımı yapmak için kullanılabilir.
-
-template <typename T1, typename T2>
-auto add(T1 a, T2 b) -> decltype(a + b) {
-    return a + b;
-}
-
-int main() {
-    auto result = add(5, 2.5); // result will be of type double
-}
-
-### 3. Üyeleri ve Dönüş Türlerini Tespit Etmek
-
-`decltype`, sınıf üyelerinin veya fonksiyon dönüş türlerinin tespit edilmesinde kullanılabilir.
-
-struct MyStruct {
-    int member = 5;
-    double func() { return 3.14; }
-};
-
-int main() {
-    MyStruct obj;
-    decltype(obj.member) a = 1;  // a is of type int
-    decltype(obj.func()) b = 3.14; // b is of type double
-}
-
-### 4. Lambda Fonksiyonların Dönüş Türünü Öğrenmek
-
-Lambda fonksiyonların dönüş türünü öğrenmek için `decltype` kullanılabilir.
-
-auto lambda = [](int x, int y) { return x + y; };
-decltype(lambda(1, 2)) result = lambda(1, 2); // result is of type int
-
-### 5. Geçici (Rvalue) ve Sabit (Const) Türlerin Çıkarımı
-
-`decltype`, ifadenin tam türünü, yani `const` veya `volatile` olup olmadığını ve geçici (`rvalue`) veya sabit (`lvalue`) olup olmadığını öğrenebilir.
-
-const int ci = 0;
-decltype(ci) x = 0;  // x is of type const int
-
-int foo();
-decltype(foo()) y;   // y is of type int (return type of foo)
-
-### 6. pointer ile Kullanım
-
-Sınıfların member pointerları ile birlikte `decltype` kullanılabilir.
-
-struct MyStruct {
-    int member;
-};
-
-int main() {
-    decltype(&MyStruct::member) pMember = &MyStruct::member; // pMember is of type int MyStruct::*
-    MyStruct obj;
-    obj.*pMember = 10; // Accessing member using the pointer-to-member
-}
-
-### 7. İfade Türlerine Dayalı Değişken Tanımlama
-
-Bir ifadenin türüne dayalı olarak değişken tanımlamak için `decltype` kullanılabilir.
-
-int arr[10];
-decltype(arr) anotherArr = {0}; // anotherArr is of type int[10]
-
-### 8. Conditional Types (Koşullu Türler)
-
-Şablon metaprogramlamada koşullu türler oluşturmak için `decltype` kullanılabilir.
-
-template <typename T>
-auto conditional(T a) -> decltype(a > 0 ? a : -a) {
-    return a > 0 ? a : -a;
-}
-
-int main() {
-    auto result = conditional(-5); // result will be of type int
-}
-
-### 9. Basit İfade Türlerini Bulma
-
-Fonksiyon şablonlarında karmaşık ifadelerin türünü bulma ve bu türü kullanma.
-
-template <typename T1, typename T2>
-auto multiply(T1 a, T2 b) -> decltype(a * b) {
-    return a * b;
-}
-
-int main() {
-    auto result = multiply(3, 4.5); // result will be of type double
-
-`decltype` anahtar kelimesi, C++'da tür çıkarımını daha esnek ve güçlü hale getiren önemli bir özelliktir.
-Bu senaryolar, `decltype`'ın çeşitli kullanım alanlarını göstermektedir.
 
 1.KURAL SETİ:declytype'ın operandının isim olması durumunda tür çıkarımının yapılması türüne göre olur
 int x;
