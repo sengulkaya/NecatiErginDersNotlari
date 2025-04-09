@@ -284,95 +284,6 @@ Bu durumda, `ptr` `nullptr` ise, `*ptr` ifadesi değerlendirilmez ve program ç�
 Short-circuit evaluation, performans ve güvenlik açısından önemli bir tekniktir. Mantıksal `&&` ve `||` operatörleriyle kullanılır ve operandların
 yan etkilerini göz önünde bulundurmak, beklenmeyen sonuçlardan kaçınmak için önemlidir. Bu tekniği dikkatlice kullanarak kodunuzu daha verimli ve güvenli hale getirebilirsiniz.
 --------------------------------------------------------------------------------------------------------------------------------------------------
-**Name Hiding** (İsim Gizleme), C++’ta bir türetilmiş sınıfın (derived class), temel sınıftaki (base class) bir üyeyi aynı isimle tekrar
-tanımlaması durumunda oluşan bir durumdur. Bu, **değişkenlerde, fonksiyonlarda ve typelarda** görülebilir.
-
-📌 **Önemli:** **Name Hiding**, fonksiyonların **overriding (geçersiz kılma)** işlemiyle karıştırılmamalıdır. Overriding, yalnızca sanal
-fonksiyonlarda (virtual functions) olur ve temel sınıftaki fonksiyonu geçersiz kılar. **Name Hiding ise aynı isimli tüm fonksiyonları gizler.**
-
-## **1. Name Hiding in Variables (Değişkenlerde İsim Gizleme)**
-Türetilmiş sınıf, temel sınıftaki bir üye değişkenle aynı isme sahip bir değişken tanımladığında, temel sınıftaki değişken **gizlenir**.
-
-#include <iostream>
-
-class Base {
-public:
-    int value = 10;
-};
-
-class Derived : public Base {
-public:
-    int value = 20; // Base::value gizlenir!
-};
-
-int main() {
-    Derived obj;
-    std::cout << obj.value << std::endl; // Çıktı: 20
-}
-
-✔ **Çözüm:** Temel sınıftaki değişkene erişmek için `Base::value` kullanılabilir.
-
-std::cout << obj.Base::value << std::endl; // Çıktı: 10
-
-## **2. Name Hiding in Functions (Fonksiyonlarda İsim Gizleme)**
-Türetilmiş sınıf, temel sınıftaki bir fonksiyonla aynı isimde bir fonksiyon tanımladığında, **aynı isimdeki tüm versiyonları gizler**.
-
-#include <iostream>
-
-class Base {
-public:
-    void show(int x) { std::cout << "Base::show(int) -> " << x << std::endl; }
-};
-
-class Derived : public Base {
-public:
-    void show() { std::cout << "Derived::show()" << std::endl; }
-    // Base::show(int) tamamen gizlenir!
-};
-
-int main() {
-    Derived obj;
-    obj.show();     // Derived::show() çağrılır
-    obj.show(10);   // HATA: Base::show(int) gizlendi!
-}
-
-✔ **Çözüm:** Temel sınıftaki fonksiyonları görünür hale getirmek için `using` anahtar kelimesi kullanılabilir.
-
-class Derived : public Base {
-public:
-    using Base::show; // Base sınıfındaki show(int) fonksiyonunu görünür yapar!
-    void show() { std::cout << "Derived::show()" << std::endl; }
-};
-
-Böylece `obj.show(10);` artık çalışır.
-
-## **3. Name Hiding in Types (Türlerde İsim Gizleme)**
-Türetilmiş sınıf, temel sınıfta bulunan bir tür tanımını gizleyebilir.
-
-class Base {
-public:
-    using Type = int;
-};
-
-class Derived : public Base {
-public:
-    using Type = double; // Base::Type gizlenir!
-};
-
-Derived::Type x = 3.14; // Derived içindeki double kullanılır
-
-✔ **Çözüm:** `Base::Type` ile temel sınıftaki tür açıkça belirtilebilir.
-
-
-Base::Type y = 42; // int olarak kullanılır
-
-### **Sonuç**
-- **Aynı isimli değişkenler türetilmiş sınıfta tanımlandığında, temel sınıftaki değişken gizlenir.**
-- **Aynı isimde bir fonksiyon türetilmiş sınıfta tanımlandığında, temel sınıftaki tüm overload'lar gizlenir.**
-- **Aynı isimli tür tanımları türetilmiş sınıfta yapıldığında, temel sınıftaki tür tanımı gizlenir.**
-
-✔ **Çözüm olarak, `using Base::function;` veya `Base::member;` şeklinde erişim sağlanabilir.**
---------------------------------------------------------------------------------------------------------------------------------------------------
 Scope Leakage (Kapsam Sızıntısı) Nedir:
 
 bir programlama dilinde kapsamın (scope) beklenmedik veya istenmeyen şekilde değişmesi veya etki alanının dışındaki bir değişkenin beklenmeyen
@@ -438,7 +349,7 @@ if (p == nullptr) {
 - **`nullptr`** kullanımı, **`0`** veya **`NULL`** kullanımından daha güvenlidir ve modern C++'ta tercih edilir.
 - Null pointer'lara erişmeye çalışmak **undefined behavior**'a yol açar, bu nedenle işaretçiler kullanılmadan önce null olup olmadıkları kontrol edilmelidir.
 --------------------------------------------------------------------------------------------------------------------------------------------------
-NOT:C++ da iki karakterlik ayıraç atomları tanımlanmıştır. Derleyici ve önişlemci program bu kakarakter
+NOT:C++ da iki karakterlik ayıraç atomları tanımlanmıştır. Derleyici ve önişlemci program bu karakter
 çiftelerini gördüğü yerde bunlara eşdeğer karakterlerinin bulunduğunu varsayar:
 
 <: [
