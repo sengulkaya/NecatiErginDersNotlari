@@ -20,7 +20,7 @@ friend bildirimlerinden devam 3 tane maddemiz vardý
 				auto val = m.mx;
 			}
 
-			sýnýfýn hangi bölümünde firend bildirimi yaptýðýmýz farkeder mi? FARKETMÝYOR public private protected hepsinde bildirebiliriz deðiþen bir þey olmuyor
+			sýnýfýn hangi bölümünde friend bildirimi yaptýðýmýz farkeder mi? FARKETMÝYOR public private protected hepsinde bildirebiliriz deðiþen bir þey olmuyor
 
 		2)bir baþka sýnýfýn bir member functionuna verilen friendlik
 
@@ -76,7 +76,7 @@ friend bildirimlerinden devam 3 tane maddemiz vardý
 			B sýnýfý A sýnýfýnýn private bölümüne eriþebilir C sýnýfýda B sýnýfýnýn private bölümüne eriþebilir
 			burada hoca inheritance konusuna vurgu yapýyor
 		
-		3)bir sýnýfa friendlik vermek istiyoruz ama bütün private bölümüne deðil istediðimiz fonksiyona eriþmesini istiyoruz böyle bir þey mümkün mü= HAYIR
+		3)bir sýnýfa friendlik vermek istiyoruz ama bütün private bölümüne deðil istediðimiz fonksiyona eriþmesini istiyoruz böyle bir þey mümkün mü? HAYIR
 		bunu gerçekleþtiren doðrudan bir araç yok ama dolaylý olarak idiomatik bazý yapýlarý kullanarak bunu gerçekleþtirmek mümkün buna ATTORNEY-CLIENT IDIOM deniliyor
 			
 			"Attorney" (avukat), eriþimi aracýlýk eden sýnýftýr.
@@ -137,7 +137,6 @@ idiom -> programlama diline baðlýdýr baþka bir programlama dilinde o kalýpsal ya
 
 pattern -> hoca örüntü demeyi tercih ediyor dilden baðýmsýz bir yapýya iþaret ediyor çoðu programlama dilinde kullanýlan kalýplar   
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 OPERATOR OVERLODING
 
 	C++ dilinde bir sýnýf nesnesi bir operatörün operandý olduðunda derleyici dilin kurallarýna göre operatörün operandý olmuþ sýnýf nesnesi ifadesini bir fonksiyon çaðrýsýna dönüþtürüyor
@@ -157,10 +156,10 @@ OPERATOR OVERLODING
 	OPERATOR OVERLOADING KURALLARI
 		1)operatör overloadingten bahsedebilmemiz için operatörün operandý olan ifadelerden en az birinin bir sýnýf türünden yada bir enumaration türünden olmasý gerekiyor
 			
-		2)overlod edilecek operatörün C++ dilinin operatör kümesinde olmasý gerekiyor
+		2)overload edilecek operatörün C++ dilinin operatör kümesinde olmasý gerekiyor
 			örneðin @ C++ dilinin operatör kümesinde yok
 		
-		3)operatr overloading fonksiyonlarýný istediðimiz gibi isimlendiremiyoruz hangi operatörü overload ediyorsak onu belirtmemiz gerekiyor
+		3)operatör overloading fonksiyonlarýný istediðimiz gibi isimlendiremiyoruz hangi operatörü overload ediyorsak onu belirtmemiz gerekiyor
 			operator+ ,operator[] gibi
 
 		4)dilin bütün operatörleri overload edilemiyor bazý operatörler için overloading mekanizmasý yasaklanmýþ
@@ -172,7 +171,7 @@ OPERATOR OVERLODING
 			->* pointer to member operatörü
 			typeid
 
-		5)operatör fonksiyonlarýnýn bazýlarý için free function olarak tanýmlanamýyor member function olmak zorundalar
+		5)operatör fonksiyonlarýnýn bazýlarý free function olarak tanýmlanamýyor member function olmak zorundalar
 			() function call operatörü
 			[] subscript operatörü
 			-> member access operatörü
@@ -194,7 +193,7 @@ OPERATOR OVERLODING
 		8)operatör overloading mekanizmasýnda ki operatörlerin (arity) deðiþtirilemez yani operatörün unary yada binary olmasý 
 			
 			binary operators
-				x * y // binary bir operatörü olduðu için buna uygun sentaksla  overload edilecek bu overloading free functionla yapýlýyorsa bu durumda
+				x * y // binary bir operatörü olduðu için buna uygun sentaksla overload edilecek bu overloading free functionla yapýlýyorsa bu durumda
 			
 				çarpma oepratörünün sol operandý ve sað operandýda o fonksiyonun parametrelerine argüman olarak gönderiliyor
 				derleyici x * y ifadesini operator*(x,y) ifadesine dönüþtürücek bu global fonksiyonun 2 tane parametre deðiþkeni olmalý bunun dýþýnda baþka bir parametre olursa sentaks hatasý olur
@@ -208,8 +207,8 @@ OPERATOR OVERLODING
 					bool operator<(const Matrix&,const Matrix&)
 
 				fakat binary operatörünü overload edicek fonksiyon member function ise o member function binary operatörünün sol operandý için çaðýrýlýyor,
-				this pointerý sol operand olan nesnenin adresi x > y ifadesini derleyici x.operator>(y) ifadesine dönüþtürüyor bu functionlar tek parametre olmak zorundalar bunun dýþýnda baþka bir parametre olursa
-				sentaks hatasý olur
+				this pointerý sol operand olan nesnenin adresi x > y ifadesini derleyici x.operator>(y) ifadesine dönüþtürüyor bu functionlar tek parametre olmak zorundalar bunun dýþýnda 
+				baþka bir parametre olursa sentaks hatasý olur
 				
 					class String{
 						public:
@@ -219,14 +218,14 @@ OPERATOR OVERLODING
 			unary operators
 				!ptr// unary opeartör olduðu için buna uygun sentaksla yazýlmasý gerek
 
-				unar operator olan ifade global function ise derleyici operatör ifadesini operator!(ptr) ifadesine yapýlan bir çaðrýya dönüþtürücek operatörün operandý olan sýnýf nesnesinide bu fonksiyona yapýlan çaðrýda
-				argüman oalrak kullanýcak tek parametre almak zorundalar bunun dýþýnda sentaks hatasý olur 
+				unary operator olan ifade global function ise derleyici operatör ifadesini operator!(ptr) ifadesine yapýlan bir çaðrýya dönüþtürücek operatörün operandý olan sýnýf nesnesinide 
+				bu fonksiyona yapýlan çaðrýda argüman olarak kullanýcak tek parametre almak zorundalar bunun dýþýnda sentaks hatasý olur 
 
 					class SmartPtr{};
 
 					bool operator!(const SmartPtr&)const;
 
-				unary operator bir member function ise paramtresi olmaz zaten o nesne için çaðýrýlýr
+				unary operator bir member function ise parametresi olmaz zaten o nesne için çaðýrýlýr
 					class SmartPtr{
 						public:
 							bool operator!() const;
@@ -253,20 +252,20 @@ OPERATOR OVERLODING
 			int x = 10;
 			double dval = 3.4;
 
-			operator<<(cout.operator<<(x), '\n'); // derleyici function overload resolution ile derleyici int parametreli functipnu çaðýrýyor
-			operator<<(cout.operator<<(dval), '\n'); // derleyici function overload resolution ile derleyici double parametreli functionu çaðýrýyor
+			operator<<(cout.operator<<(x), '\n'); // derleyici function overload resolution ile int parametreli functionu çaðýrýyor
+			operator<<(cout.operator<<(dval), '\n'); // derleyici function overload resolution ile double parametreli functionu çaðýrýyor
 
-		atama operatör fonksiyonu demek illa special member function olmasý anlamýna gelmiyor
+		atama operatör fonksiyonu demek illa ki special member function olmasý anlamýna gelmiyor
 			class Myclass {
 			public:
 				Myclass& operator=(int) {
 
-					std::cout << "operator=(int)\n"; // Myclass sýnýfý türünden bir nesmeye int atadaðýmýzda bu fonksiyon çaðýrýlacak
+					std::cout << "operator=(int)\n"; // Myclass sýnýfý türünden bir nesneye int atadaðýmýzda bu fonksiyon çaðýrýlacak
 					return *this;
 				}
 				Myclass& operator=(double) {
 
-					std::cout << "operator=(double)\n";// Myclass sýnýfý türünden bir nesmeye double atadaðýmýzda bu fonksiyon çaðýrýlacak
+					std::cout << "operator=(double)\n";// Myclass sýnýfý türünden bir nesneye double atadaðýmýzda bu fonksiyon çaðýrýlacak
 					return *this;
 
 				}
@@ -291,10 +290,10 @@ OPERATOR OVERLODING
 
 		int main()
 		{
-			Bigint b1;,b2,b3,b4,b5;
+			Bigint b1,b2,b3,b4,b5;
 			Bigint bx;
 
-			bx = b1 * b2 + b3 * b4 & b5; // 5 adet oparator olduðu için o kadar fonksiyon çaðýrýlmýþ oluyor 
+			bx = b1 * b2 + b3 * b4 & b5; // 5 adet operator olduðu için o kadar fonksiyon çaðýrýlmýþ oluyor 
 
 			bx.operator=(operator&(operator+(operator*(b1,b2), operator*(b3,b4)), b5)); // ((b1 * b2)) + (b3 * b4)) & b5; bu iki kodun anlamsal olarak hiç bir farký yok
 		
@@ -313,8 +312,9 @@ OPERATOR OVERLODING
 
 	SORU:global operator fonksiyonlarý neden var?
 		1)x + 5;
-		x.operator+(5); // x + 5 gibi bir iþlemi yapabilmemiz doðal 5 + x gibi bir iþlemide yazabilmemiz gerekiyor ama bu sefer sol operand bir sýnýf türünden olmamýþ oluyor int türünün bir operator fonksiyonu olamaz
-		bu iþi global operator fonksiyonlar yapabilir yani global operator fonksiyonlar olmasaydý sol operandýn bir sýnýf türünden olmamasý durumunda sýnýfýn üye operatör fonksiyonuna çaðrýya dönüþtürme imkanýmýz olmazdý
+		x.operator+(5); // x + 5 gibi bir iþlemi yapabiliyorsak 5 + x gibi bir iþlemide yapabilmemiz gerekiyor ama bu sefer sol operand bir sýnýf türünden olmamýþ oluyor int türünün bir operator fonksiyonu 
+		olamaz bu iþi global operator fonksiyonlar yapabilir yani global operator fonksiyonlar olmasaydý sol operandýn bir sýnýf türünden olmamasý durumunda sýnýfýn üye operatör 
+		fonksiyonuna çaðrýya dönüþtürme imkanýmýz olmazdý
 		
 		2)
 			class Matrix{};
@@ -330,13 +330,12 @@ OPERATOR OVERLODING
 
 	 referans semantiði olmasaydý operator overloading mekanizmasýný kullanmak mümkün deðildi
 
-
-	SORU:operator overloading ile const corretncess arasýndaki iliþkisi nedir?
+	SORU:operator overloading ile const corretncess arasýndaki iliþki nedir?
 		
-		toplama operatörünü ve büyüktür operatörünü düþünelim bu operatörler side effecte sahip deðil örneðin a + b ifade karþýlýðý bir iþlem yapýldýðý için program stateinde bir deðiþiklik olmuyor ne a ne b deðiþecek 
-		a + b yazmakla bir fonksiyonu çaðýrýlmasýný saðlýyorsak fonksiypnun a ve b y ideðiþtirmeme garantisi vermesi gerekiyor
+		toplama operatörünü ve büyüktür operatörünü düþünelim bu operatörler side effecte sahip deðil örneðin a + b ifade karþýlýðý bir iþlem yapýldýðý için program stateinde bir deðiþiklik olmuyor 
+		ne a ne b deðiþecek a + b yazmakla bir fonksiyonu çaðýrýlmasýný saðlýyorsak fonksiypnun a ve b yi deðiþtirmeme garantisi vermesi gerekiyor
 		
-		oeprator+(const Matrix&,const Matrix&) // global operator+ fonksiyonunda burda const anahtar sözcüðünü kullanmasaydýk semantik olarak ciddi bir hata olurdu kodu okuyanlarý yanýltýrdýr 
+		oeprator+(const Matrix&,const Matrix&) // global operator+ fonksiyonunda burda const anahtar sözcüðünü kullanmasaydýk semantik olarak ciddi bir hata olurdu kodu okuyanlarý yanýltýrdý ve
 		const nesneleri ve r value deðerleri baðlamayazdýk
 
 		member function olsaydý
@@ -346,7 +345,6 @@ OPERATOR OVERLODING
 		unary operatorler için
 			bool operator!() const; // side effecte sahip olmadýðý için const member function olmalý
 
-			
 		eðer operator bir mutatorsa const olmamasý gerek
 			operator*=(int); // 
 			
@@ -372,17 +370,15 @@ OPERATOR OVERLODING
 
 						today - dx;
 					}
-
-
++
 			SORU:
 				class Matrix{
 					public:
 						Matrix& operator+(const Matrix&)const; // geri dönüþ deðeri referans olmasý iyi bir fikir olabilir mi? HAYIR
 						referans bir nesnenin yerine geçtiði için fonksiyonun geri dönüþ deðeri kime referans olacak? eðer fonksiyonun geri dönüþ deðeri otomatik ömürlü bir nesneyse ona referans döndürmemiz
-						undfined behaviour olur dangling reference böyle fonksiyonlarýn geri dönüþ deðerini l value referecne yapmamalýyýz
+						undfined behaviour ve dangling reference böyle fonksiyonlarýn geri dönüþ deðerini l value reference yapmamalýyýz
 				
 				};
-
 
 			operator fonksiyonlarýnýn bir kaç istisna dýþýnda çok büyük çoðnlukla geri dönüþ deðerini discard etmek logic bir hata
 				class Bigint
@@ -393,14 +389,13 @@ OPERATOR OVERLODING
 
 				özellikle side effect olmayan ooeratörlerin nodiscard attribute ile nitelenmesi doðru bir yaklaþýmdýr
 
-			bir operatörü overload etmek istiyoruz ama free function mý olsun member functipon mý olsun?
+			bir operatörü overload etmek istiyoruz ama free function mý olsun member function mý olsun?
 				bu sorunun net bir cevabý yok fakat bir çok kiþinin uyduðu ilke simetrik operatörleri global operator fonksiyonu yapmak
 				yani x + y yazmakla y + x yazmak ayný iþleme karþýlýk geliyorsa o zaman global operator fonksiyonu tercih ediliyor
 
 				aritmatik operatorler ve karþýlaþtýrma operatörleri global operator fonksiyonu olarak tanýmlamak bir kural deðil ama daha iyi bir tercih olarak görülüyor
 
 			https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines hoca bu sitedeki ilkeleri benimsememizi tavsiye ediyor
-
 
 			SORU:
 				class Myclass{
@@ -415,13 +410,7 @@ OPERATOR OVERLODING
 					m += 5; // burada + ve = operatörü ayrý ayrý overload edilmiþse += fonksiyonu otomatik var oluyor mu? HAYIR
 				  }
 
-				aynýsý C++20 de karþýlaþtýrma öperatörleri için geçerli deðil C++20 de operatörl overloadinge çok büyük bir ekleme geldi dile yeni bir operatör eklendi
+				aynýsý C++20 de karþýlaþtýrma öperatörleri için geçerli deðil C++20 de operatör overloadinge çok büyük bir ekleme geldi dile yeni bir operatör eklendi
 				<=> space ship operator bunun sayesinde 6 tane operatörü ayrý ayrý overload etmemize gerek kalmýyor
 				sýnýfta ya sadece space ship operatörü var yada onun yanýnda == operatörüde var
-
-				
-					
-
-
-
 */
