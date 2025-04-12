@@ -13,8 +13,8 @@ const correctness const kullanılması gereken yerde cost kullanılması demek b
 
 C ile C++ arasında const farklılığı
 
-c dilinde aritmetik türlerde const ifadesi kullanılsa bile C dilinde constant expr gerektiği yerlerde ibile kullanılmıyor garantidi yok
-c++ dilinde ilk değerini const ile alan nesneler const gereknen yerlerde bunu garanyi eder yani const expressiondır
+c dilinde aritmetik türlerde const ifadesi kullanılsa bile C dilinde constant expr gerektiği yerlerde bile kullanılmıyor garantisi yok
+c++ dilinde ilk değerini const ile alan nesneler const gereken yerlerde bunu garanti eder yani const expressiondır
 
 C dilinde const nesnelerin initialize edilmesi zorunlu değil
 C++ dilinde const nesnelerşin initialize edilmesi zorunlu
@@ -116,74 +116,6 @@ public:
 private:
     std::string text = "Hello";
 };
-
-# **6. `mutable` ve `const` Birlikteliği**
-**`mutable` anahtar kelimesi**, **`const` fonksiyonlar içinde değiştirilebilecek veri üyeleri** için kullanılır.
-
-🔹 **Örnek:**
-
-class Example {
-public:
-    void show() const {
-        counter++;  // Normalde hata olurdu, ancak 'mutable' olduğu için çalışır.
-    }
-
-private:
-    mutable int counter = 0;
-};
-
-✔ **Nerede Kullanılır?**
-- Önbellek hesaplamaları
-- Debug sayaçları
-- Log mekanizmaları
-
-# **7. `const_cast` Kullanımı**
-Bazen `const` bir nesneyi **geçici olarak** değiştirmek gerekebilir. **`const_cast`**, `const` özelliğini kaldırmak için kullanılır.
-
-🔹 **Örnek:**
-
-void modify(const int* ptr) {
-    int* nonConstPtr = const_cast<int*>(ptr);
-    *nonConstPtr = 100;  // 'const' olmamasına rağmen değiştirildi
-}
-
-int main() {
-    int x = 50;
-    modify(&x);
-    std::cout << x;  // Çıktı: 100
-}
-
-⚠ **Uyarı:** `const_cast` kullanırken **dikkatli olun**, çünkü `const` olan bir nesneyi değiştirirseniz **tanımsız davranış (UB) oluşabilir!**
-
-# **8. `const` ve `volatile` İlişkisi**
-- **`const`** → Değiştirilemez.
-- **`volatile`** → Derleyicinin optimizasyon yapmaması gereken değişken (genellikle donanım veya çok iş parçacıklı programlarda kullanılır).
-
-🔹 **Örnek:**
-
-volatile const int* ptr;
-
-Bu, **değiştirilemez ama her erişimde yeniden okunması gereken bir değişken** tanımlar.
-
-# **9. `const` Kullanmanın Faydaları**
-✔ **Güvenlik:** Yanlışlıkla değişiklik yapılmasını önler.
-✔ **Kod Okunabilirliği:** Bir değerin değişmeyeceği açıkça belirtilmiş olur.
-✔ **Optimizasyon:** Derleyici `const` değişkenleri sabit olarak kullanabilir.
-✔ **Performans:** `const&` parametreleri kopyalamayı önleyerek daha hızlı çalışır.
-
-# **Özet: `const` Kullanımı**
-| Kullanım Alanı | Açıklama |
-|--------------|-------------|
-| `const int x = 10;` | Değiştirilemez değişken |
-| `void foo(const int x);` | Parametre değiştirilemez |
-| `void foo(const std::string& str);` | Kopyalama önlenir, performans artar |
-| `int getValue() const;` | Üye fonksiyonun veri değiştirmesini önler |
-| `const int value;` | Sadece constructor’da atanabilir sabit veri üyesi |
-| `mutable int counter;` | `const` fonksiyon içinde değiştirilebilir veri |
-| `const_cast<int*>(ptr);` | `const` özelliğini kaldırır (Dikkatli kullanılmalı!) |
-
-C++'ta **`const correctness`**, hataları önlemek ve kodun daha güvenilir olmasını sağlamak için kritik bir konudur.
-Kodunuzda `const` kullanarak **yanlışlıkla değişiklikleri önleyebilir, performansı artırabilir ve derleyicinin daha iyi optimizasyon yapmasını sağlayabilirsiniz!** 🚀
 --------------------------------------------------------------------------------------------------------------------------------------------------
 ### **Array to Pointer Decay – C++'ta Dizi → Gösterici Dönüşümü (Array to Pointer Conversion)**
 
@@ -290,7 +222,7 @@ static yaparsak internal linkage olur
 
 c dilinde static anahtar kelimesiyle nietelemediğimiz sürece global alanda tanımlanan değerler external linkage
 
-c++ dilinde const anahtar değerle tanımanlmş değişkenler internal linkage
+c++ dilinde const anahtar değerle tanımlanmış değişkenler internal linkage
 
 hem const hemde external linkage yapmak istersek extern anahtar kelimesini kullanmalıyız
 
@@ -524,7 +456,7 @@ undrlying type modern cpp ile eklendi enum Color : int {White,Gray}; C diline 23
 enum Color {Blue,red,Black};
 enum TrafficLight {Blue,red,Black};
 
-aynı scopeta birden fazla numaralarndırm türü oluşturursak isim çakışması durumu olabilir çünkü bu isimler namspace scopeta olmuş oluyor bu yüzden
+aynı scopeta birden fazla numaralarndırma türü oluşturursak isim çakışması durumu olabilir çünkü bu isimler namespace scopeta olmuş oluyor bu yüzden
 C++da SCOPED ENUMLAR sayesinde farklı scopeta olmuş olurlar
 --------------------------------------------------------------------------------------------------------------------------------------------------
 C++ dilinde C kütüphanelerini include etmek için başına c konulur
@@ -550,8 +482,6 @@ int main() {
     // Makro genişleyince `3.14 * 2.5 * 2.5` yerine `(3.14 * 2.5) * 2.5` olur.
     return 0;
 }
-
-Bu örnekte `SQUARE(radius)` makrosu genişlediğinde `2.5 * 2.5` değil, `2.5 * 2.5` olarak genişler ve hatalı sonuç verir.
 
 ### 2. **Kapsam (Scope) Sorunları**
 Makrolar belirli bir kapsam (scope) içinde tanımlanamaz. Bir `#define` makrosu tanımlandığında, dosyanın sonuna kadar geçerli olur,
