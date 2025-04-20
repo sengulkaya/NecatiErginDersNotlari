@@ -2,33 +2,41 @@
 
 operator overloadingten devam
 	fonksiyonu çaðýrdýðýmýz nesne bir r value expression ise kopyalama yerine taþýma semantiðinden faydalanablir miyiz? EVET
-		class Big{};
+		class Big {};
 		class Nec
 		{
-			public:
-				const Big& get_biggie()& 
-				{
-					return biggie;
-				}
-				const Big& get_biggie()&&
-				{
-					return std::move(biggie);
-				}
-			private:
-				Big biggie;
-	};
+		public:
+			const Big& get_biggie()&
+			{
+				std::cout << "l value &\n";
+				return biggie;
+			}
+			const Big& get_biggie()&&
+			{
+				std::cout << "r value &&\n";
+				return std::move(biggie);
+			}
+		private:
+			Big biggie;
+		};
 
-	bazý veri yapýlarýný temsil eden soyutalam yapýldýðýnda bellekte ardýþýklýk olmasý söz konusuysa subscript operatörü array-like bir eriþimi
-	çaðrýþtýrdýðý için overload ediliyor
+		int main()
+		{
+			Nec nec;
+			nec.get_biggie();
+			Nec{}.get_biggie();
+		}
+
+	bazý veri yapýlarýný temsil eden soyutlama yapýldýðýnda bellekte ardýþýklýk olmasý söz konusuysa subscript operatörü array-like bir eriþimi çaðrýþtýrdýðý için overload ediliyor
 		std::string[]
 		std::array[]
 		std::vector
 		std::deque
 		
-		bazý iterator sýnýflarý iterator yine pointer like bir sýnýf fakat burada iterator dediðmiiz türlerin görevi veri yapýlarýndaki tutulan elemanlarýn konumunu tutmak
+		bazý iterator sýnýflarý iterator yine pointer like bir sýnýf fakat burada iterator dediðmiz türlerin görevi veri yapýlarýndaki tutulan elemanlarýn konumunu tutmak
 			vecotr<int>::iterator
 		
-		smart pointer sýnýfý amaç bir nesnenin bir kaynaðýn hayatýný kontrol etmek
+		smart pointer sýnýfýnýn amacý bir nesnenin bir kaynaðýn hayatýný kontrol etmek
 			unieque_ptr 
 
 		associative containerlar
@@ -49,12 +57,11 @@ operator overloadingten devam
 		a * b -> asteriks
 		*ptr -> dereferencing
 			
-			DEREFERENCING
-			unary operatördür
+			DEREFERENCING unary operatördür
 			1)dereferenence operatörünün operandý adres olmak zorunda
 			2)operatörün oluþturduðu ifade l value expression
 
-			bazý sýnýflar pointer like sýnýflar
+			bazý sýnýflar pointer like sýnýflardýr
 				class Iterator{};
 					amacý bir veri yapýsýndaki elenanýn konumunu tutmak
 				
@@ -103,7 +110,7 @@ operator overloadingten devam
 
 				bazý pointer-like sýnýflar ++ operatörünü overload ediyor
 
-			MEMBER SELECTION
+			MEMBER SELECTION ARROW
 				binary operatördür ama unary operatör olarak overload edilir
 				
 				SmartPtr ptr;
@@ -197,7 +204,7 @@ operator overloadingten devam
 
 				örneðin Mint deðilde Sint türünden baþka bir sýnýfýn dinamik nesnelerinin hayatýný kontrol eden bir sýnýfa ihtiyacýmýz olursa ne yapacaðýz?
 				burda iþimize yarayan durum generic programming burda derleyiciye diyeceðiz ki derleyici ben sana akýllý pointer sýnýfý yazmanýn yolunu öðreteceðim
-				öyle bir kod vereceðim ki sen o kodu kullanarak Mint sýnýýf türünden nesneleri gösterecek akýllý pointer sýnýfýnýda Sint sýnýfý türünden dinamik ömürlü
+				öyle bir kod vereceðim ki sen o kodu kullanarak Mint sýnýfý türünden nesneleri gösterecek akýllý pointer sýnýfýnýda Sint sýnýfý türünden dinamik ömürlü
 				nesneleri gösterecek akýllý pointer sýnýfýnýda bizim verdiðimiz kalýba göre kodu yazacaksýn yani sýnýflarýn kodunu biz yazmayacaðýz ama sýnýfýn kodunu yazdýracak
 				kodu biz yazacaðýz 
 
@@ -249,7 +256,6 @@ operator overloadingten devam
 					std::cout << ptr.operator->()->get() << '\n'; // hiç bir anlam farký yok
 
 				}
-
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	FUNCTION CALL OPERATOR
 		C de foo(4) þeklinde bir ifade görsek 
@@ -257,14 +263,15 @@ operator overloadingten devam
 		2)foo nun function macro olmasý
 		3)foo nun bir function pointer variable olmasý  
 			void(*foo)(int) = &bar;
+		
 		C++ da ise C de ki senaryolar hala devam etmekte birlikte
 			foo bir sýnýf türünden nesne olabilir
 			Nec foo;
-			fonksiyon çaðrý operatörünün oprandý olduðu için foo nun üye fonksiyonu olan function call operatörünü çaðýrýr foo nun iliþkin olduðu Nec sýnýfý
-			fuonksiyon çaðrý operatünü overlaod etmiþtir fonksiyon çaðrý operatörünü overload ettiði için kendisi bir sýnýf nesnesi olmasýna raðmen
-			fonksiyon çaðrý operatörünün operandý olabilen sýnýflara FUNCTOR CLASS yada FUNCTION OBJECT
+			fonksiyon çaðrý operatörünün operandý olduðu için foo nun üye fonksiyonu olan function call operatörünü çaðýrýr foo nun iliþkin olduðu Nec sýnýfý
+			fonksiyon çaðrý operatörünü overlaod etmiþtir fonksiyon çaðrý operatörünü overload ettiði için kendisi bir sýnýf nesnesi olmasýna raðmen
+			fonksiyon çaðrý operatörünün operandý olabilen sýnýflara FUNCTOR CLASS yada FUNCTION OBJECT deniliyor
 			foo.operator()(4) olarak çaðýrýlabilir
-		fonksiyon çaðrý operatörünün operandý olduðunda bir fonksiyonun çaðýrýlamasý söz konusuysa bu anlamda kullanýlan terim CALLABLE
+		fonksiyon çaðrý operatörünün operandý olduðunda bir fonksiyonun çaðýrýlamasý söz konusuysa bu anlamda kullanýlan popüler terim CALLABLE
 
 		class Myclass {
 		public:
@@ -311,14 +318,14 @@ operator overloadingten devam
 		SORU:peki function call operator ne iþe yarýyor?
 			esas faydasý generic programlamada olacak
 
-			operaor() fonkaiyonu sýnýf nesnesi için çaðýrýlýyor ve çaðrýnýn yapýldýðý sýnýf nesnesi o sýnýfýn ne anlama geldiðine göre farklý farklý statete olabilir
+			operator() fonksiyonu sýnýf nesnesi için çaðýrýlýyor ve çaðrýnýn yapýldýðý sýnýf nesnesi o sýnýfýn ne anlama geldiðine göre farklý farklý statete olabilir
 			bu state sýnýfýn private veri elemanlarýylada temsil edilebilir sýnýfýn mx isimli veri elemaný olsaydý operator() fonksiyonunda mx'i kullandýðýmýzda bu fonksiyon hangi nesne için çaðýrýlýrsa
-			o nesnenin mx'ini kullanmýþ olurduk biz öyle bir fonksiyon oluþturmuþ oluoruz fonksiyonun kendidi adete bir state sahip yani fonksiyona bir argüman göndermeden fonksiyonun
+			o nesnenin mx'ini kullanmýþ olurduk biz öyle bir fonksiyon oluþturmuþ oluyoruz fonksiyonun kendisi adete bir state sahip yani fonksiyona bir argüman göndermeden fonksiyonun
 			zaten bir state'i var
 			
 			öyle bir fonksiyon olsun ki o fonksiyon verilen bir aralýkta rastgele bir sayý üretsin mesela 20 ve 50
 			ama biz yine ayný fonksiyona 1000 2000 aralýðýnda rastgele sayý üretmesini talep edebileceðiz böyle bir senaryoyu gerçekleþtirmenin en pratik yolu 
-			bunu bir sýnýf olarak tasarlamak aralýk öðelerini sýnýfýn private veri elemanlarý yapmak sýnýf nesnesinin contrcut ederken ctoru kullanacak user codedan aralýk deðerlerini
+			bunu bir sýnýf olarak tasarlamak aralýk öðelerini sýnýfýn private veri elemanlarý yapmak sýnýf nesnesini construct ederken ctoru kullanacak user codedan aralýk deðerlerini
 			argüman olarak almak ve sýnýfa bir fonksiyon çaðrý operatörü tanýmlamak ve bu fonksiyonda sýnýfýn veri elemanlarýný kullanacak
 
 			class Random
@@ -385,20 +392,19 @@ operator overloadingten devam
 			Nec mynec;
 			int ival{};
 
-			ival = mynec; // derleyi operator int fonksiyonuna implicit conversion olarak çaðrý yaptý yani aslýnda ival'e myneci deðil mynec'in
+			ival = mynec; // derleyici operator int fonksiyonuna implicit conversion olarak çaðrý yaptý yani aslýnda ival'e myneci deðil mynec'in
 							operator int fonksiyonuna yapýlan çaðrýdan elde edilen geri dönüþ deðerini atamýþ olduk	ival'e aslýnda 4 deðerini atamýþ olduk
-
-			
 			ival = mynec.operator int(); // ikisinide yazmak ayný
 
 		}
 
-		burda bir istisna var genelde fonksiyonlarýn bildirimnde yada tanýmýnda fonksiyonun geri dönüþ deðerini yazmamýz gerekir tür dönüþtürme operatör fonksiyonlarýnýn ismi 
+		burda bir istisna var genelde fonksiyonlarýn bildiriminde yada tanýmýnda fonksiyonun geri dönüþ deðerini yazmamýz gerekir tür dönüþtürme operatör fonksiyonlarýnýn ismi 
 		operatör keywordünü izleyen dönüþtürülecek hedef tür örneðin operator int() hedef tür kýsmýnda hiç bir kýsýtlama yoktur her hangi bir tür olabilir
-		geri dönüþ deðeri türünün boþ býrakýlmasý geri dönüþ deðerinin olmamasý anlamýna gelmiyor gereksiz yere tekrardan kaçýnýldýðýný için yazýlmýyor hedef tür ne ise fonksiyonun heri dönüþ deðeri türü
+		geri dönüþ deðeri türünün boþ býrakýlmasý geri dönüþ deðerinin olmamasý anlamýna gelmiyor gereksiz yere tekrardan kaçýnýldýðý için yazýlmýyor hedef tür ne ise fonksiyonun geri dönüþ deðeri türü
+		odur
 
-		conversion ctorda olduðu gibi bu dönüþümün yapýlmasý gerektiði durumlarda bu dönüþümleri ötrülü olarak dönüþümü yapcak buda çok büyük bir risk oluþturuyor
-		ya yanlþýklýkla bir kod yazarsak dilin kurallarý gereði o fonksiyon çaðýrýlýrsa? büyük bir risk oluþturur ve eðer bir dönüþüm örtülü olarak önce standart dönüþüm sonra user defined conversion
+		conversion ctorda olduðu gibi bu dönüþümün yapýlmasý gerektiði durumlarda bu dönüþümleri örtülü olarak dönüþümü yapcak buda çok büyük bir risk oluþturuyor
+		ya yanlýþlýkla bir kod yazarsak dilin kurallarý gereði o fonksiyon çaðýrýlýrsa? büyük bir risk oluþturur ve eðer bir dönüþüm örtülü olarak önce standart dönüþüm sonra user defined conversion
 		olarak yapýlýyorsa derleyici bu dönüþümü yapmak zorunda yada önce user defined conversion sonra standart conversion uygulanarak yapýlýyorsa derleyici bu dönüþümü
 		yapmak zorunda 
 			class Nec {
@@ -439,7 +445,7 @@ operator overloadingten devam
 			}
 
 		SORU:tür dönüþtürme operatörlerinde hedef tür function pointer türü olabilir mi? EVET
-			usin fptr = int(*)(int);
+			using fptr = int(*)(int);
 			class Nec{
 				operator fptr()const;
 			}
@@ -481,15 +487,15 @@ operator overloadingten devam
 			}
 
 			ÖRNEK 2
-				functional kütüphanesinde tanýmlana reference wrapper adýnda generic bir sýnýf var
+				functional kütüphanesinde tanýmlanan reference wrapper adýnda generic bir sýnýf var
 
 				int main()
 				{
 					using namespace std;
 					
 					int x = 10;
-					reference_wrapper r = x; // aslýnda kendisi bir referans deðil ama referans olarak kullanýlýyor üstelik re-bindble normalde referenslar tekrardan baðlanamaz
-					reference wrapper sýnýfý bir pointerý sarmalýyor ve biz böyle bir nesne oluþturduðumuzda aslýnda ctor sýnýfýn ver elemaný olan pointera x'in adresini yerleþtirmiþ oluyor
+					reference_wrapper r = x; // aslýnda kendisi bir referans deðil ama referans olarak kullanýlýyor üstelik re-bindable normalde referenslar tekrardan baðlanamaz
+					reference wrapper sýnýfý bir pointerý sarmalýyor ve biz böyle bir nesne oluþturduðumuzda aslýnda ctor sýnýfýn veri elemaný olan pointera x'in adresini yerleþtirmiþ oluyor
 
 					++r; // nasýl oluyorda bu ifadeyi yazdýðýmýzda x deðiþkenini deðeri 11 oluyor?
 					reference wrapper sýnýfýnýn tür dönüþtürme operatör fonksiyonu var bu örnek için int& türüne dönüþtürüyor 
