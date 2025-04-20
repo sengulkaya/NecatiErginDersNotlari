@@ -5,7 +5,7 @@ AAA(ALMOST ALWAYS AUTO) kullanabildiðin her yerde auto kullan
 - **Glvalue (Generalized Lvalue):** lvalue ve xvalue ifadelerinin birleþimidir. Bellekte bir nesneyi temsil eder.
 - **Rvalue (Right Value):** prvalue ve xvalue ifadelerinin birleþimidir. Bellekte kýsa ömürlü veya geçici bir nesneyi temsil eder.
 
-privmary value category
+primary value category
     L value
     PR value -> Pure R value
     X value -> eXpiring value
@@ -17,11 +17,11 @@ combined value category
 ++x // C de R value C++ Da L value
 --x // C de R value C++ Da L value
 
-ama x++ R value
+ama x++ ifadesi C++'ta R value
 
 comma operatör ( , ) virgül operatörü C de R value C++ da L value expression oluþturuyor
 
-turnory operatörü C de R value C++da L value expression oluþturur
+ternary operatörü C de R value C++da L value expression oluþturur
 --------------------------------------------------------------------------------------------------------------------------------------------------
 referanslar derleyici açýsýndan pointer ile aynýdýr kýsacasý pointerlarýn maskelenmiþ halidir arka planda pointer iþlemi görür
 bazý yerlerde pointer semantiði uygun olmadýðý için referanslar gelmiþtir
@@ -32,7 +32,7 @@ NOT:Referanslar default initialize edilemez
 
     referanslarýn data type'ý ayný olmak zorundadýr
 
-    referanslar bir kez baþlatýldýktan sonra baþka bir nesneye referans olamazlar(re-bindeble deðil)
+    referanslar bir kez baþlatýldýktan sonra baþka bir nesneye referans olamazlar(re-bindable deðil)
         int x = 10;
         int y = 10;
         int&r = x;
@@ -269,11 +269,11 @@ int* p[2] = {&x,&y};
 
 NOT:Array decay ve array pointer farklýlýðý
 
-int a[5] = {1,2,3,4,5};
+int a[10] = {1,2,3,4,5,6,7,8,9,10};
 
 int* p = a; // array decay olarak geçer a dizisinin ilk elemanýnýn adresini tutar(türü int)
 
-int (*p)[10] = &a; // p, a dizisinin tamamýnýn adresini tutar ve p, a dizisini iþaret eden bir pointer olur(türü int[5])
+int (*p)[10] = &a; // p, a dizisinin tamamýnýn adresini tutar ve p, a dizisini iþaret eden bir pointer olur(türü int[10])
 
 int (&r)[10] = a; // r, a dizisinin tamamýna referans olan bir referans deðiþkenidir.
 
@@ -316,10 +316,10 @@ her seferinde sadece 1 * sizeof(int) = 4byte boyutu kadar aralýklarla ilerler.
 &a ifadesi, dizinin tamamýný temsil eden bir adres dönerken,
 a ifadesi veya a + 0 ifadesi, dizinin ilk elemanýnýn adresini döner.
 
-NOT:Referanslara Farklý Türden Bir Nesne ile Ýlkdeðer Verilmesi Durumu
+NOT:Referanslara Farklý Türden Bir Nesne ile Ýlk deðer Verilmesi Durumu
 
 Bir referansýn ayný türden bir deðiþkenle ilkdeðer verilerek tanýmlanmasý gerekir
-Referansýns farklý türden bir deðiþkenle ilkdeðer verilerek tanýmlanmasý geçersizdir.
+Referansýn farklý türden bir deðiþkenle ilkdeðer verilerek tanýmlanmasý geçersizdir.
 
 void func
 {
