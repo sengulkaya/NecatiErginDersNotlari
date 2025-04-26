@@ -2,7 +2,7 @@
 
 bool türüne dönüþüm yapan operator bool fonksiyonunda kaldýk
 
-	bazý türler pointer like türker için yani nesneleri pointer gibi kullanýlabilecek türler için týpký nullptr semantiðinde olduðu gibi nullable type oluþturabilmek için
+	bazý türler pointer like türler için yani nesneleri pointer gibi kullanýlabilecek türler için týpký nullptr semantiðinde olduðu gibi nullable type oluþturabilmek için
 	operatör bool fonksiyonunu overload ediyoruz böylece logic bir ifade beklenilen yerde sýnýf türünden nesneleri kullanabiliyoruz örneðin smartptr sýnýfý
 
 	operator bool fonksiyonunun ilginç bir özelliði var
@@ -19,13 +19,14 @@ bool türüne dönüþüm yapan operator bool fonksiyonunda kaldýk
 		{
 			Nec mynec;
 			int x = mynec; // bu kodun implicit olarak legal olmasýný istemeyiz çünkü derleyici önce sýnýfýn operator bool fonksiyonuna çaðrý yapýyor 
-			bool türünden bir ifade ediliyor bool türündende int türüne dönüþüm olduðu için her hangi bir þekilde bir sentaks hatasý olmuyor bu yüzden explicit olmasý gerekiyor
+			bool türünden bir ifade ediliyor bool türündende int türüne implicit conversion olduðu için her hangi bir þekilde bir sentaks hatasý olmuyor bu yüzden explicit olmasý gerekiyor
 		
 			Nec n1,n2;
 
 			auto x = n1 + n2; // derleyici toplama operatörünün operandlarýnýn Nec türünden olduðunu görünce toplama operatörünün operandý olabilecek bir dönüþüm mümkün mü
 			diye bakýyor ve sýnýfýn operator bool fonksiyonu olduðunu görüyor böylece her iki nesneyide bool türüne dönüþtürüyor bu durumda toplama operatörünün her iki operandý bool türünde
-			olmuþ oluyor burada integral promotion ile int türüne yükseltilecekler ifadenin türü int olacak ve geri dönüþ deðeri true(1) ürettiði için deðeri 2 olacak
+			olmuþ oluyor burada integral promotion ile int türüne yükseltilecekler ifadenin türü int olacak ve operator bool fonksiyonunun geri dönüþ deðeri true(1) 
+			ürettiði için x'in deðeri 2 olacak
 			
 			operator bool fonksiyonu explicit olsa bile logic bir ifade gereken yerde dönüþümü yapýyor ama logic baðlam olmayan yerlerde örtülü dönüþüm engellenir
 				if(n1 && n2){} // geçerli
@@ -42,7 +43,7 @@ bool türüne dönüþüm yapan operator bool fonksiyonunda kaldýk
 				std::cout<<x<<'\n'; 
 			}
 
-			burada  cin nesnesinin kendisini kullansaydýkda bu kod legal olacaktý
+			burada cin nesnesinin kendisini kullansaydýkda bu kod legal olacaktý
 			while(std::cin) peki bu nasýl legal oluyor? çünkü istream sýnýfý için operator bool overload edilmiþ 
 			aslýnda derleyici burada while(cin.operator>>(x).operator bool()) fonksiyonuna çaðrý yapýyor
 
@@ -119,8 +120,6 @@ ENUMARATION TYPES ÝÇÝNDE OPERATOR FONKSÝYONU YAZILABÝLÝR
 			std::cout << ++wd<<'\n';
 		}
 
-
-
 		WeekDay wd{ WeekDay::Saturday };
 		for (int i = 0; i < 5; ++i)
 		{
@@ -143,15 +142,15 @@ DÝNAMÝK ÖMÜRLÜ NESNELERLE TANIÞMA
 	bu fonksiyona argüman olarak new'e operand olan türün sizeof deðerini geçiyor 
 
 	malloc ile operator new kýsmen ayný olduðuna göre neden malloc olarak kalmadý?
-		malloc baþarýsýz olduðunda nullptr döndürüyor operator new ise baaþrýsýz olduðunda exception throw ediyor
+		malloc baþarýsýz olduðunda nullptr döndürüyor operator new ise baþarýsýz olduðunda exception throw ediyor
 		operator new baþarýlýysa derleyici ürettiði kodda operatör newden aldýðý adresi this pointerý kullanýlacak þekilde sýnýfýn ctoruna çaðrý yapýyo
 		
 		new ifadesi aslýnda derleyicinin 2 ayrý kodu üretmesini saðlýyor
 		1)dinamik ömürlü nesnenin yerinin elde edilmesi için standart kütüphanenin operator new fonksiyonuna çaðrý yapmak
 		2)elde edilen allocate edilen bellek bloðunda nesneyi oluþturmak içni sýnýfýn ctoruna çaðrý yapmak
 
-		exception throw edilmediyse new Object ifadesiyle construct edilmiþ nesneni adresini elde etmiþ oluyoruz ayrý bir initalization söz konusu deðilse
-		default initialize edilmiþ nesne için default ctro çaðýrýlacak 
+		exception throw edilmediyse new Object ifadesiyle construct edilmiþ nesnenin adresini elde etmiþ oluyoruz ayrý bir initalization söz konusu deðilse
+		default initialize edilmiþ nesne için default ctor çaðýrýlacak 
 
 			class Myclass
 			{
@@ -173,7 +172,7 @@ DÝNAMÝK ÖMÜRLÜ NESNELERLE TANIÞMA
 
 			int main()
 			{
-				Myclass* p = new Myclass(12); // derleyici önce operatör nee fonksiyonuna çaðrý yapýcak operator new fonksiyonu baþarýlý olursa allocate edilmiþ bellek bloðunun adresini
+				Myclass* p = new Myclass(12); // derleyici önce operatör new fonksiyonuna çaðrý yapýcak operator new fonksiyonu baþarýlý olursa allocate edilmiþ bellek bloðunun adresini
 				void* olarak döndürecek derleyicide o adreste Myclass nesnesinin oluþturulmasý için sýnýfýn ctoruna çaðrý yapýcak
 				
 				p->bar();
@@ -184,14 +183,14 @@ DÝNAMÝK ÖMÜRLÜ NESNELERLE TANIÞMA
 				dinamik ömürlü nesenin hayatýný sonlandýrmak için delete ifadesiyle sýnýfýn destructoruna çaðrý yapýyoruz operand olarak dinamik ömürlü bir nesnenin adresini alýyor
 				delete p; // destructor çaðýrýlýr
 
-				DÝKKAT:delete operatorüyle operator delete fonksiyonunu karýþtýrmamamýz lazým
+				DÝKKAT:delete operatorü ile operator delete fonksiyonunu karýþtýrmamamýz lazým
 				void operator delete(void *vp); 
 
 				delete ifadesi ne yapýyor?
 					1)derleyici delete ifadesi karþýlýðý önce delete operatörünün operandý olan adresteki sýnýf nesnesi için sýnýfýn dtoruna çaðrý yapýyor
 					derleyici arka planda böyle bir çaðrý yapýyor  p->~Myclass()
 					2)nesnemizin yerini operator new almýþtý onun geri verilmesi içinde operator new fonksiyonu
-					tarafýndan elde edilen adresin operator delete fonksiyonuna geçilmesi gerekiyor  operator delete(p); böylece operator delete fonksiyonu hayatý bitmiþ olan 
+					tarafýndan elde edilen adresin operator delete fonksiyonuna geçilmesi gerekiyor operator delete(p); böylece operator delete fonksiyonu hayatý bitmiþ olan 
 					nesnenin bellek alanýný de-allocate ediyor
 
 				new ifadesi
@@ -220,11 +219,12 @@ DÝNAMÝK ÖMÜRLÜ NESNELERLE TANIÞMA
 				a)nesne için ayrýlan yer memory leak(sizeof string kadar yerin geri verilememesi)
 				b)ctor tarafýndan allocate edilen bellek bloðunun geri verilememesi resource leak ama resource leak'in kendiside memory leak
 
-				delete ifadesi kullanýlsaydý derleyici önce p adresindeki nesne için dtoru çaðýrýacaktý dtor 10bin bytelýk allocate edilen heap bloðunu geri verecekti
-				ama ayný zamanda operator delete fonksiyonunu çaðýrýp sizeof string kadar elde edilen bellek bloðunu geri verecekti bu örnekte resource'un kendiside memory ama
+				delete ifadesi kullanýlsaydý derleyici önce p adresindeki nesne için dtoru çaðýracaktý dtor 10bin bytelýk allocate edilen heap bloðunu geri verecekti
+				ama ayný zamanda operator delete fonksiyonunu çaðýrýp sizeof string kadar elde edilen bellek bloðunuda geri verecekti bu örnekte resource'un kendiside memory ama
 				resource'un kendiside bir memory olmak zorunda deðil dosya yada baþka herhangi bir þeyde olabilir
 
-			2)dangling pointer
+			2)dangling pointer oluþur
+
 	OPERATOR NEW VE DELETE FONKSÝYONLARINI ÖRNEK ÝÇÝN OVERLOAD EDÝYORUZ		
 	
 		void* operator new(size_t n)
@@ -340,9 +340,9 @@ DÝNAMÝK ÖMÜRLÜ NESNELERLE TANIÞMA
 SINIFLARIN STATIC DATA MEMBERLARI VE SINIFLARIN STATIC MEMBER FUNCTIONLARI
 
 STATIC DATA MEMBER
-	sýnýflarýn static veri elemanlarý sýnýfla ilgili 
+	sýnýflarýn static veri elemanlarý sýnýfla ilgili bir kavram
 
-	class Myclass{
+	class Myclass{ 
 		public:
 			static int x; // kaç tane myclass nesnesi olursa olsun sadece 1 tane x data memberý var  
 			global deðerler gibi main fonksiyonu çaðýrýlmadan hayata gelecek assembly koduna bakarsak global deðiþkenlerden
@@ -356,9 +356,6 @@ STATIC DATA MEMBER
 				2)class scopa alýyor
 				3)üstünde eriþim kontrolü saðlýyor
 
-			static int x ifadesi bir decleration bunun definitionunun yapýlmasý gerekiyor
-			ODR'ýn çiðnenmemesi için tanýmý cpp dosyasýnda yapýlacak
-
 			myclass.cpp
 				int Myclass::x; // default initalize edersek static ömürlü olduðu için zero initialize edilir
 
@@ -370,7 +367,7 @@ STATIC DATA MEMBER
 			public:
 				Myclass mx; // GEÇERLÝ MÝ? HAYIR sýnýfýn kendi türünden bir veri elemaný olamaz
 				incomplete type olduðu için incomplete type türden nesne oluþturamayýz
-				ama static olsaydý sentaks hatasý olmayacaktý bu sadece bir bildirim
+				ama static olsaydý sentaks hatasý olmayacaktý bu sadece bir bildirim olmuþ olurdu
 		};
 
 	SORU:forward decleration yapsak sentaks hatasý olur mu EVET çünkü incomplete type
@@ -379,7 +376,7 @@ STATIC DATA MEMBER
 		class Myclass{
 			public:
 				Nec x; // sentaks hatasý
-				ama static olsaydý incomplete type olarak kullanýlmasý hata olmayacaktý ama tanýmýnýn olduðu noktada complete type olmasý gerek
+				ama static olsaydý incomplete type olarak kullanýlmasý hata olmayacaktý ama tanýmýnýn olduðu noktada artýk complete type olmasý gerek
 		};
 
 	SEMANTÝK VE SENTAKS TARAFI
@@ -394,9 +391,8 @@ STATIC DATA MEMBER
 
 		int main()
 		{
-			sýnýfýn static veri elemanlarý class scopeta olduðu için isim arama class scopeta yapýlacak
 		
-			interest_rate // burada ismin bulunmamasýnýn sebebi name lookup 
+			interest_rate // sýnýfýn static veri elemanlarý class scopeta olduðu için isim arama class scopeta yapýlacak burada ismin bulunmamasýnýn sebebi name lookup 
 			BankAccount::interest_rate; // sentaks hatasý deðil isim BankAccount sýnýfýnda aranýr ve bulunur private olsaydý access controle takýlacaktý 
 		
 			BankAccount a1,a2,a3,a4;
@@ -434,7 +430,7 @@ STATIC MEMBER FUNCTION
 							bazen þöyle bir konvensiyon kullanýlabiliyor define komutu ile
 	}
 
-	#define STATIC // eðer bir makrou böyle define edersek bir replacement vermez isek ön iþlemci program bu define komutunu yürüttüðünde bunu silmek zorunda
+	#define STATIC // eðer bir makroyu böyle define edersek bir replacement vermezsek ön iþlemci program bu define komutunu yürüttüðünde bunu silmek zorunda
 	bizim gördüðümüz kod bu ama ön iþlemci modülü iþini tamamladýðýnda sýra derleyiciye geldiðinde sanki oradaki STATIC yazýsýný görmeyecek
 	#define PUBLIC
 
@@ -443,7 +439,7 @@ STATIC MEMBER FUNCTION
 	static member functionlar sýnýf içindede tanýmlanabilir inline anahtar sözcüðünü kullanmasak bile implictly inline olacak
 
 	SORU:static member funcitonlar const member function olabilir mi ?
-		KULLANAMAYIZ çünkü static member functionlarýn gizli parametresi yok this pointerýna sahip deðiller object ile ilgili deðiller sýnýfla ilgili olduklarý için this pointerlarý yok
+		HAYIR çünkü static member functionlarýn gizli parametresi yok this pointerýna sahip deðiller object ile ilgili deðiller sýnýfla ilgili olduklarý için this pointerlarý yok
 		yani bu fonksiyonun çaðýrýlmasý için bir nesneye ihtiyacýmýz yok
 			class Myclass{
 				public:
@@ -541,7 +537,6 @@ INLINE VARIABLE
 				statix int y;
 		};
 		int Myclass::y = 5; // ODR yine çiðnenmiþ olur 
-
 
 	member functionlar içinde static veri elemanýný doðrudan kullanabiliyoruz
 		class Myclass{
