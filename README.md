@@ -164,3 +164,17 @@ new operator, memory library, pointer-like classes, smart pointers(unique_ptr, s
 
 52:
 unique_ptr, partial specialization of unique_ptr for arrays, sink functions, shared_ptr, reference counter, use_count, make_shared
+
+53+  format, literals, chrono, concurrency(thread, jthread, notify_one, notify_all, wait, promise, future, atomic) 
+
+60:
+concurrency,  work load(task), thread, joinable, join, detach, osyncstream, function overload with threads, get_id
+
+61:
+hardware concurrency, get_id, jthread, native_handle, thread_local storage, thread_local, once_flag, call_once
+
+62:
+mutex, lock_guard, internal synchronisation, lock, unlock, try_lock, try_lock_for, try_lock_until, std::lock, deadlock
+
+63:
+interleaved, torn write, livelock, adopt_lock, Josuttis table for mutex functions and lock types, recursive_mutex, timed_mutex,  unique lock, defer_lock, release, scoped_lock, shared_mutex, shared lock
