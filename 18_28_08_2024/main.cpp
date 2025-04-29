@@ -4,7 +4,6 @@ SINIFLARIN STATIC MEMBERLARINDAN DEVAM
 
 	geçen ders anlatýnlar tekrar edildi
 
-
 	sýnýfýn ctorunun private olmasý 
 	
 		class Nec
@@ -31,8 +30,8 @@ SINIFLARIN STATIC MEMBERLARINDAN DEVAM
 				class Complex{
 					private:
 						//Complex(double r, double i);
-						//Complex(double angle, double distance,int dummy); // ikiside sentaks hatasý çünkü sýnýflarýn member functionlarý re-definition edilemez o yüzden imza farklýlýðý olarak
-						dummy parametresini ekleyip overloading mekanizmasýna çevirebiliriz
+						//Complex(double angle, double distance,int dummy); // dummy parametre olmasaydý ikiside sentaks hatasý çünkü sýnýflarýn member functionlarý re-definition edilemez o yüzden 
+						imza farklýlýðý olarak dummy parametresini ekleyip overloading mekanizmasýna çevirebiliriz
 
 					public:
 
@@ -85,7 +84,6 @@ SINIFLARIN STATIC MEMBERLARINDAN DEVAM
 			inline static int ms_lived_count{};// sadece static anahtar kelimesiyle bildirseydik ve cpp dosyasýnda tanýmýný yapsaydýk zero initialize edilecekti ama cpp
 						tanýmýný yapmasaydýk bu sadece bildirim olduðu için link zamanýnda hata verecekti ama þimdi inline olarak tanýmladýðýmýz için zero initialize edilecek
 		};
-
 
 		int main()
 		{
@@ -218,7 +216,7 @@ NAMESPACE(ÝSÝM ALANLARI)
 	
 	namespaceler global namespacetelerdir
 
-	1)isim alanlarýnýn local düzeyde oluþturulamamasý
+	1)isim alanlarý local düzeyde oluþturulamaz
 		int main()
 		{
 			namespace nec{ // sentaks hatasý
@@ -235,7 +233,6 @@ NAMESPACE(ÝSÝM ALANLARI)
 
 	3)bir namespace'in ismi olmasýna gerek yok ama bu bir özel durum buna UNNAMED NAMESPACE deniliyor
 		namespace { }
-
 
 	4)namespaceler isim çakýþmalarýný önlüyor
 		int x = 5;
@@ -273,7 +270,7 @@ NAMESPACE(ÝSÝM ALANLARI)
 			void foo(int);
 
 			namespace erg{
-				void foo(double); // yine function overloading olmaz farklý scoopetalar
+				void foo(double); // yine function overloading olmaz farklý scopetalar
 			}
 		}
 
@@ -284,7 +281,7 @@ NAMESPACE(ÝSÝM ALANLARI)
 
 		int main()
 		{
-			nec::x; // derleyiciye burda x ismini nec namespacei içinde arayacaksýn talimatýný veriyoruz
+			nec::x; // derleyiciye burda x ismini nec namespace'i içinde arayacaksýn talimatýný veriyoruz
 		}
 	
 	8)namespaceler kümülatif bir yapýya sahip
@@ -297,7 +294,7 @@ NAMESPACE(ÝSÝM ALANLARI)
 		}
 
 		namespace nec{
-			int < = 5;
+			int z = 5;
 		}
 
 		eðer derleyici bir namespace definitionla karþýlaþtýktan sonra ayný definition ile yine karþýlaþýrsa bunu ayný namespace olarak kabul eder
@@ -380,7 +377,7 @@ USING KEYWORD
 			{
 				using nec::x; // bu bir decleration bunun bir bildiriminin olmasý bununda bir scope'unun olmasý demek
 				örneðin block içinde bildirmekle global isim alanýnda bildirmemiz arasýnda fark var using bildirimi ile tanýtýlan isim
-				bildirimin olduðu scope'a enjekte edilir yani adeta o scopeta tanýmlanmýþ gibi etki yapar
+				bildiriminin olduðu scope'a enjekte edilir yani adeta o scopeta tanýmlanmýþ gibi etki yapar
 				
 				x = 10; // using bildiriminin görülür olduðu yerlderde bu ismi kullandýðmýz zaman derleyici isim aramayla using nec::x bildirimini görücek
 				ve bu ismin nec namespace'inde olduðunu anlayacak
