@@ -20,7 +20,7 @@ name lookup
     a)başarılı olabilir
         başarılı olursa derleyici aranan ismin hagi varlığa ait olduğunu anlamıştır
     b)başarısız olabilir
-        aranan ismin hangi varlığa ait olduğunu anlşamamış demek ve aranan ismin bulunamaması her zaman sentaks hatası
+        aranan ismin hangi varlığa ait olduğunu anlamamış demek ve aranan ismin bulunamaması her zaman sentaks hatası
     c)name lookup neden başarısız olabilir
         isim bulunamaması(x undecleard ıdentifıer)
         ambiguit(ambigious)(derleyicinin ayrım yapamaması) isim arama yine başarısız olur isim bulunur ama çift anlamlılık hatası verir
@@ -42,11 +42,14 @@ name lookup ile ilgili 2 altın kural var hoca böyle diyor
             farklı scopetaki isimlerin aynı olması sentaks hatası değil ama x ismini aradağımız zaman bu bloktaki x bulunur
             bazı derleyicilr bu durumda uyarı verebilir
         }
-
 --------------------------------------------------------------------------------------------------------------------------------------------------
-C dilinde bilinirlik alanlarının dörde ayrıldığını anımsayın. Bunlar dardan genişe doğru “işlev bildirim bilinirlik
-alanı” (function prototype scope), “blok bilinirlik alanı” (blok scope), “işlev bilinirlik alanı “(function scope)
+C dilinde bilinirlik alanlarının dörde ayrıldığını anımsayın. 
+Bunlar dardan genişe doğru 
+“işlev bildirim bilinirlik alanı” (function prototype scope), 
+“blok bilinirlik alanı” (blok scope), 
+“işlev bilinirlik alanı “(function scope)
 ve “dosya bilinirlik alanı” (file scope) dır.
+
 Blok bilinirlik alanı bir ismin yalnızca bir blok içinde, işlev bilinirlik alanı bir işlevin her yerinde, dosya bilinirlik
 alanı ise tüm işlevler içinde bilinmesi, kullanılabilmesi anlamına gelir. C++‟da bu bilinirlik alanlarına ek olarak
 bir de sınıf bilinirlik alanı (class scope) tanımlanmıştır. Sınıf bilinirlik alanı, bir ismin hem sınıf bildirimi içinde,
@@ -63,57 +66,6 @@ kuralı anımsatalım: C‟de(C dilinde) olduğu gibi C++‟da aynı bilinirlik 
 değişken tanımlanamaz. Fakat farklı bilinirlik alanına ilişkin aynı isimli birden fazla değişken tanımlanabilir. Bir
 blok içinde aynı isimli birden fazla değişken etkinlik gösteriyorsa, o blok içinde dar bilinirlik alanına sahip olana
 erişilebilir.
-
-Aşağıdaki örneği inceleyin:
-#include <iostream>
-void func(); //işlev bildirimi
-int a = 50; //global değişken
-class X {
-public:
-void foo(int);
-void func();
-private:
-int a;
-};
-using namespace std;
-void X::func()
-{
-cout << "X sınıfının func isimli üye işlevi…" << endl;
-}
-void func()
-{
-cout << "Global func isimli işlev…" << endl;
-}
-Bu örnekte hem a isimli global bir değişken tanımlanıyor, hem de X sınıfının a isimli bir elemanı var. Sınıfın
-foo üye işlevi de şöyle tanımlanmış olsun:
-void X::foo(int a)
-{
-cout << a << endl; // Parametre değişkeni olan a
-{
-int a = 30;
-cout << a << endl; // Blok içindeki a
-}
-
-func(); // Üye işlev olan func
-}
-Şimdi dört tane a söz konusu. Global olan a, sınıfın elemanı olan a, parametre değişkeni olan a ve iç blokta
-tanımlanmış olan a. Dar bilinirlik alanına sahip olana erişme kuralına göre, iç blokta kullanılan a o blokta
-tanımlanan a değişkenidir. Dış bloktaki ise işlevin parametre değişkenidir. Çağrılan işlev üye işlev olan func isimli
-işlevdir. Çünkü işlev isimleri de değişken gibi ele alınır, aynı bilinirlik alanı kuralında uyar. Global işlevler dosya
-bilinirlik alanına, üye işlevler ise sınıf bilinirlik alanına sahiptir. Şimdi foo işlevinin parametre değişkeninin ismini
-değiştirelim:
-void X::foo(int x)
-{
-a = x; // Sınıfın elemanı olan a
-{
-int a = 30; // Blok içindeki a
-cout << a << endl;
-}
-func(); // Üye işlev olan func
-}
-Şimdi dış bloktaki a, sınıfın elemanı olan a olarak ele alınır. Peki, bir üye işlev içinde sınıfın elemanları ya
-da üye işlevleriyle aynı isimli global değişkenlere ya da işlevlere erişmek mümkün olabilir mi? İşte
-çözünürlük işleci ile bu durum mümkün kılınmıştır.
 --------------------------------------------------------------------------------------------------------------------------------------------------
 scope resolution operator(C de yok)
     SCOPE RESOLUTİONU UNARY OPERATOR ŞEKLİNDE KULLANDIĞIMIZDA İSİM ARAMA DEVREYE GİRMEZ DİREKT OLARAK GLOBAL NAMESPACETE OLAN DEĞERE ULAŞMAMIZI SAĞLAR
@@ -157,8 +109,8 @@ qualified name(nitelenmiş isim):
     void foo(int foo)
     {
 
-        foo(foo); // recursive fonksiyon çağrısı başarısız olur çünkü isim arama kurallarına göre derleyici ismi ilk functin prototype scopeta arar foo parametresi
-                     functin prototype scopeta olduğu için fonksiyon ismi olarak görmez foo fonksiyonu ise namespace scopeta(global scope) olduğu için isim maskeleniyor 
+        foo(foo); // recursive fonksiyon çağrısı başarısız olur çünkü isim arama kurallarına göre derleyici ismi ilk function prototype scopeta arar foo parametresi
+                     function prototype scopeta olduğu için fonksiyon ismi olarak görmez foo fonksiyonu ise namespace scopeta(global scope) olduğu için isim maskeleniyor 
                      foo fonksiyonunu çağırmak için scope resolution operatörünü kullanmamız gerek
                      terms does not evaluate to a function taking 1 arguments bunun bir fonksiyon ismi olmadığını söylüyor
 
@@ -278,7 +230,10 @@ ODR(One Definition Rule) tek tanımlama kuralını bilmemiz gerekiyor bunun gibi
     aynı isimde oldukları için farklı cpp dosyalarında birbirini include etmese bile ODR yine çiğnenmiş olur
 
     ODR'ın ihlal edilmediği durumlar
-        inline functionslarda inline variablelar constexpr anahtar kelimesi ile nitelenenler ve temlate definitionda ihlal edilmez
+        inline functionslarda 
+        inline variablelar 
+        constexpr anahtar kelimesi ile nitelenenler 
+        template definitionda ihlal edilmez
 --------------------------------------------------------------------------------------------------------------------------------------------------
 inline expansion ile inline function çok karıştırılıyor
     inline expansion
@@ -292,11 +247,11 @@ inline expansion ile inline function çok karıştırılıyor
                 int a = 10; b = 5;
                 int c = sum_square(a,b);
             }
-            derleyici burda gereksiz makina kodlarını çalıştırmak yerine arka planda madem ben bu fonksiyonun kodunun görğyorum
+            derleyici burda gereksiz makina kodlarını çalıştırmak yerine arka planda madem ben bu fonksiyonun kodunu görüyorum
             o zaman sanki bu kodu şöyle yazılmış gibi ele alabilirim -> c = a * a * * b * b; böyle bir durumda çağırılan bir fonksiyon olmayacağı için
             derleyicinin ürettiği kod çok daha etkin olucak ama burda önemli olan derleyicinin fonksiyonun tanımını görmesi bu işlemler compiler timeda olan bir işlem
 
-            1)derleyici tanımı görmek zounrda
+            1)derleyici tanımı görmek zorunda
             2)her fonksiyon için inline expansion avantaj sağlamaz derleyicinin burda analiz yapması gerekiyor fonksiyonun kodu büyükse kontrol deyimleri fazlaysa
              recursive çağrılar çoksa derleyicinin inline expansion yapması felaket olabilir
             3)derleyici inline expansion yapmak isteyebilir ama yapamayabilir
@@ -323,7 +278,7 @@ inline functions
 
     birden fazla kaynak dosya bu fonksiyonu include edebilir ve ODR çiğnenmez
     bir fonksiyonu inline olarak tanımını bir başlık dosyasına koyarsak bunu include eden bütün kaynak dosyalarda derleyici
-    bu fonksiyonun tanımını görme garantisi elde ediyor buda şu demek derleyicie bir fonksiyon için inline expansion şansı vermiş oluyoruz yapar mı yapmaz mı derleyiciye bağlı
+    bu fonksiyonun tanımını görme garantisi elde ediyor buda şu demek derleyiciye bir fonksiyon için inline expansion şansı vermiş oluyoruz yapar mı yapmaz mı derleyiciye bağlı
     burda derleyici fonksiyonun tanımını görmek zorunda ama tanımını inline olmadan başlık dosyasına koyarsak bu durumda ODR ihlal edilmiş olucak
 
     inline functionlar ile header only library oluşturabilir
@@ -360,8 +315,6 @@ inline variable(C++17 ile geldi)
 
     inline olması benzer şekilde tanımlanmış olmasına rağmen adresi kullanılırsa run timeda aynı adres olucak
     5 tane ayrı kaynak dosyada da böyle bir değişken olsa 5'i de aynı varlığa ait olucak yani adresleri aynı olmuş olucak
-
-
 --------------------------------------------------------------------------------------------------------------------------------------------------
 unscoped enumların istenmeyen 3 özeliği(traditional ve conventional enumda deniliyor)
 
@@ -383,7 +336,7 @@ unscoped enumların istenmeyen 3 özeliği(traditional ve conventional enumda de
 
         struct Nec
         {
-            Color c; // Struct nec'in complete type olması gerekiyor complete type olması için derleyicinin Color türünün sizeof değerini bilmesi gererkiyor
+            Color c; // Struct nec'in complete type olması gerekiyor complete type olması için derleyicinin Color türünün sizeof değerini bilmesi gerekiyor
         }
           eğer derleyici bu noktada enum Colorın underlying type'ını bilseydi bu kodun derlenmesinde herhangi bir sorun olmayacaktı
 
@@ -414,7 +367,7 @@ unscoped enumların istenmeyen 3 özeliği(traditional ve conventional enumda de
 scoped enumlar(kapsamlandırılmış numaralandırma türleri)
     enum class Color {Blue,Red,Brown,Black}; // undrlying type'ı belirtmezsek default olarak int olarak belirtmiş oluyoruz(unscoped enumlara modern c++ ile eklendi)
 
-    bu isimleri nitelenden kullanma şansımız yok
+    bu isimleri nitelemeden kullanma şansımız yok
 
     Color mycolor = Blue; // direkt böyle kullanamıyoruz bunu kullanmak için scope resolution operatörünü binary olarak kullanmamız gerekiyor
 
@@ -446,17 +399,17 @@ scoped enumlar(kapsamlandırılmış numaralandırma türleri)
 
     scoped enumlarda class anahtar sözcüğü kullanmamız onun bir class olduğu anlamına gelmiyor bunu karıştırmayalım
 
-    scoped enumlar çıktıktan sonra unscoped enumları kullanmaya hitiyaç yok denebilir eğer legacy(eskiden yazılmış kodlar) bir kod değilse kullanmamak en iyisi
+    scoped enumlar çıktıktan sonra unscoped enumları kullanmaya ihtiyaç yok denebilir eğer legacy(eskiden yazılmış kodlar) bir kod değilse kullanmamak en iyisi
 
 C++ 20 ile using keywordü enum türleriyle beraber kullanılabilir hale geldi
     scoped enumların kendi scopelarının olması kodlarda bunların nitelenmiş isim olarak kullanılma zorunluluğu kodda ki Verbosity'i(karmaşıklığı) arttırdı
 
-    enum class Suit {Club,Diamond,Heart,Spade}; // using enum decleration deniyor
+    enum class Suit {Club,Diamond,Heart,Spade}; 
 
     void func(Suit x)
     {
 
-        using enum Suit; // Suit enum'ı için sanki onun scopunu kaldırıyoruz nitelemeden kullanılma zorunluluğunu ortadan kaldırıyoruz
+        using enum Suit; // using enum decleration deniyor Suit enum'ı için sanki onun scopunu kaldırıyoruz nitelemeden kullanılma zorunluluğunu ortadan kaldırıyoruz
         yani sadece func fonksiyonunun scopu içinde bu şekilde kullanılacağını belirtmiş oluyoruz
 
         x = Club;
@@ -474,7 +427,7 @@ C++ 20 ile using keywordü enum türleriyle beraber kullanılabilir hale geldi
 
         }
 
-     using enum Neco::Suit; // tüm numaralandırma türlerini kunitelemeden llanmak için
+     using enum Neco::Suit; // tüm numaralandırma türlerini nitelemeden kullanmak için
      using Neco::Suit::Diamond; // spesifik olarak belirttiğimiz numaralandırma türünü kullanmak için
 
 type cast operatörleri
@@ -502,7 +455,7 @@ c-tipi type cast(C++ dilindede geçerliliğini koruyor)
             int x = 10;
             const int* p = &x;
 
-            int *ptr = p; // const pointer olmayan bir değişkene p'nin değerini geçmek isteyeleim ama böyle yazarsak hata verir C ve C++ dilinde dilin kuralların aykırı
+            int *ptr = p; // const pointer olmayan bir değişkene p'nin değerini geçmek isteyelim ama böyle yazarsak hata verir C ve C++ dilinde dilin kurallarının aykırı
                             c tipi tür dönüştürme operatörünü kullanarak kodu legal hale getiriyoruz (int*)p böyle yapılan dönüşümlere const cast deniliyor
                             x'in kendisi const olsaydı tanımsız davranış olurdu ve burda data typelar'ı compatable(uyumlu olması gerekir) int -> int  double -> double
 
@@ -512,7 +465,7 @@ c-tipi type cast(C++ dilindede geçerliliğini koruyor)
             her hangi bir türden
             char*
             signed char*
-            unsignec char* türlerine dönüşüm yapabiliriz
+            unsigned char* türlerine dönüşüm yapabiliriz
 
             int* -> unsigned int* türüne dönüşüm yapabiliriz
 
@@ -534,8 +487,8 @@ c-tipi type cast(C++ dilindede geçerliliğini koruyor)
             }
 
             C++ diyor ki madem tür dönüşümünde farklı farklı amaçlar olabiliyor bütün bu farklı amaçlar için C de aynı operatörlerle dönüşüm yapılıyor biz bunu değiştirelim
-            dile yeni operatörler ekleyelim dönüşümün amacının ne olduğuna bağlı olarak farklı operatörler kullanalım bununda sağlayacağı fayda operatörün ne olduğunu
-            bağlı olarak ne amaçla dönüşümün yapıldığı anlaşılsın ve yanlışlıkla dönüşüm yapılmasın mesela const cast ayrı bir operatöel yapılsın o operatör yerine başka bir
+            dile yeni operatörler ekleyelim dönüşümün amacının ne olduğuna bağlı olarak farklı operatörler kullanalım bununda sağlayacağı fayda operatörün ne olduğuna
+            bağlı olarak ne amaçla dönüşümün yapıldığı anlaşılsın ve yanlışlıkla dönüşüm yapılmasın mesela const cast ayrı bir operatörle yapılsın o operatör yerine başka bir
             tür dönüştürme operatörü kullanıldığında sentaks hatası versin esas amaç bu
 
 Fatih Akgül burda bir soru sormuştu enum class yerine enum struct kullanabilir miyiz diye hoca başta hayır diyor ama diğer derste kullanılabileceğini söylüyor
