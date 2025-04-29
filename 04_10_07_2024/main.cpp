@@ -2,7 +2,7 @@
 default argument
 
     function declerationda isim vermeye gerek olmaz çünkü kullanmayacağız
-    defaul argument bildirimi function delcerationda yer alması gerekir
+    default argument bildirimi function declerationda yer alması gerekir
 
     default argument compiler time'a yönelik
 
@@ -15,10 +15,10 @@ default argument
 
     int foo(int, int = 20, int); // sentaks hatası çünkü 2.parametre için default argument bildirilmişken sağ taraftaki değer için bildirilmemiş C++ dilinde bu zorunlu
 
-referanslardaa default argument alabilir
+referanslarda default argument alabilir
 
     int x = 10;
-    void foo(int& = x); // argüman gönderilmezse globlal x değişkeni kullanılır
+    void foo(int& = x); // argüman gönderilmezse global x değişkeni kullanılır
 
     void foo(int y = x + 5); // argüman gönderilmezse foo fonksiyonu x + 5 olarak kullaınılır
 
