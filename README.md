@@ -66,8 +66,8 @@ Friend declaration, Operator overloading(till 17), dynamic objects](https://gith
 
 [17:](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/17_26_08_2024)
 
-18:
-Named constructor idiom, static keyword, Singleton pattern, namespace, nested namespace, using declaration
+[18:
+Named constructor idiom, static keyword, Singleton pattern, namespace, nested namespace, using declaration](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/18_28_08_2024)
 
 19:
 using namespace directive, argument dependent lookup(ADL), unnamed namespace, inline namespace, namespace alias, nested types
