@@ -1,9 +1,9 @@
 Bu ders Notları 1 TEMMUZ 2024 Necati Ergin Hocanın vermiş olduğu C++ Kursu eğitiminde alınmıştır toplam 67 ders var 
 notları yavaş yavaş güncelliyorum ChatGPT den yardım alıp aldığım notlarda mevcut C'den eksik olduğum yerler olduğu için
 
-Necati Hocanın eğitimlerinden haberdar olmak için: https://plepa.com/
+[Necati Hocanın eğitimlerinden haberdar olmak için](https://plepa.com/)
 
-Necati Hocanın Linkedin hesabı: https://www.linkedin.com/in/necatiergn/
+[Necati Hocanın Linkedin hesabı](https://www.linkedin.com/in/necatiergn/)
 
 Not: Not alırken Umut Kotankırandan örnek almaya çalıştım almış olduğum notlardan çok daha iyi notlar mevcuttur bunları altta paylaşacağım
 
@@ -21,44 +21,50 @@ https://github.com/CSD-1993/KursNotlari
 
 İşlenen Konuların Sırası için Rasul Mammadova teşekkürler
 
-01:
-Differences C and C++
+[01:
+Differences C and C++](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/01_01_07_2024)
 
-02: 
-Differences C and C++
+[02: 
+Differences C and C++](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/02_03_07_2024)
 
-03-04:
-references, Value categories, Default Argument, Type Deductions
+[03-04:
+references, Value categories, Default Argument, Type Deductions](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/03_08_07_2024)
 
-05:
-Scope, Namelookup, Inline functions
+[05:
+Scope, Namelookup, Inline functions](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/05_14_07_2024)
 
-06:
-Type cast, Constexpr, Attributes, Function Overloading
+[06:
+Type cast, Constexpr, Attributes, Function Overloading](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/06_17_07_2024)
 
-07:
-Function Overload Resolution
+[07:
+Function Overload Resolution](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/08_24_07_2024)
 
-08:
-Classes, Access specifiers, ODR
+[08:
+Classes, Access specifiers, ODR](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/08_24_07_2024)
 
-09:
-Classes, This pointer
+[09:
+Classes, This pointer](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/09_29_07_2024)
 
-10:
-Constructors, destructors
+[10:
+Constructors, destructors](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/10_31_07_2024)
 
-11:
-Copy construstor
+[11:
+Copy construstor](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/11_06_08_2024)
 
-12: 
-Move constructor, table for constructors
+[12: 
+Move constructor, table for constructors](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/12_07_08_2024)
 
-13:
-Copy elision, RVO, Conversion constructor, Delegating constructor, Temporary objects
+[13:
+Copy elision, RVO, Conversion constructor, Delegating constructor, Temporary objects](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/13_12_08_2024)
 
-14: 
-Friend declaration, Operator overloading(till 17), dynamic objects
+[14: 
+Friend declaration, Operator overloading(till 17), dynamic objects](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/14_14_08_2024)
+
+[15:](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/15_19_08_2024)
+
+[16:](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/16_21_08_2024)
+
+[17:](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/17_26_08_2024)
 
 18:
 Named constructor idiom, static keyword, Singleton pattern, namespace, nested namespace, using declaration
