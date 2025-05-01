@@ -69,8 +69,8 @@ Friend declaration, Operator overloading(till 17), dynamic objects](https://gith
 [18:
 Named constructor idiom, static keyword, Singleton pattern, namespace, nested namespace, using declaration](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/18_28_08_2024)
 
-19:
-using namespace directive, argument dependent lookup(ADL), unnamed namespace, inline namespace, namespace alias, nested types
+[19:
+using namespace directive, argument dependent lookup(ADL), unnamed namespace, inline namespace, namespace alias, nested types](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/19_02_09_2024)
 
 20:
 Nested types, pimpl(pointer implementation) idiom, 
