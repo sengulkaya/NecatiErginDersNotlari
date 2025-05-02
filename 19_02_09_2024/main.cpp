@@ -39,7 +39,7 @@ hoca cppreference.com'dan örnek veriyor
 	
 	3.ÖRNEK
 		namespace foo{
-			void foo()
+			void f()
 			{
 				std::cout<<"foo::f()\n";
 			}
@@ -55,7 +55,7 @@ hoca cppreference.com'dan örnek veriyor
 
 		int main()
 		{
-			baz::f(); /
+			baz::f(); 
 		}
 
 	4.ÖRNEK
@@ -81,16 +81,16 @@ USING NAMESPACE DIRECTIVE
 
 	using namespace std; þeklinde kullanýlýr
 
-	nesnted namespaceler içinde kullanýlabilir
+	nested namespaceler içinde kullanýlabilir
 		using namespace nec::erg::pro;
 
 	burada directive bir namespace ismi için yapýlýyor namespace içindeki öðe için deðil üyenin kendisi namespace'se o zaman yazabiliriz
 	ve bu namespace'in bildiriminin yapýldýðý scopeta visible olmasý gerekiyor
 		
 	direktifin kendisi
-		a)doðrudan global namespacete
+		a)doðrudan global namespacete olabilir
 			using namespace std;
-		b)bir namespace'in içinde
+		b)bir namespace'in içinde olabilir
 			namespace nec{
 				using namespace std;
 			}
@@ -107,7 +107,6 @@ USING NAMESPACE DIRECTIVE
 
 	ama sýnýfýn bir member functioný olsaydý onun içinde tanýmlamak sentaks hatasý olmayacaktý
 
-
 	peki bu direktif ne yapýyor?
 		bu direktifin kendi scope'u var burada iki tane namespace söz konusu
 		1)direktifin tanýmlandýðý namespace örneðin global namespace alanýnda yazýlmasý
@@ -121,8 +120,8 @@ USING NAMESPACE DIRECTIVE
 
 		bunlarý içine alan en dar isim alaný içinde using direktifinin kullanýldýðý yerde namespace'in isimleri visible duruma geliyor
 			
-			using namespace std;   // std namespace'i içindeki isimler sanki global namespacetymiþ gibi görülür durumda
-				1)using direktifiiyle bildirin namespace std namespace'i
+			using namespace std;   // std namespace'i içindeki isimler sanki global namespaceteymiþ gibi görülür durumda
+				1)using direktifiyle bildirilen namespace std namespace'i
 				2)bildirimin yapýldýðý namespace global namespace 
 
 				ikisini içine alan en dar isim alaný global namespace 
@@ -155,12 +154,12 @@ USING NAMESPACE DIRECTIVE
 				{
 					x = 5; // ambiguity
 
-					amacýmýzý isimleri birbirinden gizlemekti ama bunu burada ihlal etmiþ oluyoruz using namespace direktifini kulalnýrken çok dikkatli olmamýz gerekiyor
+					amacýmýz isimleri birbirinden gizlemekti ama bunu burada ihlal etmiþ oluyoruz using namespace direktifini kullanýrken çok dikkatli olmamýz gerekiyor
 
 				}
 			
 		using bildirimiyle using namespace direktifinin farklý olduðu nokta
-			using direktifi isimleri using direktifinin bulunduðu scopa enjekte etmiyor
+			using direktifi isimleri using direktifinin bulunduðu scopa enjekte etmiyor ve 
 				o isim tek olmak zorunda deðil
 				namespace nec{
 					int x = 34;
@@ -170,7 +169,8 @@ USING NAMESPACE DIRECTIVE
 				{
 					using namespace nec; 
 					
-					using nec::x // using bildirimi ile yapmýþ olsaydýk bu nec namespace'inde bulunan x buraya enjekte edilmiþ olacaktý ve sentaks hatasý olacaktý
+					using nec::x // using bildirimi ile yapmýþ olsaydýk bu nec namespace'inde bulunan x buraya enjekte edilmiþ olacaktý ve aþaðadý ki
+					tanýmlamayla birlikte sentaks hatasý olacaktý
 					
 					int x = 56; // burada name hiding olmuþ oluyor sentaks hatasý yok
 
@@ -181,7 +181,7 @@ USING NAMESPACE DIRECTIVE
 						int x = 34;
 					}
 
-					int x = 56; // sentaks hatasý using namespace direktifi yapýldýðý için name hiding oluyor 
+					int x = 56; // using namespace direktifi yapýldýðý için name hiding oluyor 
 
 					using namespace nec; 
 
@@ -222,9 +222,9 @@ USING NAMESPACE DIRECTIVE
 
 		bu örnekte hiç bir sentaks hatasý yok
 
-		hoca using direktifini ya hiç kullanýlmýyorum yada dar kapsamda kullanýyorum diyor
+		hoca using direktifini ya hiç kullanmýyorum yada dar kapsamda kullanýyorum diyor
 
-		using namespace std; // global namespacete olduðu std namespace'i içindeki tüm isimler görünür olacaktý
+		using namespace std; // global namespacete olduðu için std namespace'i içindeki tüm isimler görünür olacaktý
 
 		int main()
 		{
@@ -265,7 +265,7 @@ USING NAMESPACE DIRECTIVE
 
 		namespace erg{
 			int a;
-			int b;
+			int c;
 		}
 
 		using namespace nec;
@@ -331,7 +331,6 @@ ADL(ARGUMENT DEPENDENT LOOKUP) ARGÜMANA BAÐLI ÝSÝM ARAMA
 		void baz(Myclass);
 	}
 
-
 	int main()
 	{
 		nec::Myclass m;
@@ -353,7 +352,6 @@ ADL(ARGUMENT DEPENDENT LOOKUP) ARGÜMANA BAÐLI ÝSÝM ARAMA
 			baz(m) // sentaks hatasý olur global namespacete aranýr ama ADL gereði nec namespace'i içerisindede aranýr
 		}
 
-
 	SORU:burada çaðýrýlan bir fonksiyon var mý?
 		std::cout<< "hello word"; global operator << fonksiyonu çaðýrýlýyor
 		
@@ -364,9 +362,9 @@ ADL(ARGUMENT DEPENDENT LOOKUP) ARGÜMANA BAÐLI ÝSÝM ARAMA
 			operator<<(std::cout,"hello world"); // burada çaðýrýlan global operator fonksiyonu
 
 			std::cout<<'A'; // burada çaðýrýlan fonksiyon global operator fonksiyonu
-			std::cout<operator<<('A'); // burada çaðýrýlan fonksiyon int parametreli member fonksiyon
+			std::cout.operator<<('A'); // burada çaðýrýlan fonksiyon int parametreli member fonksiyon
 
-			peki burada nitelenmiþ isim kullanmamamýza raðmen nasýl sentaks hatasý olmuyot?
+			peki burada nitelenmiþ isim kullanmamamýza raðmen nasýl sentaks hatasý olmuyor?
 				operator<<(std::cout,hello); // çünkü fonksiyonun birinci parametresine gönderilen cout std namespace'i içerisinde bir sýnýfa iliþkin olduðu için
 				isim arama std namespace'indede yapýlýyor
 
@@ -374,7 +372,6 @@ ADL(ARGUMENT DEPENDENT LOOKUP) ARGÜMANA BAÐLI ÝSÝM ARAMA
 		std::vector<int< ivec {1,5,7,2,3,-5};
 
 		//std::sort(std::begin(ivec),std::end(ivec));
-
 
 		sort(begin(ivec),end(ivec)); // ortada her hangi bir using bildirimi yok ve bu isimlerin unqualified olarak kullanýlmasýna karþýn her hangi bir sentaks hatasýda yok 
 		peki bu nasýl oluyor?
@@ -437,9 +434,9 @@ ADL(ARGUMENT DEPENDENT LOOKUP) ARGÜMANA BAÐLI ÝSÝM ARAMA
 			{
 				std::cout<< endl; // burda neden sentaks hatasý oluyorda ADL devreye girmiyor?
 				
-				çünkü endl bir fonksiyon burada çaðýrýlan endl fonksiyonu deðil membwer operator<< fonksiyonu 
+				çünkü endl bir fonksiyon burada çaðýrýlan endl fonksiyonu deðil member operator<< fonksiyonu 
 				
-				endl(std::cout); // burda sentaks hatasý yok endl std namespeca'i içerisnide bir fonkaiyon ve gönderilen argüman std namespac'i içersinide bildirien
+				endl(std::cout); // burda sentaks hatasý yok endl std namespace'i içerisinde bir fonksiyon ve gönderilen argüman std namespace'i içerisinde bildirien
 				ostream sýnýfý türünden bir nesne
 			}
 
@@ -507,7 +504,7 @@ ADL(ARGUMENT DEPENDENT LOOKUP) ARGÜMANA BAÐLI ÝSÝM ARAMA
 						nec::X ax;
 						func(ax) // no ADL
 
-						Myclass sýnýfýnýn func fonksiyonu olmaysadý ADL devreye girecekti
+						Myclass sýnýfýnýn func fonksiyonu olmasaydý ADL devreye girecekti
 					}
 			};
 
@@ -539,10 +536,10 @@ ADL(ARGUMENT DEPENDENT LOOKUP) ARGÜMANA BAÐLI ÝSÝM ARAMA
 			int main()
 			{
 				erg::EB b;
-				func(b) // invalid there is no func in nec (çünkü b nesnesi nec namespace'i içerisinde ki bir nesneye iliþkin isim arama orada yapýlýyor)
+				func(b) // invalid there is no func in nec (çünkü b nesnesi nec namespace'i içerisinde ki bir nesneye iliþkin isim arama orada yapýlýyor nec namespace'inde func fonksiyonu
+				olsaydý sentaks hatasý olmayacaktý)
 				bar(b); // valid bar found in nec
 			}
-
 
 	bir namespace içerisinde bildirilen bir fonksiyonu o namespace içerisinde yada onu içine alan enclosing namespace içerisinde tanýmlayabiliyoruz
 		namespace nec{
@@ -557,7 +554,7 @@ ADL(ARGUMENT DEPENDENT LOOKUP) ARGÜMANA BAÐLI ÝSÝM ARAMA
 
 	UNNAMED NAMESPACE
 		önemli bir sentaks özelliðidir derleyici unnamed namespace oluþturduðumuzda derleyici þöyle bir kod oluþturuyor
-			
+
 			namespace xyz_98{
 				int x;
 			}
@@ -705,7 +702,6 @@ ADL(ARGUMENT DEPENDENT LOOKUP) ARGÜMANA BAÐLI ÝSÝM ARAMA
 				foo(3.14); // ::foo
 			}
 
-
 	INLINE NAMESPACE
 		inline anahtar sözcüðüyle bir namespace oluþturduðumuz zaman onun içindeki isimler onu kapsayan namespace içinde görülür hale geliyor
 
@@ -723,7 +719,6 @@ ADL(ARGUMENT DEPENDENT LOOKUP) ARGÜMANA BAÐLI ÝSÝM ARAMA
 			nec::erg::x; // inline olduðu için bu þekilde eriþebiliyoruz
 			erg te inline olsaydý nec::x þeklinde eriþebilecektik hatta nec inline olsaydý direkt x ismi ile eriþebilecektik
 		}
-
 
 		bunun dile eklenmesindeki 2 temel amaç var
 			1)ADL
@@ -791,7 +786,7 @@ ADL(ARGUMENT DEPENDENT LOOKUP) ARGÜMANA BAÐLI ÝSÝM ARAMA
 				}
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------					
 NESTED TYPES
-	class definition içinde bir türün bildirimini yaparsak o bir nested type/member type/type member 
+	class definition içinde bir türün bildirimini yaparsak o bir nested type/member type/type member olarak adlandýrýlýr 
 
 	1)baþka bir sýnýf olmasý(structlarda dahil)
 		class Myclass{
