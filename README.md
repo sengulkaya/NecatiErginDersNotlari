@@ -57,7 +57,7 @@ Move constructor, table for constructors](https://github.com/kasimir039/NecatiEr
 [13:
 Copy elision, RVO, Conversion constructor, Delegating constructor, Temporary objects](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/13_12_08_2024)
 
-[14: 
+[14 15 16 17:
 Friend declaration, Operator overloading(till 17), dynamic objects](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/14_14_08_2024)
 
 [15:](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/15_19_08_2024)
@@ -69,8 +69,8 @@ Friend declaration, Operator overloading(till 17), dynamic objects](https://gith
 [18:
 Named constructor idiom, static keyword, Singleton pattern, namespace, nested namespace, using declaration](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/18_28_08_2024)
 
-19:
-using namespace directive, argument dependent lookup(ADL), unnamed namespace, inline namespace, namespace alias, nested types
+[19:
+using namespace directive, argument dependent lookup(ADL), unnamed namespace, inline namespace, namespace alias, nested types](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/19_02_09_2024)
 
 20:
 Nested types, pimpl(pointer implementation) idiom, 
