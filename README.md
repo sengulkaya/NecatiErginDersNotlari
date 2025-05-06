@@ -72,9 +72,9 @@ Named constructor idiom, static keyword, Singleton pattern, namespace, nested na
 [19:
 using namespace directive, argument dependent lookup(ADL), unnamed namespace, inline namespace, namespace alias, nested types](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/19_02_09_2024)
 
-20:
+[20:
 Nested types, pimpl(pointer implementation) idiom, 
-Composition -> agregation –> association, has-a relationship, is-a relationship, dynamic array, string class, small string optimization.
+Composition -> agregation –> association, has-a relationship, is-a relationship, dynamic array, string class, small string optimization.](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/20_04_09_2024)
 
 21:
 stringin parametrik yapı kalıpları, arguments and interpretation introduction, moved from state, string constructors, initializer list, string::npos, capacity
