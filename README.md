@@ -76,8 +76,8 @@ using namespace directive, argument dependent lookup(ADL), unnamed namespace, in
 Nested types, pimpl(pointer implementation) idiom, 
 Composition -> agregation –> association, has-a relationship, is-a relationship, dynamic array, string class, small string optimization.](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/20_04_09_2024)
 
-21:
-stringin parametrik yapı kalıpları, arguments and interpretation introduction, moved from state, string constructors, initializer list, string::npos, capacity
+[21:
+stringin parametrik yapı kalıpları, arguments and interpretation introduction, moved from state, string constructors, initializer list, string::npos, capacity](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/21_09_09_2024)
 
 22:
 Insert,  resize, erase, pop_back, find(find, rfind, find_first_of, find_last_of, find_first_not_of,  find_last_not_of), starts_with, ends_with, contains, reverse, remove, sort, remove-erase idiom, c_str,  data, swap, shrink_to_fit, replace, substr, getline, stoi, to_string, copy, puts
