@@ -14,13 +14,13 @@ RANGE PARAMETRE(char c)
 
 		cvec.begin(); // ilk öğenini konumunu döndürüyor 'a'
 		cvec.end(); // end konumuna geldiğinde artık container'ın bir öğesi yok bütün öğeleri gezmiş oluyoruz üyeleri dolaşırken bir kontrol konumu olarak kullanılıyor
-					containerdaki sın öğenin konumu end konumu değil ondan bir önceki konumu cvec.end() - 1 
+					containerdaki son öğenin konumu end konumu değil ondan bir önceki konumu cvec.end() - 1 
 					yada global bir fonksiyon olan prev(cvec.end()) fonksiyonuyla bir önceki konumu elde edebiliriz
 	
 		(beg,end) böyle bir fonksiyon varsa beg konumunda ki öğeden başlayarak end konumuna gelinceye kadar
 		karakterlerin oluşturduğu aralık üstünde işlem yapıyor demek
 		
-		std::string str(cvec.begin(), cvec.end()); // string sınıfının range parametreli ctorunu kullanarak str nesnesimizi ahmet yazısıyla hayata başlatıyoruz
+		std::string str(cvec.begin(), cvec.end()); // string sınıfının range parametreli ctorunu kullanarak str nesnemizi ahmet yazısıyla hayata başlatıyoruz
 
 		std::cout << str; // ahmet yazısı yazdırılır
 	}
@@ -30,7 +30,6 @@ STRING SINIFININ CTORLARI
 	DEFAULT CTOR
 		int main()
 		{
-
 			string s1; 
 			string s2{}; // value initialization 
 		
@@ -47,6 +46,7 @@ STRING SINIFININ CTORLARI
 			auto iter = s.begin();
 			*iter; // undefined behaviour
 		}
+
 	CSTRING PARAMETRELİ CTOR(const char*)
 		int main()
 		{	
@@ -167,8 +167,6 @@ STRING SINIFININ CTORLARI
 	string sınıfının char parametreli ctoru yok ama char parametreli assignment operator fonksiyonu var
 		std::string s;
 		s = 'A';
-
-		string  
 	
 	FILL PARAMETRELİ CTOR(size_t,char c)
 		int main()
@@ -195,7 +193,7 @@ STRING SINIFININ CTORLARI
 			#include <initializer_list>
 
 			std::initializer_list<int> x{ 1,4,6,7,9 }; // derleyici initializer_list sınıfı türünüden nesne oluşturduğumuzda aslında elemanları const olan bir dizi oluşturuyor
-			ve oluştuduğu const dizinin başlangıç adresini ve bittiği yerin adresini initializer list sınıfı türünden nesnesnin elemanlarında tutuyor
+			ve oluşturduğu const dizinin başlangıç adresini ve bittiği yerin adresini initializer list sınıfı türünden nesnesnin elemanlarında tutuyor
 
 			constexpr auto sz = sizeof(std::initializer_list<int>); // 2 pointer kadar size değeri vardır
 
@@ -211,7 +209,7 @@ STRING SINIFININ CTORLARI
 		
 			1)initializer list'in önemli faydalarından biride ucuz bir şekilde kopyalama semantiğinden faydalanmak
 				void func(std::initializer_list<int>); // bir fonksiyonun parametresinin initializer list olması ciddiye alınacak bir kopyalama maliyeti oluşturmuyor çünkü
-				böyle bir fonksiyona bir initalixer list gönderdiğimizde iki tane pointerın kopyalanması sonucunu doğuruyoruz
+				böyle bir fonksiyona bir initalizer list gönderdiğimizde iki tane pointerın kopyalanması sonucunu doğuruyoruz
 		
 			2)auto type deduction initalizer list ile ilgili C++14 ile bir kural değişikliği geldi
 				auto x = {1,4,6}; // type deduction initializer_list'in girilen öğelerin türü açılımı oluyor x 'in türü initializer_list<int>
@@ -316,7 +314,7 @@ STRING SINIFININ CTORLARI
 				bazı fonksiyonlar parametre olarak substring parametre alıyor str,idx,n 
 				öyle durumlar var ki bu interface'te geriye kalan karakterlerin hepsini kullanmak istiyoruz 
 				
-				örneğin idx,20 bu indeksten sonra 20 tane karakter yok 
+				örneğin idx 20 bu indeksten sonra 20 tane karakter yok 
 				sadece 5 tane karakter var bu durumda undefined behaviour olmuyor yani bu indeksten sonra ki bu kadar tane karakter anlamında kullandığımız argüman 
 				o indeksten sonra geriye kalan karakter sayısından daha fazlaysa tanımsız davranış olmadığı gibi geriye kalan karakterlerin hepsi anlamına geliyor
 
@@ -412,7 +410,7 @@ STRING SINIFININ CTORLARI
 					std::cout<< s[idx] << " ";
 				}
 
-				subscript operatörünün riskli kısmı indeks geçerli değilse yazının uzunluğundan büyüks undefined behaviour exception fırlatmıyor 
+				subscript operatörünün riskli kısmı indeks geçerli değilse yazının uzunluğundan büyükse undefined behaviour exception fırlatmıyor 
 
 			.at() 
 				subscript'ten farkı indeks geçerli değilse exception fırlatır 
@@ -519,7 +517,6 @@ STRING SINIFININ CTORLARI
 				std::string s1{"mustafa aksoy"};
 
 				s1 = "turgut akseki"; // bütün mutate işlemlerinde kapasiteyle doğrudan ilgilenmek zorunda değiliz kapasiteyi re-allocation yapmak implementasyonun görevi
-
 
 			.assign()
 				bir stringin kendisi değil bir substring,data,fill bunları atama operatörüyle yapma şansımız yok
