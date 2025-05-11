@@ -316,15 +316,15 @@ const overloading
 
 	eğer biri call by value biri call by reference ise bu yine function overloadingtir tipik olarak böyle bir overloading tercih edilmez
 	eğer bu fonksiyonlara l value ile çağrı yaparsak her ikiside viable olur call by value ile call by reference birbirinden üstün değildir bu yüzden ambiguity olur 
-		void funct(int);
-		void funct(int&);
+		void func(int);
+		void func(int&);
 
 		int main()
 		{
 			int x{};
-			func(x); // int& olan çağırılır
+			func(x); //'func': ambiguous call to overloaded function
 
-			func(10) // r value ile çağırırsak int& olan viable olmadığı için int parametleri olan fonksiyon çağırılır
+			func(10); // 'func': ambiguous call to overloaded function
 			
 			void funct(int&) olan fonksiyon const int & olsaydı hem l value hem r value değer kabul ettiği için yine ambiguity oluşacaktı
 		}
@@ -348,7 +348,7 @@ const overloading
 			int x = 10;
 			func(&x); // void* çağırılır
 
-	nullptr keywordü olmadan c++'ın modern cpp döneminin öncesinde fonksiyona null pointer argümanını bilerek siteyerek göndermek için NULL makrosunu doğrudan 
+	nullptr keywordü olmadan c++'ın modern cpp döneminin öncesinde fonksiyona null pointer argümanını bilerek isteyerek göndermek için NULL makrosunu doğrudan 
 	kullanmak zaten tercih değildi bu yüzden null pointer conversiondan faydalanılıyordu
 		void func(int*);
 
@@ -398,8 +398,8 @@ const overloading
 		}
 
 		dilin olanakları bize şunu sağlıyor const olan nesne ve const olmayan nesnelerden ayrı ayrı implementasyonlar oluşturabiliyoruz
-		eğer amaç gönderdiğimiz argümanın l value yadar r value olmasına bağlı olarak farklı implementasyon olmasını istiyorsak o zaman bir fonksiyonun paramtresini 
-		const T& diğer fonkaiyonuda T&& yaparsak bu seçilimleri sağlayabailiriz
+		eğer amaç gönderdiğimiz argümanın l value yada r value olmasına bağlı olarak farklı implementasyon olmasını istiyorsak o zaman bir fonksiyonun paramtresini 
+		const T& diğer fonksiyonunda T&& yaparsak bu seçilimleri sağlayabailiriz
 
 		KARIŞTIRILABİLİR ÖNEMLİ
 			value category ile date type'ın karışıtırılması
@@ -489,7 +489,7 @@ overload olan fonksiyonların birden fazla fonksiyonları varsa ne olur?
 	{
 		func(12,12u,5) // 1.fonksiyon çağırılır 1.argümanda üstünlük sağladı 2. ve 3.cü argümanlar diğerlerinden kötü değil
 		func(12,12u,5.f); // 1. ve 2. fonksiyon arasında ambiguity olucak float -> double promotion float -> long conversion
-		func(12u,12u,5.f); // 2. fonksiyon çağırılacak 3.parametrede daha iyi 1. ve 2. parametrede daha kötü değil
+		func(12u,12u,5.f); // 2. fonksiyon çağırılacak 3.parametrede daha iyi float -> double promotion 1. ve 2. parametrede daha kötü değil 
 	}
 	 
 	 void foo(char&){};
