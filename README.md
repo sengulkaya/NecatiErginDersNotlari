@@ -79,8 +79,8 @@ Composition -> agregation –> association, has-a relationship, is-a relationshi
 [21:
 stringin parametrik yapı kalıpları, arguments and interpretation introduction, moved from state, string constructors, initializer list, string::npos, capacity](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/21_09_09_2024)
 
-22:
-Insert,  resize, erase, pop_back, find(find, rfind, find_first_of, find_last_of, find_first_not_of,  find_last_not_of), starts_with, ends_with, contains, reverse, remove, sort, remove-erase idiom, c_str,  data, swap, shrink_to_fit, replace, substr, getline, stoi, to_string, copy, puts
+[22:
+Insert,  resize, erase, pop_back, find(find, rfind, find_first_of, find_last_of, find_first_not_of,  find_last_not_of), starts_with, ends_with, contains, reverse, remove, sort, remove-erase idiom, c_str,  data, swap, shrink_to_fit, replace, substr, getline, stoi, to_string, copy, puts](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/22_11_09_2024)
 
 23:
 inheritance(public, private, protected) introduction, access control in inheritance, upcasting, object slicing(basic), multi-level inheritance(basic), direct and indirect inheritance, inheritance and special member functions
