@@ -341,11 +341,12 @@ string sınıfının diğer member functionları(c_str,data)
 	data
 		modern C++dan önce data fonksiyonu null terminated byte stream döndürmüyordu modern C++ ile geri dönüş değeri null terminated byte stream oldu
 
-		c_str ve data fonksiyonun farkı data fonksiyonunun geri dönüş değeri char * ve const char* parametreli fonksiyonlarının olması const nesneler için const olan fonksiyon çağırılır
-		günümüzde c_str ve data fonksiyonu arasında hiç bir fark yok çünkü ikiside null terminated byte stream döndürüyor
+		c_str ve data fonksiyonun farkı data fonksiyonunun geri dönüş değeri char * ve const char* parametreli fonksiyonlarının olması fonksiyonu const olmayan nesnelerde değiştirilebilir 
+		veri erişimi sağlamak için kullanılır günümüzde c_str ve data fonksiyonu arasında hiç bir fark yok çünkü ikiside null terminated byte stream döndürüyor c_str sadece okuma amaçlıdır
+		data const ve non-const erişim sağlar.
 
 
-C++17 ve 20 standartlarıyla generic progralama tarafı için baszı fonksiyonların member function olmasının yanı sıra global function olarakta karşılıkları geldi
+C++17 ve 20 standartlarıyla generic progralama tarafı için bazı fonksiyonların member function olmasının yanı sıra global function olarakta karşılıkları geldi
 
 	1)size
 		std::string str{"necati ergin"};
@@ -380,17 +381,17 @@ swap(yazıları swap etmek yerine pointerları swap etmemizi sağlar ve maliyeti
 
 	swap(s1,s2);
 
-	1)modern C++ öncesi move semantiği olmadığı için swap fonksiyonunu kopyalama yapıyordu
+	1)modern C++ öncesi move semantiği olmadığı için swap fonksiyonu kopyalama yapıyordu
 		
 	2)moved from state
 		
-	template<typename T>
-	void swap(T& x,T& y)
-	{
-		T temp = std::move(x); // x burada moved from state durumunda ama aşağıda tekrar atama yapıyoruz her hangi bir tanımsız davranış yok 
-		x = std::move(y);
-		y = std::move(temp);
-	}
+		template<typename T>
+		void swap(T& x,T& y)
+		{
+			T temp = std::move(x); // x burada moved from state durumunda ama aşağıda tekrar atama yapıyoruz her hangi bir tanımsız davranış yok 
+			x = std::move(y);
+			y = std::move(temp);
+		}
 
 shrink_to_fit(bir container'ın capacity'sini, mevcut size’ına düşürmeye yönelik bir istekte bulunan fonksiyondur)
 		
@@ -402,8 +403,8 @@ shrink_to_fit(bir container'ın capacity'sini, mevcut size’ına düşürmeye y
 
 		std::cout << "s.size() = " << s.size() << " s.cap = " << s.capacity() << '\n'; // burda s nesnesinin kapasitesi düşmüyor sadece size'ı düşüyor
 
-		s.shrink_to_fit(); // standart bu fonksiyonu bağlayıcı olmayan bir talep olarak dökümante etsede derleyicilerin hemen hepsi kapasiteyi düşürüyor çünkü standarta göre kapasitenin düşmesi
-							garanti altında değil
+		s.shrink_to_fit(); // standart bu fonksiyonu bağlayıcı olmayan bir talep olarak dökümante etsede derleyicilerin hemen hepsi kapasiteyi düşürüyor çünkü standarta göre 
+							  kapasitenin düşmesi garanti altında değil
 
 		std::cout << "s.size() = " << s.size() << " s.cap = " << s.capacity() << '\n'; // burda s nesnesinin kapasitesi size'a uygun şekilde düşmüş oluyor
 
@@ -430,7 +431,6 @@ substr(bir string’in belirli bir kısmını elde etmek için kullanılır)
 string wiev sınıfı(C++17 ile gelen bir karakter dizisine sahip olmadan erişim sağlayan std::string, C tarzı diziler (const char*) ya da sabit string sabitleri ("hello") 
 gibi karakter dizilerine kopyalama yapmadan erişmek ve üzerinde okuma işlemleri gerçekleştirmektir)
 
-
 	veriyi değiştirmez sadece okuma yapar 
 	
 	dizinin başlangıç adresini ve uzunluğunu tutar
@@ -443,11 +443,12 @@ gibi karakter dizilerine kopyalama yapmadan erişmek ve üzerinde okuma işlemle
 
 	int main() {
 		std::string str = "Necati";
-		print(str);  // std::string
-		print("Ergin");  // const char*
+		// print(str);      // std::string -> implicit conversion to std::string_view
+		// print("Ergin");  // const char* -> implicit conversion to std::string_view
 
 		std::string_view view = str.substr(0, 3);  // "Nec"
-		std::cout << "İlk 3 harf: " << view << '\n';
+		
+		print(view); 
 	}
 			
 getline(bir satırı tamamen okuyan ve genellikle `std::string` ile birlikte kullanılan (input) fonksiyonudur)
@@ -465,7 +466,7 @@ getline(bir satırı tamamen okuyan ve genellikle `std::string` ile birlikte kul
 		std::string name;
     
 		std::cout << "Adınızı girin: ";
-		std::getline(std::cin, name); // kullanıcı “Ali Veli” yazarsa, `getline` tüm satırı okur. `cin >> name` kullansaydık sadece “Ali” okunurdu.
+		std::getline(std::cin, name); // kullanıcı “Ali Veli” yazarsa, `getline` tüm satırı okur. `cin >> name` kullansaydık boşluk olduğu için sadece “Ali” okunurdu.
     
 		std::cout << "Merhaba " << name << '\n';
 	}
