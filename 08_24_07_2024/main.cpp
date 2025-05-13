@@ -1,7 +1,7 @@
 /*
 
 function overloading ile ilgili ilgili bir konu daha var
-	C++ dilinde proje geliþtirirekn C de oluþturulmuþ kaynak dosyalarýnýda kullanýyoruz
+	C++ dilinde proje geliþtirirken C de oluþturulmuþ kaynak dosyalarýnýda kullanýyoruz
 
 		zeki.h
 			int sum(int x,int y);
@@ -22,24 +22,25 @@ function overloading ile ilgili ilgili bir konu daha var
 			}
 
 		iki dil arasýnda ki linker farký olduðu için linker hatasý verir C derleyicileride C++ derleyicileride inline expansion söz konusu deðilse
-		çaðýrýlan foknsiyona iliþkin linerka yönelik derleyici oluþtuduðu obje dosyada bir external reference yazýyor yani çaðýrýlan fonksiyonu temsil eden bir referans derleyici ile
-		linkler arasýnda kararlaþtýrýlmýþ linkerda obje dosyalarý arasýndaki baðlantýyý derleyicinin obje dosyalara yazdýðý external referenslarý takip ederek birleþtirme iþlemlerini yapýyor
-		C dilinde function oloerading yok fakat C++ dilinde function overlaoding var C dilinde function overloading olmadýðý için derleiyicler obje dosyaya çaðýrýlan fonksiyona iliþkin bir referans isim yazdýklarýnda
-		bu isim sadece fonksiyonun ismi ile dekore ediyorlar 
+		çaðýrýlan foknsiyona iliþkin linkera yönelik derleyici oluþturduðu obje dosyada bir external reference yazýyor yani çaðýrýlan fonksiyonu temsil eden bir referans derleyici ile
+		linker arasýnda kararlaþtýrýlmýþ linkerda obje dosyalarý arasýndaki baðlantýyý derleyicinin obje dosyalara yazdýðý external referenslarý takip ederek birleþtirme iþlemlerini yapýyor
+		C dilinde function overloading yok fakat C++ dilinde function overloading var C dilinde function overloading olmadýðý için derleyiciler obje dosyaya çaðýrýlan fonksiyona 
+		iliþkin bir referans isim yazdýklarýnda bu isim sadece fonksiyonun ismi ile dekore ediyorlar 
 
 		C nin yazdýðý isim örneðin þöyle olsun C de buraya kadar yeterli baþka bir sum fonksiyonu olamaz
 			@sum
 
-		fakat C++ derleyicileri için bu durum geçerli deðil eðer derleyici gerçekten linker için yazacaðý referans ismi sadece fonksiyonun isminden dekore etseydi bu durumda function overlaoding olmasý 
-		durumunda iki ayrý overload arasýndaki fark nasýl anlaþýlacaktý C++ derleyicinin referans isim olarak objeye yazmasý farklý bir deceration gerekiyor
+		fakat C++ derleyicileri için bu durum geçerli deðil eðer derleyici gerçekten linker için yazacaðý referans ismi sadece fonksiyonun isminden dekore etseydi
+		function overlaoding olmasý durumunda iki ayrý overload arasýndaki fark nasýl anlaþýlacaktý C++ derleyicinin referans isim olarak objeye yazmasý farklý bir deceration gerekiyor
 			@sum_i_i // tamamen derleyiciye baðlý hoca örnek olarak verdi int int parametreli sum fonksiyona iliþkin overloading
 			@sum_d_d // double için
 
-		yukarýdaki problemde derleyicinin bu fonksiyonun C de yazýlmýþ C de derlenmiþ bir fonksiyon olduðnu bilmediði için derleyici doðal olarak o fonksiyonuda C++ fonksiyonu olarak ele alýyor
-		sum çaðrýsýnda linkera referans yazarken C++ tarzý dekore ediyor böylece link aþamsýna geldiðinde linker fonksiyonu bulamýyor çünkü ikisi ayný deðil gerçekte olan sum fonksiyonu C diline göre dekore edilmiþ
+		yukarýdaki problemde derleyicinin bu fonksiyonun C de yazýlmýþ C de derlenmiþ bir fonksiyon olduðunu bilmediði için derleyici doðal olarak o fonksiyonuda 
+		C++ fonksiyonu olarak ele alýyor sum çaðrýsýnda linkera referans yazarken C++ tarzý dekore ediyor böylece link aþamasýna geldiðinde linker fonksiyonu bulamýyor 
+		çünkü ikisi ayný deðil gerçekte olan sum fonksiyonu C diline göre dekore edilmiþ
 
 			zeki.h
-				extern "C" int sum(int x,int y); // extern "C" bildirimi ile link aþamsýndaki hata gitmiþ olur bunun C derleyicisi ile derleneceðini belirtiyor
+				extern "C" int sum(int x,int y); // extern "C" bildirimi ile link aþamasýndaki hata gitmiþ olur bunun C derleyicisi ile derleneceðini belirtiyor
 
 			zeki.c
 				int sum(int x,int y)
@@ -57,18 +58,18 @@ function overloading ile ilgili ilgili bir konu daha var
 			}
 
 		Extern C decleration(C++ dilinde olan bir bildirim)
-			bunun çözümü þu þekilde biz derleyiciye öyle bir bildirim yapýcaz ki diyeceðiz ki derleyici bu fonksiyon bir C fonksiyonu C de derlenmiþ dolasýyýla sen bu fonksiyona çaðrý yaparken bunu 
-			C tarzý dekore ediceksin C++ tarzý deðil çünkü C++ tarzý dekore ederse linker bulamýyacak buna extern C bildirimi deniyor
+			bunun çözümü þu þekilde biz derleyiciye öyle bir bildirim yapýcaz ki diyeceðiz ki derleyici bu fonksiyon bir C fonksiyonu C de derlenmiþ dolayýsýyla sen bu fonksiyona 
+			çaðrý yaparken bunu C tarzý dekore ediceksin C++ tarzý deðil çünkü C++ tarzý dekore ederse linker bulamýyacak buna extern C bildirimi deniyor
 
 		ama þöyle bir problem var modül C de derlenecek ama hem C de hemde C++ dilinde kullanýlabilecek
 			oðuzhan.h
-				int foo(int,int);s // c derleyicisinde extern c bildirimi olmadýðý için bildirimi böyle görmesi gerekiyor
+				int foo(int,int); // c derleyicisinde extern c bildirimi olmadýðý için bildirimi böyle görmesi gerekiyor
 				
 				ama c++ derleyicisi görücekse
-					extern "C" int foo(int,int); þeklinde görmesi gerekiyor bu problemin çözümü ayrý ayrý headlerlar oluþturulmak olabilir C de kullanýlacak header C++ dilinde kullanýlacak header
-					fakat onun yerine conditional compiling(koþullu derleme) komutlarýndan faydalanýyoruz
+					extern "C" int foo(int,int); þeklinde görmesi gerekiyor bu problemin çözümü ayrý ayrý headlerlar oluþturmak olabilir C de kullanýlacak header 
+					C++ dilinde kullanýlacak header fakat onun yerine conditional compiling(koþullu derleme) komutlarýndan faydalanýyoruz
 
-					eðer diyelim ki birden fazla fonksiyonun extern "C" bildirimin yapacaksak bunu yapmanýn alternatif bir yolu var
+					eðer diyelim ki birden fazla fonksiyonun extern "C" bildirimini yapacaksak bunu yapmanýn alternatif bir yolu var
 						extern "C"
 						{
 							int foo(int,int);
@@ -76,12 +77,13 @@ function overloading ile ilgili ilgili bir konu daha var
 							int baz(int,int);
 							int bom(int,int);
 							
-							bu durumda bu fonksiyonlarýn her biri için extern "C" bildirimi yapmýþ oluyoruz bunu böyle olmasýnýn esas sebebi conditional comopiling ile hem C ye hemde C++ diline uygun hale getirmek
+							bu durumda bu fonksiyonlarýn her biri için extern "C" bildirimi yapmýþ oluyoruz bunu böyle olmasýnýn esas sebebi conditional comopiling ile 
+							hem C ye hemde C++ diline uygun hale getirmek
 						}
 
 						samet.h
 							bu headerdaki bildirimleri hem C derleyicisine hemde C++ derleyicisine vermek istiyorum ama C++ derleyicisinin extern "C" bildirimi ile görmesini istiyorum
-							c de de c++ ta da pre-defined macro denen varlýklar var(ön tanýmlý makro)
+							C de de C++ ta da pre-defined macro denen varlýklar var(ön tanýmlý makro)
 
 							ifdef __cplusplus // C++ derleyicisinden çalýþacak
 								extern "C" 
@@ -96,7 +98,7 @@ function overloading ile ilgili ilgili bir konu daha var
 							#endif
 --------------------------------------------------------------------------------------------------------------------------------------------------
 CLASSES
-	C++ Nesne Yönelimli Prgramlama dili deðil NYP'ye de destek veren çok paradigmalý bir programlama dili C++ 'ýn gücünün en önemli kýsmý Data abstraction kavramý 
+	C++ Sadece Nesne Yönelimli Programlama dili deðil NYP'ye de destek veren çok paradigmalý bir programlama dili C++ 'ýn gücünün en önemli kýsmý Data abstraction kavramý 
 	hocanýn kendi tanýmý ile problem domaninde ki varlýklarýn yazýlýmsal olarak temsil edilmesi 
 	
 	classlar c++ dilinin sentaksýnýn en fazla kural barýndýrdýðý yer
@@ -128,16 +130,18 @@ CLASSES
 			void foo();
 
 	C++ SCOPE KATEGORÝLERÝ
-		1)namespace scope(file scopeu içeriyor)
+		1)namespace scope(file scope'u da içeriyor)
 		2)block scope
 		3)class scope
 		4)function prototype scope
 		5)function scope
 
-		ismin kapsamý ve nerelerde kullanýlabileceðine kurallar bu 5 kural setinden birine iliþkin olmak zorunda
+		ismin kapsamý ve nerelerde kullanýlabileceðine dair kurallar bu 5 kural setinden birine iliþkin olmak zorunda
 			
 	CLASS SCOPE
-		öyle isim kullanýmlarý var ki bu kullanýmlara iliþkin isimler bir sýnýf tanýmýnda aranýrlar 3 tane senaryo var bu senaryolarýn oluþtuduðu kümeye qualified name(ismin nitelenmesi) deniyor
+		öyle isim kullanýmlarý var ki bu kullanýmlara iliþkin isimler bir sýnýf tanýmýnda aranýrlar 3 tane senaryo var bu senaryolarýn oluþturduðu kümeye 
+		qualified name(ismin nitelenmesi) deniyor
+		
 			a)bir isim nokta operatörünün sað operandý ile kullanýlþmýssa -> x.y (x hangi sýnýf türünden nesneyse o sýnýfta y yi arayacak)
 			b)ok operatörünün(member selection arrow) sað operandý olarak kullanýlýyorsa -> ptr->a (ptr hangi sýnýf türünden adres ise a yý o sýnýfta arayacak)
 			c)scope resolution operatörünün sað operandý olarak kullanýlýyorsa Nec::b (Nec sýnýfýnda b ismini arayacak) 
@@ -216,8 +220,9 @@ CLASSES
 		data member
 			a)non-static data member -> int x; 
 				sýnýflarýn non-static data memberlarý sýnýf nesnesinin(object) kendisine ait bu yüzden storage deðerini arttýr
-				nesne yönelimli programlama tarafýnda kullanýlan terim object burda biraz kavram karmaþasýný doðuruyor C++ dilinde ki object terimi NYP deki object terimi deðil yani C++ standartý objecti 
-				NYP deki object anlamýnda kullanmýyor NYP deki object ve instance terimleri sýnýf türünden nesnelerle iliþkilendiriliyor bu yüzden sýnýflarýn non-static veri elemanlarýna instance variable deniliyor
+				nesne yönelimli programlama tarafýnda kullanýlan terim object burda biraz kavram karmaþasýný doðuruyor C++ dilinde ki object terimi NYP deki object terimi deðil 
+				yani C++ standartý objecti NYP deki object anlamýnda kullanmýyor NYP deki object ve instance terimleri sýnýf türünden nesnelerle iliþkilendiriliyor 
+				bu yüzden sýnýflarýn non-static veri elemanlarýna instance variable deniliyor
 								
 				class Myclass{
 					int x,int y;
@@ -324,8 +329,8 @@ CLASSES
 					erg.y = 5; // access  controle takýldý
 				}
 				
-			client kodlarýn doðrudan isimle eriþmesini istemediðimiz sýnýfýn üyelerini sýnýfýn private bölümüne koyarýz ama clientlarýn doðrudan isimle kullanmasýný istediðimiz kodlarý sýnýfýn public bölümüne koyuyoruz
-			bu ilkeye DATA HIDING YADA INFORMATION HIDING denir 
+			client kodlarýn doðrudan isimle eriþmesini istemediðimiz sýnýfýn üyelerini sýnýfýn private bölümüne koyarýz ama clientlarýn doðrudan isimle kullanmasýný 
+			istediðimiz kodlarý sýnýfýn public bölümüne koyuyoruz bu ilkeye DATA HIDING YADA INFORMATION HIDING denir 
 
 				class Myclass
 				{
@@ -350,17 +355,19 @@ CLASSES
 							void foo(double); // access specifierlar farklý bir scope deðil hepsi ayný class scopeta olduðu için function overloading var ve kod legal 
 					}; 
 			
-			sýnýfýn veri elemanlarýný tipik olarak private bölümüne koyuyoruz böylece bir takým avantajlar saðlanmýþ oluyoruz
+			sýnýfýn veri elemanlarýný tipik olarak private bölümüne koyuyoruz böylece bir takým avantajlar saðlamýþ oluyoruz
 				1)sýnýfýn veri elemanlarýný ve bunlarýn türlerini bilmezsek o sýnýfý daha kolay kullanabiliyoruz üstümüzdeki öðrenme yükü azalýyor
 				2)sýnýf nesnenelerini run timeda hizmet verirken çalýþma þeklini bozmayý riske etmemiþ oluyoruz
 			
-				mesela sýnýfýn tüm memberlarýný public bölümüne koysaydýk bu memberlara nokta operatörüyle yada ok operatörüyle herkes eriþecekti onlarý olmasý gereken deðerler dýþýnda baþka deðerler verilmesi
-				kontrolümüzden çýkacaktý eðer sýnýfýn elemanlarýnda bir deðiþiklik yapýlsa o zaman kullanýcý kodlarýnda deðiþtirilmesi gerekicekti buda implemanteasyona baðýmlýlýk demek sýnfýn private bölümüne
-				veri elemanlarýný koyduuðmuz zaman zaten client kodlarla onlarýn iliþksini kesiyoruz alacaðýn hizmeti bizim sunduðumuz fonksiyonlara çaðrý yaparak alacaksýn demiþ oluyoruz ve veri elemanlarýný 
-				kullanmadýðý için daha sonra sýnýfýn impelemansyonunda veri elemanlarýný deðiþtirmemiz durumunda client kodlar kýrýlmayacak veri gizlemenin temel mantýðý bu
+				mesela sýnýfýn tüm memberlarýný public bölümüne koysaydýk bu memberlara nokta operatörüyle yada ok operatörüyle herkes eriþecekti onlarý olmasý gereken 
+				deðerler dýþýnda baþka deðerler verilmesi kontrolümüzden çýkacaktý eðer sýnýfýn elemanlarýnda bir deðiþiklik yapýlsa o zaman kullanýcý kodlarýnda deðiþtirilmesi
+				gerekicekti buda implementasyona baðýmlýlýk demek sýnfýn private bölümüne veri elemanlarýný koyduðumuz zaman zaten client kodlarla onlarýn iliþkisini kesiyoruz
+				alacaðýn hizmeti bizim sunduðumuz fonksiyonlara çaðrý yaparak alacaksýn demiþ oluyoruz ve veri elemanlarýný kullanmadýðý için daha sonra sýnýfýn impelemansyonunda 
+				veri elemanlarýný deðiþtirmemiz durumunda client kodlar kýrýlmayacak veri gizlemenin temel mantýðý bu
 				
 				eriþim kontrolü illa uygulanmak zorunda deðil hoca buna deðiniyor
-					sýnýf prblem domaninide bir varlýðý temsil ediyor ama sýrf information hiding olsun diye private bölümüne koyulmuþ get ve set fonksiyonlarý koyulmuþ ama bir sýnýfýn nesneleri set edilmiyor  
+					sýnýf prblem domaninide bir varlýðý temsil ediyor ama sýrf information hiding olsun diye private bölümüne koyulmuþ get ve set fonksiyonlarý koyulmuþ 
+					ama bir sýnýfýn nesneleri set edilmiyor  
 					kýsacasý private olmasý gerekmiyorsa private yapma
 
 				C dilindede public private ayrýmý dosya bazýnda var 
@@ -370,25 +377,28 @@ CLASSES
 					bir fonksiyonun client kodlar tarafýndan çaðýrýlmasýný istiyorsak header dosyasýnda extern bildirimini yapýyoruz
 						void func(int); // default olarak extern
 					
-					ama clientlarýn doðrudan eriþmesini istemeðimiz sadece implementasyonun eriþmesini istediðimiz global deðiþkenleri yada fonksiyonlarý static anahtar sözcüðüyle tanýmlýyoruz
+					ama clientlarýn doðrudan eriþmesini istemeðimiz sadece implementasyonun eriþmesini istediðimiz global deðiþkenleri yada fonksiyonlarý static anahtar
+					sözcüðüyle tanýmlýyoruz
 						static int g;
 				
 		SINIFLARIN MEMBER FUNCTIONLARI
-			sentaks düzeyinde client kodlarýn sanki c deki struct'ýn elemanlarýna nokta operatörüyle ve ok operatörüyle eriþir gibi isimlere eriþtikleri ama aslýnda o eylemi yapan sýnýf nesnesinin adresini örtülü olarak 
-			alan fonksiyonlardýr sýnýfýn non-static member functionlarý týpký C de ki global fonksiyonlarda olduðu gibi bir sýnýf nesnesinin adresini isteyen bir sýnýf nesnesinin adresiyle çaðýrýlan fonksiyonlar sentaks 
-			düzeyinde gizli parametre olarak bulunur yani sýnýfýn non-static member functionlarý implicitly olarak bir sýnýf nesnesinin adresini alýr ve her zaman 1 adet fazla gizli parametreleri bulunur
+			sentaks düzeyinde client kodlarýn sanki c deki struct'ýn elemanlarýna nokta operatörüyle ve ok operatörüyle eriþir gibi isimlere eriþtikleri ama aslýnda o eylemi yapan 
+			sýnýf nesnesinin adresini örtülü olarak alan fonksiyonlardýr sýnýfýn non-static member functionlarý týpký C de ki global fonksiyonlarda olduðu gibi bir sýnýf
+			nesnesinin adresini isteyen bir sýnýf nesnesinin adresiyle çaðýrýlan fonksiyonlar sentaks 
+			düzeyinde gizli parametre olarak bulunur yani sýnýfýn non-static member functionlarý implicitly olarak bir sýnýf nesnesinin adresini alýr ve her zaman 1 adet 
+			fazla gizli parametreleri bulunur
 			
 				class Nec
 				{
 					public:
-					void foo(); // bu fonksiyonun görünürde 0 parametre deðeri var ama gerçekte 1 tane gizli arametre deðiþkeni var bu sýnýf türünden bir pointer -> Nec*
+					void foo(); // bu fonksiyonun görünürde 0 parametre deðeri var ama gerçekte 1 tane gizli parametre deðiþkeni var bu sýnýf türünden bir pointer -> Nec*
 				};
 
 				int main()
 				{
 					Nec mynec;
-					mynec.foo(); // derleyici burda mynec nesnesinin adresini Nec sýnýfýndaki foo fonksiyonunun parametresine geçiyor foo global bir fonksiyon olsaydý ayný bu þekil kullanacaktýk -> foo(&mynec);
-					ikisi ayný anlamda
+					mynec.foo(); // derleyici burda mynec nesnesinin adresini Nec sýnýfýndaki foo fonksiyonunun parametresine geçiyor foo global bir fonksiyon olsaydý 
+					ayný bu þekil kullanacaktýk -> foo(&mynec); ikisi ayný anlamda
 				}
 
 				// class definiton
@@ -412,8 +422,8 @@ CLASSES
 
 				headera client kodlarýn kullanacaðý isimlere iliþkin varlýklarý sýnýflar çok büyük çoðunlukla ama her zaman deðil class definition headerda olucak
 
-				öyle bir sýnýf olabilir ki clientlarla hiç bir alakasý olmaz sadece implementasyon tarafýnda kullanýlýyor olabilir böyle durumlarda header file'a koymak yerine implementasyon dosyasýna koyacaðýz
-				böyle sýnýflarý nested typeta yapabiliriz
+				öyle bir sýnýf olabilir ki clientlarla hiç bir alakasý olmaz sadece implementasyon tarafýnda kullanýlýyor olabilir böyle durumlarda header file'a koymak yerine 
+				implementasyon dosyasýna koyacaðýz böyle sýnýflarý nested typeta yapabiliriz
 			
 				person.h
 					class Prson
@@ -436,9 +446,10 @@ CLASSES
 						int mx;my;
 				};
 
-				int mainm()
+				int main()
 				{
-					Nec::set(3,6); // burda namelookup baþarýyýla yapýlýr ama context kontrole takýlýr çünkü set fonksiyonu bir non-static member function olduðu için bir sýnýf nesnesiyle çaðýrýlmasý gerekir 
+					Nec::set(3,6); // burda namelookup baþarýyýla yapýlýr ama context kontrole takýlýr çünkü set fonksiyonu bir non-static member function olduðu için 
+									  bir sýnýf nesnesiyle çaðýrýlmasý gerekir 
 				}
 
 				member functionlarýn nitelenmemiþ ismin kullanýlmasý durumunda isim arama kurallarý farklý
@@ -447,7 +458,7 @@ CLASSES
 
 					void Nec::set(int x ,int y)
 					{
-						x = x; // Nec sýnýfýndaki x parametre deðiþkeni ismi tarafýndan maskelenmiþ bunu önlemek için nitelenmiþ olarak kullanabiliriz
+						x = x; // Nec sýnýfýndaki x parametre deðiþkeni tarafýndan maskelenmiþ bunu önlemek için qualified name olarak Nec::x kullanabiliriz
 						Nec::x = x; // scope resloution operatörünü binary olarak kullanýyoruz böylelikle direkt class scopeta arayacak	
 					}
 */
