@@ -820,7 +820,8 @@ INHERITANCE
 		}
 
 	öyle bir bildirim var ki taban sýnýftaki bir ismi türemiþ sýnýfýn scopuna enjekte ediyor bu bildirimde using anahtar sözcüðü kullanýlýyor buda function overloadingide saðlamýþ oluyor
-		
+	yani using bildirimiyle sanki o scopeta tanýmlanmýþ gibi oluyor
+
 		class Base {
 	public:
 		void foo(int i)
