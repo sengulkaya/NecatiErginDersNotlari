@@ -85,10 +85,10 @@ INHERITANCE
 			Der::value_type bx();
 		}
 		
-		SORU:A sýnýf nesnesinin içinde fiziksel olarak B sýnýf nesnesi var(has-a-relationship) o zaman A'nýn B türünden elemaný var diyebilir miyiz? HAYIR
+		SORU:A sýnýf nesnesinin içinde fiziksel olarak B sýnýf nesnesi var(has-a-relationship) o zaman kesin olarak A'nýn B türünden elemaný var diyebilir miyiz? HAYIR
 			 çünkü A sýnýfý kalýtým yoluyla B sýnýfýndan elde edilmiþte olabilir(is-a-relationship)
 
-			 Eðer kalýtým söz konusuysa A class'ýna base class object diyoruz eðer composition söz konusuysa A'nýn içindeki B'yr Member object terimi kullanýlýyor 
+			 Eðer kalýtým söz konusuysa A class'ýna base class object diyoruz eðer composition söz konusuysa A'nýn içindeki B'ye Member object terimi kullanýlýyor 
 			 
 			 ÖRNEK:composition
 
@@ -138,8 +138,6 @@ INHERITANCE
 			sizeof(A) = 16
 
 			yine A sýnýfý 16 B sýnýfý 8 çünkü A'nýn içinde yine B sýnýfý var
-
-			ÖRNEK:
 
 	KALITIMDA ÝSÝM ARAMA
 		
@@ -360,7 +358,7 @@ INHERITANCE
 				{
 					Car mycar;
 
-					Mercedes* pm = &mycar; // örtülü dönüþüm olmadýðý için sentaks hatasý dönüþümü explicit þekilde operatörleri kullanarak yapmamýz gerek
+					Mercedes* pm = &mycar; // örtülü dönüþüm olmadýðý için sentaks hatasý dönüþümü explicit þekilde yapmamýz gerek
 					//Mercedes* pm = static_cast<Mercedes>(&mycar) 
 					
 				}
@@ -385,12 +383,12 @@ INHERITANCE
 					Audi a;
 					Volvo v;
 
-					Car mycar = m; // artýk mercedes'e ait hiç bir þey kalmamýþ olur ileride daha detaylý inceleyeeceðiz
+					Car mycar = m; // artýk mercedes'e ait hiç bir þey kalmamýþ olur ileride daha detaylý inceleyeceðiz
 					mycar = a;
 					mycar = v;
 
 						// Her ne kadar bu kod sentaks açýsýndan hatasýz olsa da object slicing nedeniyle türetilmiþ sýnýfýn özelliklerinin kaybolmasý durumu oluþur
-						   Bu yüzden bu tarz kullaným tavsiye edilmez."
+						   Bu yüzden bu tarz kullaným tavsiye edilmez
 				}
 
 	ÖRNEK:
@@ -491,7 +489,7 @@ INHERITANCE
 				Der myder; // geçerli
 			}
 
-			DÝKKAT:eðer Der'in default ctorunu biz yazsaydýk derleyici Base'in default ctoruna yine yapmýþ olacaktý
+			DÝKKAT:eðer Der'in default ctorunu biz yazsaydýk derleyici Base'in default ctoruna çaðrýyý yine yapmýþ olacaktý
 				
 				class Base{
 					public:
@@ -577,7 +575,7 @@ INHERITANCE
 				Der myder; // Der sýnýfýnýn default ctoru var ama delete edilmiþ durumda
 			}
 
-		ÖRNEK:Base class'ýn default ctoru private olsaydý Der sýnýfýnýn default ctorun delete edilecekti
+		ÖRNEK:Base class'ýn default ctoru private olsaydý Der sýnýfýnýn default ctoru delete edilecekti
 			
 			class Base{
 				private:
@@ -644,7 +642,6 @@ INHERITANCE
 			Der dtor
 			Member dtor
 			Base dtor
-
 
 		ÖRNEK:Taban sýnýfýn ctorunu MIL sentaksýyla çaðýrmak
 
@@ -729,11 +726,6 @@ INHERITANCE
 					std::cout << "Base default ctor\n";
 				}
 
-				Base(const Base&)
-				{
-					std::cout << "Base copy ctor\n";
-				}
-
 				Base(Base&&)
 				{
 					std::cout << "Base move ctor\n";
@@ -743,10 +735,6 @@ INHERITANCE
 			class Der : public Base {
 			public:
 				Der() = default;
-				Der(const Der& other) Base(other)
-				{
-					std::cout << "Der ctor\n";
-				}
 				Der(Der&& other) // : Base(std::move(other)) eðer bu çaðrýyý kendimiz yapmazsak derleyici burda Base sýnýfýnýn move ctoruna çaðrý yapmak yerine default ctora çaðrý yapar
 				{
 					std::cout << "Der move ctor\n";
@@ -801,7 +789,7 @@ INHERITANCE
 				d1 = d2;
 			}
 
-	SORU:undirect class'ýn ctorlarýný çaðýrabilir miyiz? HAYIR sadece direct base class'ýn ctorlarýný çaðýrabiliriz
+	SORU:indirect class'ýn ctorlarýný çaðýrabilir miyiz? HAYIR sadece direct base class'ýn ctorlarýný çaðýrabiliriz
 
 		class A {
 			public:
@@ -816,7 +804,7 @@ INHERITANCE
 
 		class C : public B {
 			public:
-				C(int x) : A(x) // A sýnýfý indirect class olduðu için geçerli deðil hoca sadece tek bir istisnasý olduðunu söyledi virtaul inheritance konusunda göreceðiz
+				C(int x) : A(x) // A sýnýfý indirect class olduðu için geçerli deðil hoca sadece tek bir istisnasý olduðunu söyledi virtual inheritance konusunda göreceðiz
 		}
 
 	öyle bir bildirim var ki taban sýnýftaki bir ismi türemiþ sýnýfýn scopuna enjekte ediyor bu bildirimde using anahtar sözcüðü kullanýlýyor buda function overloadingide saðlamýþ oluyor
