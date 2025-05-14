@@ -393,7 +393,7 @@ INHERITANCE
 						   Bu yüzden bu tarz kullaným tavsiye edilmez."
 				}
 
-	ÖRNEK:multiple inheritance örneði
+	ÖRNEK:
 
 		class A{
 
@@ -801,7 +801,7 @@ INHERITANCE
 				d1 = d2;
 			}
 
-	SORU:multiple inheritance'ta undirect class'ýn ctorlarýný çaðýrabilir miyiz? HAYIR sadece direct base class'ýn ctorlarýný çaðýrabiliriz
+	SORU:undirect class'ýn ctorlarýný çaðýrabilir miyiz? HAYIR sadece direct base class'ýn ctorlarýný çaðýrabiliriz
 
 		class A {
 			public:
