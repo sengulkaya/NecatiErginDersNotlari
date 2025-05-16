@@ -85,8 +85,9 @@ Insert,  resize, erase, pop_back, find(find, rfind, find_first_of, find_last_of,
 [23:
 inheritance(public, private, protected) introduction, access control in inheritance, upcasting, object slicing(basic), multi-level inheritance(basic), direct and indirect inheritance, inheritance and special member functions](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/23_16_09_2024)
 
-24: 
-inherited constructor, polymorphic class, abstract and concrete class, virtual and pure virtual function, override, virtual dispatch(+ctor and dtor exceptions), virtual constructor idiom
+[24: 
+inherited constructor, polymorphic class, abstract and concrete class, virtual and pure virtual function, override, virtual dispatch(+ctor and dtor exceptions), virtual constructor idiom]
+(https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/24_18_09_2024)
 
 25: 
 vptr(virtual function table pointer), vtable, RTTI(Runtime Type Identification), variant return type, covariance, downcasting errors, virtual destructor, NVI(non-virtual interface idiom), final(final class, final override), private inheritance, private inheritance vs containment, restricted polymorphism, protected inheritance
