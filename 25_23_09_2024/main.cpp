@@ -21,13 +21,13 @@ VIRTUAL FUNCTION TABLE POINTER(virtual pointer)
 	SORU:carptr->run() çağrısı
 		
 		derleyici isim aramayı compile time'da yapıyor ok operatörünün sağ operandı olan run ismini Car sınıfında compile time'da arıyor Car sınıfı içinde bulduğu run isminin
-		virtual fucntiona ait oldğuunu compile time'da anlıyor derleyici run fonksiyonun sanal fonksiyon olduğunu anladığınında compile time'da indeks elde edebilir 
+		virtual functiona ait oldğunu compile time'da anlıyor derleyici run fonksiyonun sanal fonksiyon olduğunu anladığınnda compile time'da indeks elde edebilir 
 
 		derleyici sembolik olarak böyle bir fonksiyon oluşturuyor -> carptr->vptr[idx]() hangi türemiş sınıf nesnesini adresini tutuyor olursa olsun onun içindeki Car nesnesinin adresini tutuyor
-		vptr elemanına erişiyor bu adresten sanal fonksiyon tablosunun adresini elde ediyor ve comile time'da elde ettiği indeksi kullanarak o indeksteki fonksiyon adresine erişiyor ve
+		vptr elemanına erişiyor bu adresten sanal fonksiyon tablosunun adresini elde ediyor ve compile time'da elde ettiği indeksi kullanarak o indeksteki fonksiyon adresine erişiyor ve
 		o adresteki fonksiyonu çağırıyor
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	VIRTUAL FUNCTION TABLE POINTERIN MALİYETİ
+VIRTUAL FUNCTION TABLE POINTERIN MALİYETİ
 		1)işlemsel maliyet
 			2 ilave dereferencing var
 				1)sınıf nesnesinin içindeki vptr'a erişmek için bir dereferencing
@@ -41,7 +41,7 @@ VIRTUAL FUNCTION TABLE POINTER(virtual pointer)
 
 		5)büyük çoğunlukla virtual dispatch dinamik ömürlü nesneleri gerektiyor
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	RTTI(RUN TIME TYPE INFORMATION)
+RTTI(RUN TIME TYPE INFORMATION)
 
 		programın çalışma zamanında türün ne olduğunun belirlenmesi
 
@@ -54,7 +54,7 @@ VIRTUAL FUNCTION TABLE POINTER(virtual pointer)
 			// örneğin run time'da buraya gelen nesnesin Mercedes mi yada Renault mu olduğunu sınamamız gerekebilir
 		}
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-	VARIANT RETURN TYPE(covariance)
+VARIANT RETURN TYPE(covariance)
 
 		Türetilmiş bir sınıfta, bir sanal fonksiyonu override ederken dönüş türü, taban sınıftaki dönüş türünün bir alt türü (türetilmişi) olabilir
 		covariance olması için geri dönüş değeri pointer yada referans olmak zorunda
@@ -71,12 +71,12 @@ VIRTUAL FUNCTION TABLE POINTER(virtual pointer)
 
 		virtual ctor idioamda da covarianca return type kullanılıyor
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	VIRTUAL DESTRUCTOR
+VIRTUAL DESTRUCTOR
 		
-		Eğer bir nesne, türetilmiş bir sınıfın nesnesi ama base sınıfın pointer'ı ile siliniyorsa ddestructor'ı virtual değilse türetilmiş sınıfın yıkıcısı çalışmaz
+		Eğer bir nesne, türetilmiş bir sınıfın nesnesi ama base sınıfın pointer'ı ile siliniyorsa destructor'ı virtual değilse türetilmiş sınıfın yıkıcısı çalışmaz
 		Bu da Bellek sızıntısına ve kaynak sızıntısına neden olur
 		
-		sınıfta bir tane bile virtual fonksiyonumuz varsa bile dtoru virtual yapmamız gerekir
+		sınıfta bir tane bile virtual fonksiyonumuz varsa dtoru virtual yapmamız gerekir
 		
 		class Base {
 		public:
@@ -115,7 +115,7 @@ VIRTUAL FUNCTION TABLE POINTER(virtual pointer)
 			}
 			
 			ÇIKTI:
-			Base destructor // Der::~Der() çağrılmaz → UB ve kaynak sızıntısı ve bellek olur.
+			Base destructor // Der::~Der() çağrılmaz → UB kaynak sızıntısı ve bellek sızıntısı olur.
 
 		virtual dtor kullanmamızı gerektirecek 2 durum var
 			1)türemiş sınıf nesnelerini taban sınıf pointeri ile delete edersek kullanmalıyız
@@ -238,6 +238,7 @@ NON VIRTUAL IDIOM(https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Non-Virtual_
 		* Taban sınıf:
 
 		  * **kilit alıp bırakma**, **invariant kontrolü**, **loglama**, **hata işleme** gibi işlemleri kendi içinde yapar.
+		
 		* Türetilmiş sınıflar:
 
 		  * Sadece özelleştirilecek olan kodu yazar.
@@ -340,9 +341,9 @@ Global fonksiyonlar virtual yapılamıyor ama bazen global bir fonksiyonu virtua
 
 		for (int i = 0; i < 10; ++i)
 		{
-			Car* p = create_random_car(); // hangi fonksiyonun çağırıldığı run time'da belli olur
-			std::cout << *p << '\n';
-			p->start();
+			Car* p = create_random_car(); 
+			std::cout << *p << '\n'; // hangi sınıfın fonksiyonunun çağırıldığı run time'da belli olur
+			p->start(); 
 			p->run();
 			delete p;
 			(void)getchar;
@@ -369,7 +370,7 @@ FINAL CONTEXTUAL KEYWORD
 			
 			override ve final yazımı bu şekildede olabilir
 				// void foo() override final; 
-			ama const olsaydı imzanın parçası olduğu için başta olması gerek
+			ama const olsaydı imzanın parçası olduğu için const başta olması gerek
 				// void foo() const override final;
 
 		}
@@ -380,7 +381,7 @@ FINAL CONTEXTUAL KEYWORD
 				cannot override 'final' function "Der::foo"
 		};
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-PRIVATE INHERITANCE(daha çok has-a-relationship ile ilgili is-a-relation-ship sadece türemiş sınıfların üye fonksiyonlarına ve türemiş sınıfların friendlerine var)
+PRIVATE INHERITANCE(daha çok has-a-relationship ile ilgili is-a-relationship sadece türemiş sınıfların üye fonksiyonlarına ve türemiş sınıfların friendlerine var)
 
 	taban sınıfın public memberları türemiş sınıfın private bölümüne ekleniyor
 
@@ -409,10 +410,10 @@ PRIVATE INHERITANCE(daha çok has-a-relationship ile ilgili is-a-relation-ship s
 		Mercedes m;
 
 		m.foo_public(); // sentaks hatası çünkü Base sınıfının public bölümü Mercedes sınıfının private bölümüne ekleniyor yani foo_public() fonksiyonu
-		Mercedes sınıfının private bölümünde olmuş oluyor
+		artık Mercedes sınıfının private bölümünde olmuş oluyor
 	}
 
-	private kalıtımda clientlar için artık is-a-relationship ilişkisi yok
+	private kalıtımda clientlar için artık is-a-relationship ilişkisi yok 
 
 		int main()
 		{
@@ -427,10 +428,10 @@ PRIVATE INHERITANCE(daha çok has-a-relationship ile ilgili is-a-relation-ship s
 		void mercedes_func() 
 		{
 			Mercedes m;
-			Car* car = &m; // geçerli is-a-relation-ship türemiş sınıfların üye fonksiyonlarına ve türemiş sınıfların friendlerine var 
+			Car* car = &m; // geçerli is-a-relationship türemiş sınıfların üye fonksiyonlarına ve türemiş sınıfların friendlerine var 
 		}					  yani türemiş sınıfın fonksiyonları içinde ve friendleri içinde her Mercedes bir Car olmaya devam ediyor UP CASTING olabiliyor 
 
-		friend void gf();
+		friend void gf(); // global function
 	};
 
 
@@ -511,6 +512,8 @@ PRIVATE INHERITANCE(daha çok has-a-relationship ile ilgili is-a-relation-ship s
 			} function "Base::foo" is inaccessible
 
 		};
+
+	multi level inheritance olmadığı sürece private ve protected kalıtımı arasında hiç bir fark yok
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 EMPTY BASE OPTIMIZATION(EBO)https://en.cppreference.com/w/cpp/language/ebo
 		Empty Base Optimization, boş sınıfların base class olarak kullanıldığında nesne boyutunu artırmamasına olanak tanır.
@@ -519,7 +522,8 @@ EMPTY BASE OPTIMIZATION(EBO)https://en.cppreference.com/w/cpp/language/ebo
 		bir nesnenin ya da bir veri üyesi alt nesnesinin türü boş bir sınıf (yani, hiçbir non-static veri üyesi olmayan bir `class` ya da `struct`) olsa bile, 
 		bu nesnenin boyutu en az 1 olmalıdır**.Bu kural, **aynı türden iki nesnenin adreslerinin birbirinden farklı olmasını garanti etmek** içindir.
 
-		Ancak bu kural, base class alt nesneleri için geçerli değildir. Dolayısıyla derleyici, bir nesnenin içine gömülü boş bir base class’ı tamamen optimize ederek yer kaplamamasını sağlayabilir.
+		Ancak bu kural, base class alt nesneleri için geçerli değildir. Dolayısıyla derleyici, bir nesnenin içine gömülü boş bir base class’ı tamamen optimize ederek yer 
+		kaplamamasını sağlayabilir.
 
 		struct Base {}; // boş sınıf
 
@@ -581,8 +585,6 @@ EMPTY BASE OPTIMIZATION(EBO)https://en.cppreference.com/w/cpp/language/ebo
 
 			Microsoft’un derleyicisi (MSVC), **Empty Base Optimization konusunda C++ standardına tamamen uyumlu değildir.**
 			Yani bazı durumlarda EBO MSVC’de **uygulanmayabilir.**
-
-	multi level inheritance olmadığı sürece private ve protected kalıtımı arasında hiç bir fark yok
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 POLİMORFİK LİSTELER
 
@@ -616,7 +618,7 @@ RESTRICTED POLYMORPHISM(kısıtlı polimorfizm)
 			virtual void vfunc();
 	};
 
-	class Der : private Base{ // private kalıtımı olduğu için sadece sınıfın üye fonksiyonları içinde friend fonksiyonları içinde is-a-relationship var
+	class Der : private Base{ // private kalıtımı olduğu için sadece sınıfın üye fonksiyonları içinde ve friend fonksiyonları içinde is-a-relationship var
 		public:
 			void vfunc() override;
 			friend void f1(); // f1 fonksiyonu polimorfizimden faydalanıyor
