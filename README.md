@@ -89,8 +89,8 @@ inheritance(public, private, protected) introduction, access control in inherita
 inherited constructor, polymorphic class, abstract and concrete class, virtual and pure virtual function, override, virtual dispatch(+ctor and dtor exceptions), virtual constructor idiom](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/24_18_09_2024)
 
 
-25: 
-vptr(virtual function table pointer), vtable, RTTI(Runtime Type Identification), variant return type, covariance, downcasting errors, virtual destructor, NVI(non-virtual interface idiom), final(final class, final override), private inheritance, private inheritance vs containment, restricted polymorphism, protected inheritance
+[25: 
+vptr(virtual function table pointer), vtable, RTTI(Runtime Type Identification), variant return type, covariance, downcasting errors, virtual destructor, NVI(non-virtual interface idiom), final(final class, final override), private inheritance, private inheritance vs containment, restricted polymorphism, protected inheritance](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/25_23_09_2024)
 
 26:
 Multiple inheritance, Diamond formation(DDD – dreadful(deathful) diamond of derivation), virtual inheritance, RTTI(Runtime Type Identification), downcasting, dynamic_cast, typeid, std::type_info, sidecast
