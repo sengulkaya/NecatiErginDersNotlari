@@ -92,8 +92,8 @@ inherited constructor, polymorphic class, abstract and concrete class, virtual a
 [25: 
 vptr(virtual function table pointer), vtable, RTTI(Runtime Type Identification), variant return type, covariance, downcasting errors, virtual destructor, NVI(non-virtual interface idiom), final(final class, final override), private inheritance, private inheritance vs containment, restricted polymorphism, protected inheritance](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/25_23_09_2024)
 
-26:
-Multiple inheritance, Diamond formation(DDD – dreadful(deathful) diamond of derivation), virtual inheritance, RTTI(Runtime Type Identification), downcasting, dynamic_cast, typeid, std::type_info, sidecast
+[26:
+Multiple inheritance, Diamond formation(DDD – dreadful(deathful) diamond of derivation), virtual inheritance, RTTI(Runtime Type Identification), downcasting, dynamic_cast, typeid, std::type_info, sidecast](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/26_25_09_2024)
 
 27:
 Type_id,  exception handling, traditional error handling, terminate(abort, set_terminate, get_terminate)
