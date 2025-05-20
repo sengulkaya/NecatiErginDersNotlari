@@ -142,11 +142,10 @@ DREADFUL(deatful) DIAMOND OF DERIVATION(DDD) / DIAMOND FORMATION
 			
 			COMBO
 
-	böyle bir kalýtým hiyerarþisi varsa özel bir sentaks aracýný kullanmaz PRINTER sýnýfý içerisindede bir DEVICE olacak SCANNER sýnýfý içerisinde de bir DEVICE olacak 
+	böyle bir kalýtým hiyerarþisi varsa özel bir sentaks aracýný kullanmazsak PRINTER sýnýfý içerisindede bir DEVICE olacak SCANNER sýnýfý içerisinde de bir DEVICE olacak 
 	ve bunlardan kalýtým alan COMBO sýnýfý hem PRINTER hemde SCANNER sýnýfýndan çoklu kalýtým yoluyla elde edildiði için COMBO sýnýfýnýn içinde 2 tane DEVICE olmuþ olacak
 	çünkü hem PRINTER sýnýfýnda DEVICE var hemde SCANNER sýnýfýnýn içinde de bir DEVICE var
 
-	
 	VIRTUAL INHERITANCE
 
 		diamond of derivation sorununu çözmek için kullanýlan yöntem
@@ -166,7 +165,7 @@ DREADFUL(deatful) DIAMOND OF DERIVATION(DDD) / DIAMOND FORMATION
 				
 				void bar()
 				{
-					// foo(); // ambiguity
+					// foo(); // ambiguity Y'nin içindeki B nesnesiyle mi çaðýracaðýz yoksa X'in içerisindeki B nesnesiyle mi ikisi arasýnda bir seçilebilirlik yok
 
 					X::foo(); // geçerli
 					Y::foo(); // geçerli
@@ -181,7 +180,7 @@ DREADFUL(deatful) DIAMOND OF DERIVATION(DDD) / DIAMOND FORMATION
 			{
 				D dx;
 
-				// dx.foo(); ambiguity derleycinin ürettiði kodda B'nin foo fonksiyonuna B nesnesi adresi geçþlmesi gerekiyor ama dx'in içinde 2 tane B nesnesi var biri X'ten gelen B diðeri Y'den gelen B
+				// dx.foo(); ambiguity derleycinin ürettiði kodda B'nin foo fonksiyonuna B nesnesi adresi geçilmesi gerekiyor ama dx'in içinde 2 tane B nesnesi var biri X'ten gelen B diðeri Y'den gelen B
 
 				dx.X::foo();
 				dx.Y::foo(); // Y'nin B adresini kullanmak istersek ve niteleyerek kullanýrsak geçerli olur
@@ -191,7 +190,6 @@ DREADFUL(deatful) DIAMOND OF DERIVATION(DDD) / DIAMOND FORMATION
 				B* bptr1 = static_cast<X*>(&dx); 
 				B* bptr2 = static_cast<Y*>(&dx); // ikiside geçerli
 			}
-
 
 		ÖRNEK SENARYO
 
@@ -277,8 +275,6 @@ DREADFUL(deatful) DIAMOND OF DERIVATION(DDD) / DIAMOND FORMATION
 			};
 			int main()
 			{
-				Combo mycombo;
-
 				Combo mycombo;
 
 				mycombo.turn_on();
@@ -391,16 +387,15 @@ RTTI(RUN TIME TYPE INFORMATION)
 			Der myder;
 			Base* baseptr = &myder;
 
-			Der* der_ptr = dynamic_cast<Der*>(baseptr); // operand olan baseptr ifadesi polimorfik bir tür olmaasý gerekiyor eðer dönüþüm iþlemi baþarýsýz olursa nullptr deðeri üretilecek
+			Der* der_ptr = dynamic_cast<Der*>(baseptr); // operand olan baseptr ifadesi polimorfik bir tür olmasý gerekiyor eðer dönüþüm baþarýsýz olursa nullptr deðeri üretilecek
 
-
-			if (Der* der_ptr = dynamic_cast<Der*>(baseptr)) // scope leakge olmamasý için if with initializer kullanýyoruz
+			if (Der* der_ptr = dynamic_cast<Der*>(baseptr)) // scope leakage olmamasý için if with initializer kullanýyoruz
 			{
 				// programýn akýþý buraya girerse nesnesin artýk Der nesnesi olduðu anlaþýlýr
 			}
 		}
 
-	DÝKKAT:sýnýf hiyerarþisi olan sýnýflar için static_cast operatörüyle de dönüþüm yapýlabilir ama bu saptama run time'a yöneik bir saptama deðil compile time'a yönelik bir saptama
+	DÝKKAT:sýnýf hiyerarþisi olan sýnýflar için static_cast operatörüyle de dönüþüm yapýlabilir ama bu saptama run time'a yönelik bir saptama deðil compile time'a yönelik bir saptama
 		
 		class A {};
 		class B : public A {};
@@ -429,7 +424,6 @@ RTTI(RUN TIME TYPE INFORMATION)
 
 				Volvo* vptr = static_cast<Volvo*>(carptr); // kod legal ama doðru bir kod deðil buraya gelen tür Volvo deðilse örneðin bir Mercedes ise tanýmsýz davranýþ olacak
 				vptr->open_sunroof();
-
 
 				if (Volvo* vp = dynamic_cast<Volvo*>(carptr)) // DOWN CASTING baþarýlý olursa Volvo'nun open sunroof fonksiyonu çaðýrýlacak eðer VOLVOXC90'ýn adresi gelirse VOLVO sýnýfýna 
 																 UP CASTING yapýlacak
@@ -497,23 +491,23 @@ RTTI(RUN TIME TYPE INFORMATION)
 		{
 			Base* baseptr = new Erg; // Erg nesnesinin içinde Der var Der nesnesinin içinde de bir Base var bu yüzden geçerli
 
-				taban sýnýf pointerý ile Erg nesnesini gösteriyoruz ama taban sýnýf pointerýnýn deðeri Base* türünden taban sýnýf nesnesini gösteriyor ama biz Erg nesnesinin adresini elde etmek istiyoruz
+			taban sýnýf pointerý ile Erg nesnesini gösteriyoruz ama taban sýnýf pointerýnýn deðeri Base* türünden taban sýnýf nesnesini gösteriyor ama biz Erg nesnesinin adresini elde etmek istiyoruz
 
 			void* vptr = dynamic_cast<void*>(baseptr); // run time'da baseptr'nin gösterdiði Erg nesnesinin adresini elde ediyoruz
 
 			Erg nesnesinin adresiyle baseptr'nin adresi ayný olmak zorunda deðil baseptr'nin Erg'i gösteriyor olmasý demek baseptr'nin deðerinin fiziksel olarak Erg nesnesinin adresi demek deðil
-			çünkü Erg'in içindeki Base'in adresini tutuyor
+			çünkü Erg'in içinde olan Base'in adresi tutuluyor
 		}
 
 	type_info(typeid operatörü): Nesnenin tür bilgisine eriþim saðlar
 		
 		typeid operatörüyle oluþturulan ifade 2 þekilde oluþturabiliyor
-			1)type(int) operaand olarak tür alabiliriz
-			2)type(10) operaand olarak ifade alabiliriz
+			1)type(int) operand olarak tür alabiliriz
+			2)type(10) operand olarak ifade alabiliriz
 
-		dynamic_cast operatöründen farký operandý olan ifadenini yada türün polimorfik olma mecburiyeti yok
+		typeid operatörünün dynamic_cast operatöründen farký operandý olan ifadenin yada türün polimorfik olma mecburiyeti yok
 
-		typeid ifadesi ile oluþturulan ifade std::type_info sýnýfý  türünden const&
+		typeid ifadesi ile oluþturulan ifade std::type_info sýnýfý türünden const&
 
 			const std:type_info& r = typeid(10);
 
