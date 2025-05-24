@@ -89,8 +89,8 @@ MOVE CONSTRUCTOR VE MOVE ASSIGMENT
 			Myclass(const Myclass&);
 			Myclass(Myclass&&);
 
-			Myclass& operator=(const Myclaass&); // l valuelar için 
-			Myclass& operator=(const Myclaass&&); // r valuelar için
+			Myclass& operator=(const Myclass&); // l valuelar için 
+			Myclass& operator=(Myclass&&); // r valuelar için
 
 			kopyalama yerine taþýma daha fazla yararlý olur mu?
 				sýnýfa göre deðiþir

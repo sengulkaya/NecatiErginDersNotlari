@@ -108,7 +108,7 @@ CONSTRUCTOR VE DESTRUCTOR NE ZAMAN ÇAÐIRILIYOR?
 
 			fonksiyon çaðýrýlmadýðý sürece hayata gelmiyorlar 
 
-			fonksiyon çaðýrýldýðýnda constructor çaðýrýlacak ama sadece ilk kez çaðýrýldýðýnda fonksiyon her çaðýrýldýðýnda hayata yeni bir nesne gelmez nesne sadece 1 defa hayata gelir
+			fonksiyon çaðýrýldýðýnda constructor çaðýrýlacak ama sadece ilk kez çaðýrýldýðýnda fonksiyon her çaðýrýldýðýnda hayata yeni bir nesne gelmez nesne sadece bir defa hayata gelir
 		}
 
 		int main()
@@ -125,11 +125,11 @@ CONSTRUCTOR VE DESTRUCTOR NE ZAMAN ÇAÐIRILIYOR?
 
 			ÇIKTI:
 			main basliyor
-			func1.kez cagirildi
-			Myclass default ctor this = 00007FF654C10204 // ayný nesne hayatýný devam ettiriyor constructor sadece 1 defa çaðýrýlýyor
-			func2.kez cagirildi
-			func3.kez cagirildi
-			func4.kez cagirildi
+			func 1.kez cagirildi
+			Myclass default ctor this = 00007FF654C10204 // ayný nesne hayatýný devam ettiriyor constructor sadece bir defa çaðýrýlýyor
+			func 2.kez cagirildi
+			func 3.kez cagirildi
+			func 4.kez cagirildi
 			main sonlaniyor
 			Myclass destructor this = 00007FF654C10204
 
@@ -290,7 +290,7 @@ MODERN C++ ILE DÝLE GELEN ÇOK ONEMLI BAZI OZELLIKLER
 				6)copy assignment
 				yani default bildirimi sadece sýnýflarýn special member functionlarý için yapýlabilir
 
-			spaceship operatörü(C++ 20)
+			ve spaceship operatörü(C++ 20)
 
 	Modern C++ ile dile gelen çok ilginç kurallar var
 		special member functionlar þu statülerden birinde olabilir
@@ -311,26 +311,26 @@ MODERN C++ ILE DÝLE GELEN ÇOK ONEMLI BAZI OZELLIKLER
 
 			implictly declared'in 2 kategorisi var
 				1)bildiriyor ve default ediyor(impclitly declared defaulted)
+					class Nec
+					{
+						public:
+							// implictly declared defaulted derleyici burda örtülü olarak constructorý bildirir
+					};
+
 				2)bildiriyor fakat delete ediyor(implictly delete)
 
-				class Nec
-				{
-					public:
-						// 1)implictly declared defaulted derleyici burda örtülü olarak constructorý bildirir
-				};
+					class Nec
+					{
+						public:
+							const int mx; // const nesneler default initalize edilemeyeceði için nesne oluþturulmaya çalýþýldýðý zaman constructorýýn delete edilmiþ olduðu hatasýný verecek
+					}
 
-				class Nec
-				{
-					public:
-						const int mx; // const nesneler default initalize edilemeyeceði için nesne oluþturulmaya çalýþýldýðý zaman constructorýýn delete edilmiþ olduðu hatasýný verecek
-				}
+					int main()
+					{
+						Nec mx; // derleyici burda default constructorý delete ediyor
 
-				int main()
-				{
-					Nec mx; // 2)derleyici burda default constructorý delete ediyor
-
-					öyle durum var ki derleyici bir special member functionu implictly delete edebilir
-				}
+						öyle durum var ki derleyici bir special member functionu implictly delete edebilir
+					}
 
 			SORU: bütün sýnýflarýn default constructorý olmak zorunda mý ? tabi ki HAYIR
 				standartta bazý sýnýflarýn default constructor'ý yok
