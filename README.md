@@ -95,8 +95,8 @@ vptr(virtual function table pointer), vtable, RTTI(Runtime Type Identification),
 [26:
 Multiple inheritance, Diamond formation(DDD – dreadful(deathful) diamond of derivation), virtual inheritance, RTTI(Runtime Type Identification), downcasting, dynamic_cast, typeid, std::type_info, sidecast](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/26_25_09_2024)
 
-27:
-Type_id,  exception handling, traditional error handling, terminate(abort, set_terminate, get_terminate)
+[27:
+Type_id,  exception handling, traditional error handling, terminate(abort, set_terminate, get_terminate)](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/27_30_09_2024)
 
 28:
 Std::exception, catch all(…), translating and rethrowing exception, Basic exception guarantee, strong exception guarantee, nofail (nothrow) guarantee, stack unwinding, function try block, exception relation between constructor and destructor, noexcept specifier(nothrow guarantee or nofail guarantee), noexcept operator 
