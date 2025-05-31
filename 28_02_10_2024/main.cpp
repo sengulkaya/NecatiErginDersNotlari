@@ -756,5 +756,5 @@ exception handligten devam ediyoruz
 						sýnýfýn special member functionlarý imlictly declared ise yani derleyici tarafýndan yazýlýyorsa noexcept olarak bildiriliyor
 					}
 						
-				bir fonksiyon noexcept olarak nitelenmesine raðmen expcetion throw ediyorsa terminate fonksiyonu çaðýrýlýr								
+				bir fonksiyon noexcept olarak nitelenmesine raðmen expcetion throw ediyorsa terminate fonksiyonu  çaðýrýlýr								
 */
