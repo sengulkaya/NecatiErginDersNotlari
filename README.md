@@ -98,8 +98,8 @@ Multiple inheritance, Diamond formation(DDD – dreadful(deathful) diamond of de
 [27:
 Type_id,  exception handling, traditional error handling, terminate(abort, set_terminate, get_terminate)](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/27_30_09_2024)
 
-28:
-Std::exception, catch all(…), translating and rethrowing exception, Basic exception guarantee, strong exception guarantee, nofail (nothrow) guarantee, stack unwinding, function try block, exception relation between constructor and destructor, noexcept specifier(nothrow guarantee or nofail guarantee), noexcept operator 
+[28:
+Std::exception, catch all(…), translating and rethrowing exception, Basic exception guarantee, strong exception guarantee, nofail (nothrow) guarantee, stack unwinding, function try block, exception relation between constructor and destructor, noexcept specifier(nothrow guarantee or nofail guarantee), noexcept operator](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/28_02_10_2024) 
 
 29:
 Noexcept, SOLID(“require no more promise no less”), noexcept relation with optimization(move and copy ctor), std::exception_ptr, polymorphic exception idiom, exception dispatcher idiom, nested exception, introduction to generic programming,  template, template parameters (type parameter, non-type parameter, template parameter), template argument, deduction and explicit syntax types, CTAD (Class Template Argument Deduction)
