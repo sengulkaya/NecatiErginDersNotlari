@@ -107,8 +107,8 @@ Noexcept, SOLID(“require no more promise no less”), noexcept relation with o
 [30:
 Specialization, Template argument deduction, explicit template argument, default template argument, trailing return type, partial ordering rules](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/30_09_10_2024)
 
-31:
-Template instantiation, template functions with auto keyword, auto return type,  class templates
+[31:
+Template instantiation, template functions with auto keyword, auto return type,  class templates](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/31_14_10_2024)
 
 32: 
 Class templates, templates in inheritance, auto type deduction in non-type templates, lexicographical compare function, explicit specialization, partial ordering rules, partial specializiation
