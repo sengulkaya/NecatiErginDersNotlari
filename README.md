@@ -104,8 +104,8 @@ Std::exception, catch all(…), translating and rethrowing exception, Basic exce
 [29:
 Noexcept, SOLID(“require no more promise no less”), noexcept relation with optimization(move and copy ctor), std::exception_ptr, polymorphic exception idiom, exception dispatcher idiom, nested exception, introduction to generic programming,  template, template parameters (type parameter, non-type parameter, template parameter), template argument, deduction and explicit syntax types, CTAD (Class Template Argument Deduction)](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/29_07_10_2024)
 
-30:
-Specialization, Template argument deduction, explicit template argument, default template argument, trailing return type, partial ordering rules
+[30:
+Specialization, Template argument deduction, explicit template argument, default template argument, trailing return type, partial ordering rules](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/30_09_10_2024)
 
 31:
 Template instantiation, template functions with auto keyword, auto return type,  class templates
