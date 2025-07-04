@@ -113,8 +113,8 @@ Template instantiation, template functions with auto keyword, auto return type, 
 [32: 
 Class templates, templates in inheritance, auto type deduction in non-type templates, lexicographical compare function, explicit specialization, partial ordering rules, partial specializiation](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/32_16_10_2024)
 
-33:
-partial specialization, dependent name, variable template, template constraining, alias template, default arguments in template, perfect forwarding
+[33:
+partial specialization, dependent name, variable template, template constraining, alias template, default arguments in template, perfect forwarding](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/33_21_10_2024)
 
 34:
 forwarding reference in template, emplace, if constexpr, type_traits(integral_constant, remove_const, remove_cv, type_identity, remove_reference,  is_array, is_same, is_floating_point, is_void, conditional), template parameter pack, variadic templates, pack expansion
