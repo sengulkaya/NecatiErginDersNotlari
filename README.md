@@ -185,3 +185,13 @@ mutex, lock_guard, internal synchronisation, lock, unlock, try_lock, try_lock_fo
 
 63:
 interleaved, torn write, livelock, adopt_lock, Josuttis table for mutex functions and lock types, recursive_mutex, timed_mutex,  unique lock, defer_lock, release, scoped_lock, shared_mutex, shared lock
+
+64:
+
+65:
+
+66:
+
+67:
+
+
