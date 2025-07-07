@@ -116,8 +116,8 @@ Class templates, templates in inheritance, auto type deduction in non-type templ
 [33:
 partial specialization, dependent name, variable template, template constraining, alias template, default arguments in template, perfect forwarding](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/33_21_10_2024)
 
-34:
-forwarding reference in template, emplace, if constexpr, type_traits(integral_constant, remove_const, remove_cv, type_identity, remove_reference,  is_array, is_same, is_floating_point, is_void, conditional), template parameter pack, variadic templates, pack expansion
+[34:
+forwarding reference in template, emplace, if constexpr, type_traits(integral_constant, remove_const, remove_cv, type_identity, remove_reference,  is_array, is_same, is_floating_point, is_void, conditional), template parameter pack, variadic templates, pack expansion](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/34_23_10_2024)
 
 35:şu an eksik gözden kaçmış
 
