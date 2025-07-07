@@ -119,8 +119,7 @@ partial specialization, dependent name, variable template, template constraining
 [34:
 forwarding reference in template, emplace, if constexpr, type_traits(integral_constant, remove_const, remove_cv, type_identity, remove_reference,  is_array, is_same, is_floating_point, is_void, conditional), template parameter pack, variadic templates, pack expansion](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/34_23_10_2024)
 
-[35:pack expansion,compile time recursive pack expansion,fold expression,constexpr if,static_assert decleration]
-(https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/35_30_10_2024)
+[35:pack expansion,compile time recursive pack expansion,fold expression,constexpr if,static_assert decleration](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/35_30_10_2024)
 
 36: Last class of templates
 unary fold expressions, binary fold expressions, Standard C++ Library, STL(Standard Template Library), introduction to containers, iterators, and algorithms(copy, find)
