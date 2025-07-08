@@ -121,8 +121,8 @@ forwarding reference in template, emplace, if constexpr, type_traits(integral_co
 
 [35:pack expansion,compile time recursive pack expansion,fold expression,constexpr if,static_assert decleration](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/35_30_10_2024)
 
-36: Last class of templates
-unary fold expressions, binary fold expressions, Standard C++ Library, STL(Standard Template Library), introduction to containers, iterators, and algorithms(copy, find)
+[36: Last class of templates
+unary fold expressions, binary fold expressions, Standard C++ Library, STL(Standard Template Library), introduction to containers, iterators, and algorithms(copy, find)](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/36_04_11_2024)
 
 37: 
 STL, iterators, iterator types, const_iterator, bool predicate, unary and binary predicate, lambda expressions, closure type, closure object
