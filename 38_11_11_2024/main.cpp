@@ -7,13 +7,13 @@ LOCAL CLASS
 	ÖRNEK:
 		void foo()
 		{
-			int x = 5; // static olsaydý geçerli olacaktý
+			int x = 5; 
 
 			class Nec{
 			
 				void func()
 				{
-					auto val = x; // geçersiz
+					auto val = x; // geçersiz x static olsaydý geçerli olacaktý
 				} 
 
 			};
@@ -21,14 +21,14 @@ LOCAL CLASS
 
 	ÖRNEK:
 		
-		void foo(int x) // parametre deðiþkeninide kullanamayýz
+		void foo(int x) 
 		{
 
 		class Nec {
 
 			void func()
 			{
-				auto val = x; // geçersiz
+				auto val = x; // geçersiz parametre deðiþkeninide kullanamayýz
 			}
 
 			};
@@ -226,10 +226,12 @@ LAMBDALARDAN DEVAM
 
 		int main()
 		{
+			int x = 5;
+
 			nec_26_54{x}(45);
 		}
 
-	DÝKKAT:birden fazla isim olsaydý comma separated list kullanmamýz gerekirdi -> [x,y](int a) { return x * a; };
+	DÝKKAT:birden fazla isim olsaydý comma separated list kullanmamýz gerekirdi -> [x,y](int a) { return x * a * y; };
 		   ama bunun kestirme bir yolu var -> [=] CAPTURE ALL VISIBLE LOCAL VARIABLES BY COPY
 
 		   int main()
@@ -257,7 +259,7 @@ LAMBDALARDAN DEVAM
 					her iki þekilde de kullanabiliriz
 				}
 
-	DÝKKAT:tüm statik ömürlü deðiþkenler capture edilemez(global,static,static yerel deðiþenler)
+	DÝKKAT:tüm statik ömürlü deðiþkenler capture edilemez
 			
 		int g = 5;
 		int foo(int) {
@@ -270,7 +272,7 @@ LAMBDALARDAN DEVAM
 			auto f = [g] {return foo(g); }; // sentaks hatasý
 		}
 
-	ÖRNEK: derleyicinin ürettiði fonksiyon çaðrý operatör fonksiyonudefault olarak const member function olduðu için sentaks hatasý olur
+	ÖRNEK: derleyicinin ürettiði fonksiyon çaðrý operatör fonksiyonu default olarak const member function olduðu için sentaks hatasý olur
 
 		int main()
 		{
@@ -298,7 +300,7 @@ LAMBDALARDAN DEVAM
 
 				f(12);
 
-				std::cout << x; // 5 
+				std::cout << x; // 5 local olan x deðeri buda deðiþmiyor
 
 			}
 
@@ -309,12 +311,12 @@ LAMBDALARDAN DEVAM
 				std::string name{ "hasan" };
 				int x = 5;
 
-				auto f = [&x](int& val)
+				auto f = [&x](int& val) // referans dekleratörünü kullanýyoruz
 					{
 						x += val;
 					};
 
-				f(x); // DÝKKAT bu fonksiyon çaðrýsý olmadan x'in deðer i zaten deðiþmeyecekti
+				f(x); // DÝKKAT bu fonksiyon çaðrýsý olmadan x'in deðeri zaten deðiþmeyecekti
 
 				std::cout << x; // x + x = 10
 			}
@@ -329,7 +331,6 @@ LAMBDALARDAN DEVAM
 	[&,x] -> hepsi referans yoluyla alýnýr ama x kopyalama yoluyla alýnýr
 
 	[&&] -> geçersiz
-
 
 	ÖRNEK:parametre paketlerinide capture edebiliriz
 
@@ -361,7 +362,7 @@ LAMBDALARDAN DEVAM
 		}
 
 		yani elimizde bir stateless lambda varsa onu doðrudan sanki bir fonksiyon adresiymiþ gibi bizden fonksiyon adresi isteyen herhangi bir fonksiyona argüman olarak gönderebiliriz
-		yada bir function pointe variable'ý initalize etmek için yada atama yapmak için kullanabailiriz
+		yada bir function pointer variable'ý initalize etmek için yada atama yapmak için kullanabiliriz
 
 			int main()
 			{
@@ -406,7 +407,7 @@ LAMBDA INIT CAPTURE(C++14)
 	{
 		int x = 5;
 
-		auto f = [count = 0]()(int x) // derleyiciye þöyle bir talimat vermiþ oluyoruz sýnýfa bir veri elemaný koy ismi a olsun veri elemanýnýda 6 ile initialize et
+		auto f = [count = 0]()(int x) // derleyiciye þöyle bir talimat vermiþ oluyoruz sýnýfa bir veri elemaný koy ismi a olsun veri elemanýnýda 0 ile initialize et
 		{
 			++count; 
 			return a + x;
@@ -463,7 +464,7 @@ DÝKKAT:referans ile capture yapýldýðýnda dangling reference oluþturmak tipik bir
 
 	auto foo(int x)
 	{
-		return [&x](int a) { return a * x; }; // derleyicinin yazdýðý referans veri elemaný fonksiyonun otomatik ömürlü parametre deðiþkeni olan x'e baðlanacak buda danling referens
+		return [&x](int a) { return a * x; }; // derleyicinin yazdýðý referans veri elemaný fonksiyonun otomatik ömürlü parametre deðiþkeni olan x'e baðlanacak buda dangling referens
 	}
 
 	int main()
@@ -473,7 +474,7 @@ DÝKKAT:referans ile capture yapýldýðýnda dangling reference oluþturmak tipik bir
 
 TRAILING RETURN TYPE
 
-	fonksiyonun geri dönüþ deðerinin çýkarým yoluyla elde edilmesesini istemiyorsak lambdalarda trailin return type'ý kullanabiliriz
+	fonksiyonun geri dönüþ deðerinin çýkarým yoluyla elde edilmesesini istemiyorsak lambdalarda trailing return type'ý kullanabiliriz
 
 	int main()
 	{
@@ -521,7 +522,7 @@ GENERALIZED LAMBDA EXPRESSIONS
 	
 			int main()
 			{
-				[](auto&& x) // derleyicinin yazdýðý kodda sýnýfýn template'i olan fonksiypn çaðrý operatör fonksiyonun parametresi universal reference
+				[](auto&& x) // derleyicinin yazdýðý kodda sýnýfýn template'i olan fonksiyon çaðrý operatör fonksiyonun parametresi universal reference
 				{
 					return x * x;
 				}
