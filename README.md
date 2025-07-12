@@ -1,9 +1,9 @@
 Bu ders Notları 1 TEMMUZ 2024 Necati Ergin Hocanın vermiş olduğu C++ Kursu eğitiminde alınmıştır toplam 67 ders var 
 notları yavaş yavaş güncelliyorum ChatGPT den yardım alıp aldığım notlarda mevcut C'den eksik olduğum yerler olduğu için
 
-[Necati Hocanın eğitimlerinden haberdar olmak için](https://plepa.com/)
+[Necati Hoca'nın eğitimlerinden haberdar olmak için](https://plepa.com/)
 
-[Necati Hocanın Linkedin hesabı](https://www.linkedin.com/in/necatiergn/)
+[Necati Hoca'nın Linkedin hesabı](https://www.linkedin.com/in/necatiergn/)
 
 Not: Not alırken Umut Kotankırandan örnek almaya çalıştım almış olduğum notlardan çok daha iyi notlar mevcuttur bunları altta paylaşacağım
 
@@ -127,8 +127,8 @@ unary fold expressions, binary fold expressions, Standard C++ Library, STL(Stand
 [37: 
 STL, iterators, iterator types, const_iterator, bool predicate, unary and binary predicate, lambda expressions, closure type, closure object](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/37_06_11_2024)
 
-38:
-local class, lambda expressions, IIFE(Immediately Involved Function Expression), mutable, stateless and stateful lambdas, positive lambda idiom, trailing return type, generelized lambda expressions
+[38:
+local class, lambda expressions, IIFE(Immediately Involved Function Expression), mutable, stateless and stateful lambdas, positive lambda idiom, trailing return type, generelized lambda expressions](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/38_11_11_2024)
 
 39: 
 IIFE, labmda expressions, initialization assignment split
