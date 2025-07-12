@@ -148,8 +148,8 @@ inheritance konusundan devam
 			1)static binding yada early binding(compile time'da belli olur)
 			2)dynamic binding yada late binding(run time'da belli olur)
 
-			derleyici böyle zamanlarda optimizaasyon yaparak daha düþük maliyetli kod olsun diye virtual dispatch mekanizmasýna iliþkin kod üretmek
-			iþini run time'a býrakmayýp compile time da baðlayayým diyebilir buna DEVIRTULAZATION OPTIMIZATION deniliyor
+			derleyici böyle zamanlarda optimizasyon yaparak daha düþük maliyetli kod olsun diye virtual dispatch mekanizmasýna iliþkin kod üretmek iþini run time'a býrakmayýp 
+			compile time da baðlayayým diyebilir buna DEVIRTULAZATION OPTIMIZATION deniliyor
 
 	Car* create_random_car()
 	{
@@ -235,7 +235,7 @@ inheritance konusundan devam
 					run();
 					stop();
 					
-					// Car::start(); // burda taban sýnýfýn fonksiyonunu niteleyerek çaðýrdýðýmýz için virtual dispatch devreye girmiyor
+					// Car::start(); // burda taban sýnýfýn fonksiyonunu niteleyerek çaðýrýrsak virtual dispatch devreye girmiyor
 					// Car::run();
 					// Car::stop();
 				}

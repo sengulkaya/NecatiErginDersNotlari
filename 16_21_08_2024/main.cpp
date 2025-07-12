@@ -259,7 +259,7 @@ operator overloadingten devam
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	FUNCTION CALL OPERATOR
 		C de foo(4) þeklinde bir ifade görsek 
-		1)foo gerçetken bir fonksiyon ismidir
+		1)foo gerçeken bir fonksiyon ismidir
 		2)foo nun function macro olmasý
 		3)foo nun bir function pointer variable olmasý  
 			void(*foo)(int) = &bar;
@@ -290,11 +290,11 @@ operator overloadingten devam
 
 			// sadece bu operator fonksiyonu default argument alabilir
 
-			// double parametreli bir function call operator daha olsaydý derleyici hangi fonksiyonu çaðýracaðýný founction overlaod resolutionda analyacaktý
+			// double parametreli bir function call operator daha olsaydý derleyici hangi fonksiyonu çaðýracaðýný founction overlaod resolutionda anlayacaktý
 
 			int operator()(double x)
 			{
-				std::cout << "Myclass::operator()(int x) x = " << x << '\n';
+				std::cout << "Myclass::operator()(double x) x = " << x << '\n';
 				std::cout << "this = " << this << '\n';
 				return 42 * 0.5;
 			}
@@ -320,7 +320,7 @@ operator overloadingten devam
 
 			operator() fonksiyonu sýnýf nesnesi için çaðýrýlýyor ve çaðrýnýn yapýldýðý sýnýf nesnesi o sýnýfýn ne anlama geldiðine göre farklý farklý statete olabilir
 			bu state sýnýfýn private veri elemanlarýylada temsil edilebilir sýnýfýn mx isimli veri elemaný olsaydý operator() fonksiyonunda mx'i kullandýðýmýzda bu fonksiyon hangi nesne için çaðýrýlýrsa
-			o nesnenin mx'ini kullanmýþ olurduk biz öyle bir fonksiyon oluþturmuþ oluyoruz fonksiyonun kendisi adete bir state sahip yani fonksiyona bir argüman göndermeden fonksiyonun
+			o nesnenin mx'ini kullanmýþ olurduk biz öyle bir fonksiyon oluþturmuþ oluyoruz ki fonksiyonun kendisi adete bir state sahip yani fonksiyona bir argüman göndermeden fonksiyonun
 			zaten bir state'i var
 			
 			öyle bir fonksiyon olsun ki o fonksiyon verilen bir aralýkta rastgele bir sayý üretsin mesela 20 ve 50

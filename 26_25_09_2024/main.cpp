@@ -458,15 +458,9 @@ RTTI(RUN TIME TYPE INFORMATION)
 
 			Mder& r_mder = dynamic_cast<Mder&>(dx); // downcast
 
-			Yder& ry = dynamic_cast<Yder&>(dx); // sidecast
+			Yder& ry = dynamic_cast<Yder&>(dx); // sidecast çünkü Yder ile Xder ayný taban sýnýfa sahip
 
 		}
-
-		Xder -> Mder (downcast)
-
-		Mder -> Yder (upcast)
-
-		Bu zincirli tür dönüþümüne side cast denir çünkü Xder ve Yder arasýnda doðrudan bir iliþki yok, ama ortak bir alt sýnýflarý (Mder) var.
 
 	VOID POINTER
 		dynamic_cast<void*> ile nesnenin gerçek adresini öðrenebiliriz
@@ -495,15 +489,15 @@ RTTI(RUN TIME TYPE INFORMATION)
 
 			void* vptr = dynamic_cast<void*>(baseptr); // run time'da baseptr'nin gösterdiði Erg nesnesinin adresini elde ediyoruz
 
-			Erg nesnesinin adresiyle baseptr'nin adresi ayný olmak zorunda deðil baseptr'nin Erg'i gösteriyor olmasý demek baseptr'nin deðerinin fiziksel olarak Erg nesnesinin adresi demek deðil
-			çünkü Erg'in içinde olan Base'in adresi tutuluyor
+			Erg nesnesinin adresiyle baseptr'nin adresi ayný olmak zorunda deðil baseptr'nin Erg'i gösteriyor olmasý demek baseptr'nin deðerinin fiziksel olarak Erg nesnesinin adresi 
+			demek deðil çünkü Erg'in içinde olan Base'in adresi tutuluyor
 		}
 
 	type_info(typeid operatörü): Nesnenin tür bilgisine eriþim saðlar
 		
 		typeid operatörüyle oluþturulan ifade 2 þekilde oluþturabiliyor
 			1)type(int) operand olarak tür alabiliriz
-			2)type(10) operand olarak ifade alabiliriz
+			2)type(10) operand olarak ifade alabiliriz 
 
 		typeid operatörünün dynamic_cast operatöründen farký operandý olan ifadenin yada türün polimorfik olma mecburiyeti yok
 
@@ -535,7 +529,7 @@ RTTI(RUN TIME TYPE INFORMATION)
 		int main()
 		{
 			Der myder;
-			Base* baseptr = &myder; // baseptr'nin gösterdiði nese Der sýnýf türünden olmasýna raðmen Base çýktýsý alýnýyor
+			Base* baseptr = &myder; // baseptr'nin gösterdiði nesne Der sýnýf türünden olmasýna raðmen Base çýktýsý alýnýyor
 
 			std::cout<<typeid(*baseptr).name()<<'\n';
 		}

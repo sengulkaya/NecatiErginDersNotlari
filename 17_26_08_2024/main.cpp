@@ -19,7 +19,7 @@ bool türüne dönüþüm yapan operator bool fonksiyonunda kaldýk
 		{
 			Nec mynec;
 			int x = mynec; // bu kodun implicit olarak legal olmasýný istemeyiz çünkü derleyici önce sýnýfýn operator bool fonksiyonuna çaðrý yapýyor 
-			bool türünden bir ifade ediliyor bool türündende int türüne implicit conversion olduðu için her hangi bir þekilde bir sentaks hatasý olmuyor bu yüzden explicit olmasý gerekiyor
+			bool türünden bir ifade elde ediliyor bool türündende int türüne implicit conversion olduðu için her hangi bir þekilde bir sentaks hatasý olmuyor bu yüzden explicit olmasý gerekiyor
 		
 			Nec n1,n2;
 
@@ -43,7 +43,7 @@ bool türüne dönüþüm yapan operator bool fonksiyonunda kaldýk
 				std::cout<<x<<'\n'; 
 			}
 
-			burada cin nesnesinin kendisini kullansaydýkda bu kod legal olacaktý
+			burada cin nesnesinin kendisini kullansaydýk yine bu kod legal olacaktý
 			while(std::cin) peki bu nasýl legal oluyor? çünkü istream sýnýfý için operator bool overload edilmiþ 
 			aslýnda derleyici burada while(cin.operator>>(x).operator bool()) fonksiyonuna çaðrý yapýyor
 
@@ -288,7 +288,6 @@ DÝNAMÝK ÖMÜRLÜ NESNELERLE TANIÞMA
 				char buf[16];
 			};
 
-
 			int main()
 			{
 				size_t n;
@@ -328,14 +327,14 @@ DÝNAMÝK ÖMÜRLÜ NESNELERLE TANIÞMA
 			std::cout << "p = " << p << '\n';
 
 			bu nesneyi delete etmek için delete operatürünü kullanmayacaðýz kullanýrsak aslýnda operator new ile allocate edilmeyen bellek bloðunu
-			operator delete ile geri vermniþ oluruz buda tanýmsýz davranýþa yol açar
+			operator delete ile geri vermiþ oluruz buda tanýmsýz davranýþa yol açar
 
-			p->~Myclass();
+			p->~Myclass(); // dtoru dorðudan kendimiz çaðýrýyoruz
 
 		4)no throw new
 			exception throw etmez 
 
-			dinsmik ömürlü nesneler ile þu an sadece tanýþtýk ileride çok detaylý görülecek
+			dinamik ömürlü nesneler ile þu an sadece tanýþtýk ileride çok detaylý görülecek
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 SINIFLARIN STATIC DATA MEMBERLARI VE SINIFLARIN STATIC MEMBER FUNCTIONLARI
 
@@ -411,7 +410,7 @@ STATIC DATA MEMBER
 	sýnýflarýn static veri elemanlarýnýn public yapýlmasý sakýncalý bir durum çünkü yukarýdaki örnekteki gibi bir durumda yanlýþlýkla non-static bir veri elemanýný kullanacakken 
 	static veri elemanýný kullanabilirdik ve bu deðeri yanlýþlýkla deðiþtirebilirdik ve bu durumdan tüm sýnýf etkilenirdi
 	
-	ÇAÐRININ SORUSU ÜZERÝNE: imlicitly static diye bir kavram var mý?
+	ÇAÐRININ SORUSU ÜZERÝNE: implicitly static diye bir kavram var mý?
 		çok dar bir alanda var örneðin sýnýflarýn operator new fonksiyonlarý implictly static 
 
 STATIC MEMBER FUNCTION
@@ -476,7 +475,7 @@ STATIC MEMBER FUNCTION
 							foo fonksiyonuda o nesne için çaðýrýlmýþ olacak
 
 							ama bar fonksiyonu static member function olsaydý static member functionun non-static member functionu bu þekilde çaðýrmasý sentaks hatasý olurdu
-							bar fonksiyonun static olduðuçun this pointerý yok foo fonksiyounun çaðýrýlmasý için bir nesneye ihtiyacýmýz var
+							bar fonksiyonun static olduðu için this pointerý yok foo fonksiyonunun çaðýrýlmasý için bir nesneye ihtiyacýmýz var
 								static void bar()
 								{
 									foo(); // sentaks hatasý

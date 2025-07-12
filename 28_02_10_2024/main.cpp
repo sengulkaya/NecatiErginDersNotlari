@@ -56,7 +56,7 @@ exception handligten devam ediyoruz
 			std::cout << "exception caught: " << ex.what() << '\n';
 		} 
 		catch(...) // gönderilen hata nesnesi hangi türden olursa olsun hatayý yakalayacak en sonda olmasý gerekiyor çünkü özelden genele bir yaklaþýmý benimsememiz gerek
-		{		   // exceptio'nun türünün ne olduðunu öðrenme þansýmýz yok sadece expcetionu yakalar 
+		{		   // exception'nun türünün ne olduðunu öðrenme þansýmýz yok sadece expcetionu yakalar 
 				
 		}
 	}
@@ -84,7 +84,7 @@ exception handligten devam ediyoruz
 
 	SORU:bütün exceptionlarý yakalayabilir miyiz? HAYIR
 		
-		gönderilen bütün exceptionlarý yakalamak mümkün olmayabilir çünkü main fonksiyonunun bütün kodunu bir tyr bloðu içine alabiliriz
+		gönderilen bütün exceptionlarý yakalamak mümkün olmayabilir çünkü main fonksiyonunun bütün kodunu bir try bloðu içine alabiliriz
 		bütün fonksiyonlar mainden çaðýrýldýðýna göre mainin çaðýrdýðý fonksiyonlar diðer fonksiyonlarý çaðýrdýðýna göre exceptinolarýn hepsini yakalamýþ
 		olmaz mýyýz? HAYIR çünkü global sýnýf nesneleri ve statik ömürlü sýnýf nesnelerinin ctorlarý programýn akýþý main fonksiyonuna girmeden çalýþýyor onlarýn ctorlarýndan gönderilen exceptionlarý
 		main fonksiyonun içinde yakalamak mümkün deðil
@@ -92,7 +92,7 @@ exception handligten devam ediyoruz
 	SORU:exception'ý yakaladýðýmýzda ne yapýyoruz?
 		
 		eðer yakaldaðýmýzda ne yapacaðýmýz konusunda bir fikrimiz yoksa o hataya müdahele etemk için bir fikrimiz yok demektir o hatayý yakalamayacaðýz
-		yani excetion gönderme ihtimali olan her hangi bir fpnksiyona çaðrý yaptðýmzýda o fonksiyonun çaðýrýldýðý yerde o exceptionu yakalamamýz gerekiyormuþ algýsý çok sýk görülüyor diyor hoca
+		yani exception gönderme ihtimali olan her hangi bir fonksiyona çaðrý yaptýðýmzýda o fonksiyonun çaðýrýldýðý yerde o exceptionu yakalamamýz gerekiyormuþ algýsý çok sýk görülüyor diyor hoca
 		yapacak bir þeyimiz yoksa en iyisi yakalamamak burada sorumluluðumuz olmasý gerekiyor
 
 	SORU:exceptionu yakalarsak ne yapýyoruz?
@@ -244,9 +244,9 @@ exception handligten devam ediyoruz
 			
 			BASIC GURANTEE
 				exception'ý yakaladaðýmýz zaman program valid state'te kalmalý yoksa program kaynak yada kaynaklarý sýzdýrýrýsa yada program geçerli state'ini kaybederse
-				örneðin exxceptionu yakaladýk expcetionu yakaldaýktan sonra kullandýðýmýz nesneler artýk kullanýlabilir nesneler deðil invariantlarý tutmuyor
+				örneðin exceptionu yakaladýk expcetionu yakaladýktan sonra kullandýðýmýz nesneler artýk kullanýlabilir nesneler deðil invariantlarý tutmuyor
 				mesela string nesnesini kullanýyoruz tutuuðu yazý oguzhan esin ama length fonksiyonunu çaðýrdýðýmýzda 0 çýktsýýný alýyoruz burda invalid state söz konusu
-				yani exceptionu yakalayýp programýn çalýþmasýný devam etitreceksek bir kaynak sýzýntýsý olmadýðýnda ve programýn geçerli bir durumda olduðundan emin olmaylýyýz
+				yani exceptionu yakalayýp programýn çalýþmasýný devam ettireceksek bir kaynak sýzýntýsý olmadýðýnda ve programýn geçerli bir durumda olduðundan emin olmalýyýz
 
 				 bir programda basic gurantee saðlanmazsa doðru kabul edilmiyor bütün fonksiyonlar basic gurantee'yi saðlamak zorunda
 				
@@ -323,7 +323,7 @@ exception handligten devam ediyoruz
 			ihtimali kalmamýþ olacak
 
 	CTORLARDA EXCEPTION
-		ctor invariantlarý ilk baþta saðlamasý gerekn fonksiyon ve invariantlarý saðlayamazsa geri dönüþ deðeri olmadýðý için iletme þansýmýz yok 
+		ctor invariantlarý ilk baþta saðlamasý gereken fonksiyon ve invariantlarý saðlayamazsa geri dönüþ deðeri olmadýðý için iletme þansýmýz yok 
 		ctor iþini yapamýyorsa sýnýf nesnesi için invariantlarý doðru hale getiremiyorsa buda sýnýf nesnesinin baþarýlý bir þekilde hayata gelmemesi demek bu zamanda exception throw edecek
 
 			class Myclass{
@@ -331,7 +331,7 @@ exception handligten devam ediyoruz
 				Myclass()
 				{
 					std::cout<<"Myclass ctor called\n";
-				 	throw std::runtime_erro{"error"};
+				 	throw std::runtime_error{"error"};
 				}
 				~Myclass()
 				{
@@ -352,8 +352,8 @@ exception handligten devam ediyoruz
 		dinamik ömürlü bir nesneyi new ifadesiyle oluþturduðumuz zaman bu nesneyi oluþturuacak ctor çaðýrýldýðýnda zaten operator new çaðýrýlmýþ durumda oprator new'in kendisi exception throw
 		etseydi ctor çaðýrýlmazdý çaðýrýlan ctor'un içinde exception throw edilirse allocete edilen bellek bloðuda geri verilecek
 
-		DÝKKAT:ctor'ýn ana bloðu içinde excption gönderildiðinde exception yakalnsa bile dtor çaðýrýlmýyordu çünkü ortada constructor edilen bir nesne yok AMA ELEMAN OLAN NESNELER ÝÇÝN DURUM BÖYLE DEÐÝL
-		eleman olan nesneler ctor'un ana bloðu içinde oluþturulmuyoarlar programýn akþýý ana bloða gelmeden ctor initializer list içinde initialize ediliyorlar 
+		DÝKKAT:ctor'ýn ana bloðu içinde exception gönderildiðinde exception yakalansa bile dtor çaðýrýlmýyordu çünkü ortada constructor edilen bir nesne yok AMA ELEMAN OLAN NESNELER ÝÇÝN DURUM BÖYLE DEÐÝL
+		eleman olan nesneler ctor'un ana bloðu içinde oluþturulmuyorlar programýn akþý ana bloða gelmeden ctor initializer list içinde initialize ediliyorlar 
 
 			class Member{
 				public:
@@ -404,10 +404,10 @@ exception handligten devam ediyoruz
 		SORU:Member'ýn ctor'u exceptin throw etseydi ne olurdu? NEC'IN VE MEMBER'IN DTORLARI ÇAÐIRILMAZDI çünkü MEMBER'ýn ctoru exception throw ettiði için aslýnda ortada bir nesne olmayacak
 			class Member {
 			public:
+				Member()
 				{
 					std::cout << "Member ctor\n";
 					throw 1;
-				Member()
 				}
 				~Member()
 				{
@@ -445,7 +445,7 @@ exception handligten devam ediyoruz
 
 		SORU:elemanlar pointer ile tutulsaydý ne olurdu? 
 			
-			DÝKKAT:Nec'in ctoru exception throw ederse elemaan olan pointer'ýn gösterdiði dinamik ömürlü member nesnesi hayata gelmiþ olacak ama dtor çaðýrýlmadýðý için delete edilmeyecek
+			DÝKKAT:Nec'in ctoru exception throw ederse eleman olan pointer'ýn gösterdiði dinamik ömürlü member nesnesi hayata gelmiþ olacak ama dtor çaðýrýlmadýðý için delete edilmeyecek
 			böyle bir senaryoda smart pointerlar kullanýlýyor çünkü dtor bu senaryoda çaðýrýlýyor
 
 			class Member {
@@ -575,8 +575,8 @@ exception handligten devam ediyoruz
 					}
 					catch (const std::exception& ex) // programýn akýþý catch bloðuna girecek exception yakalanacak ama artýk Myclass nesnesini construct etme þansýmýz yok eðer ctor'un 
 														function try bloðunu izleyen catch bloðunda her hangi bir kod eklemezsek derleyici buraya doðrudan re-throw statement koyuyor
-					{									ctor'da exceptionu neden yakaladýk çünkü member'dan gönderilen excetpionu yakaladýk exception yakalndýýðý için member hayata gelmedi
-														memberýn hayata gelmemesi sýnýfýn invariantlarýný oluþturamamasý demek logic açýdan bu bir felakt olmuþ olur yani exceptionu yakalamamýz demek
+					{									ctor'da exceptionu neden yakaladýk çünkü member'dan gönderilen exceptionu yakaladýk exception yakalandýðý için member hayata gelmedi
+														memberýn hayata gelmemesi sýnýfýn invariantlarýný oluþturamamasý demek logic açýdan bu bir felaket olmuþ olur yani exceptionu yakalamamýz demek
 														Myclass nesnesinin kullanýlabilir olduðu anlamýna gelmiyor
 
 						std::cout << "exception caught: " << ex.what()  <<'\n';
@@ -619,7 +619,7 @@ exception handligten devam ediyoruz
 				func(24);
 			}
 		
-		SORU:function try block içinde yerel bir deðiþken olsaydý cathc bloklarýnda kullanabilir miydik? HAYIR
+		SORU:function try block içinde yerel bir deðiþken olsaydý catch bloklarýnda kullanabilir miydik? HAYIR
 			
 			void func(int x)
 			try { 
@@ -671,7 +671,7 @@ exception handligten devam ediyoruz
 			}
 		
 	NOEXCEPT ANAHTAR KELIMESÝ
-		modern C++ ile dile eklendi bu anahtar sözcüðün iki ayrý kullanýmý var ve ikisinin biribiriye karýþtýrýlmasý çok yaygýn
+		modern C++ ile dile eklendi bu anahtar sözcüðün iki ayrý kullanýmý var ve ikisinin birbiriyle karýþtýrýlmasý çok yaygýn
 			1)noexcept specifier
 				void func(int)noexcept; // böyle bir bildirim func fonksiyonunun exception yollamayacaðý anlamýna geliyor
 
@@ -695,7 +695,7 @@ exception handligten devam ediyoruz
 				SORU:noexcept operatörü neye göre true yada false deðeri üretiyor
 					constexpr bool b = noexcept(x + 5); // bu ifadenin yürütülmesi sýrasýnda exception throw etmemesi garanti altýnda
 
-				SORU:foo fonksiyonu excetpion throw etmeme garantisi taþýyor mu? HAYIR çünkü foo fonksiyonu noexcept deðil				
+				SORU:foo fonksiyonu exception throw etmeme garantisi taþýyor mu? HAYIR çünkü foo fonksiyonu noexcept deðil				
 						
 					int foo();
 
@@ -753,7 +753,7 @@ exception handligten devam ediyoruz
 					{
 						constexpr bool b = noexcept(Myclass{}); // TRUE çünkü sýnýfýn default ctorunu derleyici yazýyor derleyici yazdýðý için kendi yazdýðý default ctoru noexcept olarak bildiriyor
 																   kendimiz bildirseydik noexcept olarak bildirmemiz gerekirdi
-						sýnýfýn special member functionlarý imlictly declared ise yani derleyici tarafýndan yazýlýyorsa noexcept olarak bildiriliyor
+						sýnýfýn special member functionlarý implictly declared ise yani derleyici tarafýndan yazýlýyorsa noexcept olarak bildiriliyor
 					}
 						
 				bir fonksiyon noexcept olarak nitelenmesine raðmen expcetion throw ediyorsa terminate fonksiyonu  çaðýrýlýr								

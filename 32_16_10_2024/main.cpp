@@ -13,7 +13,7 @@
 		Myclass<Nec<int> > mx; // modern C++ öncesinde maximal munch kuralýna takýlýyordu burada tokenizing yapabilmesi için boþluk býrakmamýz gerekirdi
 	}
 
-bir sýnýf þablonu artýk bir sýnýf olmuyor
+bir sýnýf þablonu artýk bir sýnýf olmuyor 
 
 	template<typename T>
 	class Myint{ // class template derleyicinin sýnýf kodu yazmasýný saðlayacak bir kod
@@ -160,7 +160,7 @@ NON-TYPE PARAMETRE
 
 		ÖRNEK:
 			template<auto N> // hala non-type parameter bu ayrý bir deduction burada auto'yu kullandýðýmýz zaman sýnýf þablonundan bir instantiate oluþturmak istersek
-			struct Myclass		deduction olacak deduction olacak template argümaný olarak kullanýlan constant expression ifadenin türü neyse o türden bir deðer kullanmýþ olucaz
+			struct Myclass		deduction olacak template argümaný olarak kullanýlan constant expression ifadenin türü neyse o türden bir deðer kullanmýþ olucaz
 			{
 				Myclass()
 				{
@@ -188,7 +188,7 @@ NON-TYPE PARAMETRE
 		{
 			Nec<20> x;
 			Nec<19> y; // ikiside birbirinden ayrý sýnýf
-			Nec<10 + 5 + 4 +1> z; // ifadesini kullansaydýk bu ifadedinde deðeri 20 olacaðý için ayný olmuþ olur
+			Nec<10 + 5 + 4 +1> z; // ifadesini kullansaydýk bu ifadeninde deðeri 20 olacaðý için ayný olmuþ olur
 		}
 	
 	DÝKKAT:
@@ -374,7 +374,7 @@ LEXICOGRAPHICAL COMPARE
 		{
 			for(int i = 0; i< N && i < M; ++i)
 			{
-				if(x[i] < y[i]
+				if(x[i] < y[i])
 					return true;
 
 				if(y[i] < x[i])
@@ -420,7 +420,7 @@ EXPILICIT SPECIALIZATION(FULL SPECIALIZATION)
 	}
 
 	template<> // getmax'ýn const char* türü için EXPLICIT SPECIALIZATION kullanýlacak
-	conat char* getmax getmax<const char* // buradaki açýsal parantez zorunlu deðil parametrelerden çýkarým yapýlabiliyor>(const char* p1,const char* p2)
+	conat char* getmax<const char* // buradaki açýsal parantez zorunlu deðil parametrelerden çýkarým yapýlabiliyor>(const char* p1,const char* p2)
 	{
 		return std::strcmp(p1,p2) > 0 ? p1 : p2; // artýk const char* kullandýðýmýz zaman adresler karþýlaþtýrýlmaz yazýlar karþýlaþtýrýlýr ve doðru çýktýyý alýrýz
 	}
@@ -596,7 +596,11 @@ PARTIAL SPECIALIZATION
 
 	template <typename T> // ayný sayýda parametre olmasýna gerek yok daha fazlada olabilir
 	struct Myclass<T*> { // template argümanýnýn bir pointer türü olmasý durumunda partial specialization kullanýlacak
-		std::cout<<"partial specialization\n";
+		Myclass()
+		{
+			std::cout<<"partial specialization\n";
+
+		}
 	}; 
 
 	int main()
@@ -647,7 +651,7 @@ PARTIAL SPECIALIZATION
 		};
 
 		template <typename T>
-		struct Myclass<T,int> // 1.template parametresi ne olursa olsun 2.template parametresiint parametreyse partial specialization kullanýlacak 
+		struct Myclass<T,int> // 1.template parametresi ne olursa olsun 2.template parametresi int parametreyse partial specialization kullanýlacak 
 		{
 			Myclass()
 			{

@@ -372,7 +372,7 @@ CONVERSION CONSTRUCTOR(DÖNÜÞTÜREN KURUCU ÝÞLEV)
 									// Myclass m = 12; // double parametreli ctor çaðýrlacak genel beklenti sentaks hatasý olmasý ama sentaks hatasý yok explicit ctor overlaod set'e dahil edilmiyor 
 														
 								}
-
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 DELEGATING CONSTRUCTOR
 	bir ctorun bir nesneyi hayata getirirken bir baþka ctor ile memberlarýn initialize edilmesini saðlamak
 	bir ctor MIL sentaksý ile sýnýfýn diðer ctorlarýna çaðrý yaparak initalization yapma sürecini o ctora delege edebiliyor
@@ -388,7 +388,7 @@ DELEGATING CONSTRUCTOR
 
 			burda recursive bir çaðrý oluþursa bu durum programcýnýn sorumluluðunda
 	}
-	 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 FRIEND DECLERATION(ARKADAÞLIK BÝLDÝRÝMLERÝ)
 
 	bir sýnýfýn private bölümü client kodlara kapalý eriþmeye çalýþýrsak access control sürecinde sentaks hatasý alýrýz friend bildirimleri sýnýfýn kendi kodlarýn dýþýnda baþka kodlarýn sýnýflarýn 

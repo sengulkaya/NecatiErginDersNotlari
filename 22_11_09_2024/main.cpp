@@ -44,7 +44,7 @@ mutatorlarda kalmıştık
 			std::cout<<s.length()<<'\n'; // 14 çıktısı alınır
 
 			s.resize(50); // yazının sonuna 50-14 = 36 tane karakter eklenmesi demek 
-				eklenecek karakter containerda tutulan öğenin türünden default onstruct edilmiş öğenin değeri string sınıfı için bu null karakter demek
+				eklenecek karakter containerda tutulan öğenin türünden default construct edilmiş öğenin değeri string sınıfı için bu null karakter demek
 
 			s.resize(50,'\0'); // böyle yazmakla yukardaki yazım arasında hiç bir fark yok çünkü default değeri bu
 			s.resize(50,'*');
@@ -63,7 +63,7 @@ mutatorlarda kalmıştık
 delete işlemleri
 	
 	erase fonksiyonu iterator interface'i
-		c.erase(iter) // öğeninin konumunu iterator olarak verirsek o iterator konumuundaki öğeyi siler
+		c.erase(iter) // öğeninin konumunu iterator olarak verirsek o iterator konumundaki öğeyi siler
 		c.erase(iterbeg,iterend) // rangedeki öğeleri siler iterbeg konumundan başlayıp iterend konumuna kadar tüm öğeleri siler
 		
 		int main()
@@ -118,7 +118,7 @@ delete işlemleri
 			std::cout << s << '\n';
 
 			ÖRNEK:
-			s.erase(3); // default parametre olarka std::string::npos alıyor 3.indeksten başlayıp tüm yazıyı silecek
+			s.erase(3); // default parametre olarak std::string::npos alıyor 3.indeksten başlayıp tüm yazıyı silecek
 			std::cout << s << '\n'; // ali çıktısı alınır
 
 			s.erase(0,std::string::npos); // yazının tamamını silmiş oluruz
@@ -233,7 +233,7 @@ search fonksiyonları
 		std::cout<<s.starts_with('t') <<'\n'; // false;
 		std::cout<<s.starts_with("koralp") <<'\n'; // true;
 
-	contains(C++23 ile gelen contains bir std::string içinde belirli bir karakterin veya substrin'in bulunup bulunmadığını kontrol eder)
+	contains(C++23 ile gelen contains bir std::string içinde belirli bir karakterin veya substring'in bulunup bulunmadığını kontrol eder)
 
 		std::string s{"murat koralp"};
 		

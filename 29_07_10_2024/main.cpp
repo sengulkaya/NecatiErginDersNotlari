@@ -505,14 +505,14 @@ GENERIC PROGRAMMING(türden baðýmsýz programlama) TMP(template meta programmin'de
 
 	SORU: madem derleyici bir template koddan bir specialization oluþturuken template'in parametrelere karþýlýk kullanýlan template argümanlarýný bilmek zorunda peki bunu nasýl bilecek?
 		
-		1)DEDUCTION derleyici koda bakarak template parametresi akrlýþýð hangi argümanýnýk ullanýlacaðýný söylemsewkte koda bakarak derleyici bunun çýkarýmýýn yapabiliyor
+		1)DEDUCTION derleyici koda bakarak template parametresi karþýlýðý hangi argümanýn kullanýlacaðýný söylemesekte koda bakarak derleyici bunun çýkarýmýný yapabiliyor
 		
 		template<typename T>
 		void func(T);
 
 		int main()
 		{
-			func(345); // belirli kurallar dahilinde derleyici fonksiyona gönderilen argüman olan ifadenin türünün int olduðundan template parametresi karþýlýð kullanýlacak 
+			func(345); // belirli kurallar dahilinde derleyici fonksiyona gönderilen argüman olan ifadenin türünün int olduðundan template parametresi karþýlýðý kullanýlacak 
 						  template argümanýnýn int türü olmasý gerektiðini anlayacak
 		}
 
@@ -533,4 +533,9 @@ GENERIC PROGRAMMING(türden baðýmsýz programlama) TMP(template meta programmin'de
 		modern C++ ÝLE ÖZELÝKLE 17 STANDADARDIYLA devrimsel bir deðiþiklik oldu 17 stadnardýntan önce deductrion mekanizmasý sadece function templateleri için mümkündü
 		CTAD(class template argument deduction) belirli sýnýrlar dahilinde sýnýf þablnolarýnda template paremetrelrine karþýþýk gelen temaplte argümanlarýnýn çýkarýmýnýn yapýlmasý
 		olanaðý kazandýrýldý
+
+		3)DEFAULT TEMPLATE ARGUMENT
+
+			template parametreleeinden biri yada birden fazlasacý için default template argument belirlenebiliyor explicit olarak templat parametrelerine karþýlýk gelen argümanlarý
+			yazmasakta derleyici template bildirimine bakarak hangi argümanlarýn default argument olarak kullanýlacaðýný belirlemiþ oluyor
 */

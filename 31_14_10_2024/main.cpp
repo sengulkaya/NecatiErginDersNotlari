@@ -51,10 +51,10 @@ oluþan ürün o template'in bir specialization'ý yani derleyici template'i instant
 				template <typename T,tyepname U>
 				void func(T x,U y);
 
-			auto func(auto x,auto y ) // fonksiyonun geri dönüþ deðeri auto return type fonksiyonun parametreli ABBREVIATED TEMPLATE SYNTAX
+			auto func(auto x,auto y ) // fonksiyonun geri dönüþ deðeri auto return type fonksiyonun parametresi ABBREVIATED TEMPLATE SYNTAX
 
 
-	bir sýnýf generic olmasada sýnýfýn static veya non-static member functionlarda function template olabilir
+	bir sýnýf generic olmasada sýnýfýn static veya non-static member functionlarý function template olabilir
 
 		class Myclass{
 			public:
@@ -65,7 +65,7 @@ oluþan ürün o template'in bir specialization'ý yani derleyici template'i instant
 				template <typename T> // type cast operatorlerde template olabilir
 				operator T()const{
 					std::cout << "operator T \n";
-					return 5; // derleme sýrasýnda dönüþümün int türüne yapýlacaðýný belirtitiðimiz için geri dönüþ deðerini kullanmamýz gerekli
+					return 5; // mainde T türünün int türü yapýlacaðýný belirtitiðimiz için geri dönüþ deðerini kullanmamýz gerekli
 				}
 		};
 
@@ -81,7 +81,7 @@ oluþan ürün o template'in bir specialization'ý yani derleyici template'i instant
 	C++20 ile gelen özellikleri saymazsak fonksiyonun geri dönüþ deðeri türü için ya 
 		a)türü kendimiz belirliyoruz
 			template <typename T>
-			T foo(T) {} // T türünü int olarak belirlersek geir dönüþ deðeri int olur
+			T foo(T) {} // T türünü int olarak belirlersek geri dönüþ deðeri int olur
 
 		b)geri dönüþ deðeri türünün trailing return type yapýlmasý
 			hem generic olmayan kodda hemde generic kodda kullanýlabiliyordu
@@ -119,13 +119,13 @@ oluþan ürün o template'in bir specialization'ý yani derleyici template'i instant
 				struct Nec {
 					std::vector<int> mvec;
 
-					auto begin() const -> decltype(mvec.begin()) // fonksiyonun geri dönüþ deðeri mvec.begin() fonksiyonýu çaðýrýldýðýnda bu ifadenin türü neyse fonksiyonunda
+					auto begin() const -> decltype(mvec.begin()) // fonksiyonun geri dönüþ deðeri mvec.begin() fonksiyon çaðýrýldýðýnda bu ifadenin türü neyse fonksiyonunda
 																	geri dönüþ türü o
 					{
 						return mvec.begin();
 					}
 
-					decltype(mvec.end()) end() const // fonksiyonun geri dönüþ deðerini trailing return type yapmadýk mvec.end() fonksiyonun geri dönüþ deðeri yaptýk
+					decltype(mvec.end()) end() const // fonksiyonun geri dönüþ deðerini trailing return type yapmadýk mvec.end() fonksiyonunu fonksiyonun geri dönüþ deðeri yaptýk
 														end() fonksiyonumuz const olduðu için tür uyuþmazlýðý oldu
 					{
 						return mvec.end(); // bu fonksiyonu çaðýrdýðýmýz zaman sentaks hatasý olur çünkü mvec.end() fonksiyonu const deðil bu yüzden tür uyuþmazlýðý var
@@ -149,12 +149,12 @@ oluþan ürün o template'in bir specialization'ý yani derleyici template'i instant
 
 			int main()
 			{
-				auto val = foo(5); // sentkas deðeri çünkü geri dönüþ deðerini çýkarým yapma imkaný yok direkt tanýmýný yazmamýz lazým
+				auto val = foo(5); // sentaks hatasý çünkü geri dönüþ deðerini çýkarým yapma imkaný yok direkt bildirimini yapmadan tanýmýný yapmamýz lazým
 			}
 
 			auto foo(int x)
 			{
-				return x * 5;
+				return x * 5; 
 			}
 
 		ÖRNEK: birden fazla return statement varsa return statementlarda geri dönüþ deðeri türünün ayný olmasý gerek
@@ -164,7 +164,7 @@ oluþan ürün o template'in bir specialization'ý yani derleyici template'i instant
 				if(x > 10)
 					return 1;
 
-				return 3.4; // sentaks hatasý fonksiyonun geri dönüþ deðeri int yani birden return statement varsa türleri ayný olmak zorunda
+				return 3.4; // sentaks hatasý fonksiyonun geri dönüþ deðeri int yani birden fazla return statement varsa türleri ayný olmak zorunda
 			}
 
 		ÖRNEK: fonksiyonun geri dönüþ deðeri sadece auto olmak zorunda deðil

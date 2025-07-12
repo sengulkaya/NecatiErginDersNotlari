@@ -188,7 +188,7 @@ USING NAMESPACE DIRECTIVE
 					int main()
 					{
 						
-						x = 45; // ambiguity hatasý globaldeki x zaten görünür olduðu için namespace nec direktifiyle ne namespace'i içindeki x ismi de
+						x = 45; // ambiguity hatasý globaldeki x zaten görünür olduðu için namespace nec direktifiyle nec namespace'i içindeki x ismi de
 						global namespace'i içinde görünür oluyor
 						::x = 45; // global namespaceteki x
 						nec::x = 67; // nec namespace'i içerisindeki x
@@ -754,7 +754,7 @@ ADL(ARGUMENT DEPENDENT LOOKUP) ARGÜMANA BAÐLI ÝSÝM ARAMA
 
 	NAMESPACE ALIAS
 		namespace nec{
-			
+			int x;
 		}
 
 		namespace erg = nec; // namespace alias erg namespace'ini nec namespace'i gibi kullanabiliyoruz erg demek nec demek 

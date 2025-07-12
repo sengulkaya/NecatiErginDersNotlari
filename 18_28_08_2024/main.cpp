@@ -361,7 +361,7 @@ NAMESPACE(ÝSÝM ALANLARI)
 					void foo(int a)
 					{
 						x++; // 1)isim önce block içinde aranacak
-								2)erg namespace'i içinde aranacak orda bulunamazsa nested namespace içinde aranacak
+								2)erg namespace'i içinde aranacak orda bulunamazsa enclosing bracete aranacak
 					}
 				}
 		}

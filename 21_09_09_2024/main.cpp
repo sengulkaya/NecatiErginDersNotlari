@@ -203,9 +203,9 @@ STRING SINIFININ CTORLARI
 		
 			ÖRNEK:
 				std::initializer_list<int> x{3,6,7,9,2};	
-				std::initializer_list<int> y = x;	
+				std::initializer_list<int> y = x; // initializer list'in içinde tutuuğu pointerlar kopyalanıyor
 		
-				std::cout<<(x.begin() == y.begin()) << '\n'; // initializer list'in içinde tutuuğu pointerlar kopyalanıyor
+				std::cout<<(x.begin() == y.begin()) << '\n'; 
 		
 			1)initializer list'in önemli faydalarından biride ucuz bir şekilde kopyalama semantiğinden faydalanmak
 				void func(std::initializer_list<int>); // bir fonksiyonun parametresinin initializer list olması ciddiye alınacak bir kopyalama maliyeti oluşturmuyor çünkü

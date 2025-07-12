@@ -4,7 +4,7 @@ operator overloadingten devam
 
 	sýnýflarý içeriden dýþarýya doðru deðil dýþarýdan içeriye doðru tasarlamak gerekiyor 
 	yani olaya clientlarýn gözüyle bakmamýz lazým clientlarýn bu sýnýfý nasýl daha kolay kullanýrlar diye bakmamýz gerek
-	buna yönelik bir interface oluþturmamýz lazým ve genellikle interface'i oluþururken impelemantasyon tarafýný düþünmeyeceðiz
+	buna yönelik bir interface oluþturmamýz lazým ve genellikle interface'i oluþtururken impelemantasyon tarafýný düþünmeyeceðiz
 
 	zero cost abstraction
 		int türünü kullanmakla mint türünü kullanmak arasýnda maliyet açýsýndan bir fark olmayacak 
@@ -12,8 +12,6 @@ operator overloadingten devam
 		
 	duration türleri
 		chrono kütüphanesi modern C++ ile dile eklenen önemli kütüphanelerden biri burda durationu temsil eden türler var
-		
-};
 
 		bu fonksiyonlar global operator fonksiyonu olacak çünkü operatörlerimizin bir operandý stream nesneneleri ve ostream sýnýfýna müdahale etme þansýmýz olmadýðý için
 		free function olarak yazýcaz free function olarak yazýlmasýndada önemli bir seçim var
@@ -83,7 +81,7 @@ operator overloadingten devam
 	{
 		public:
 			Myclass& operator++(); // önek operatörü
-			Myclass operator++(int); // sonek operatörü sadece izma farklýlýðý yaratmak için int yazýyoruz bu parametreye argüman geçmeyeceðiz bu yüzden parametreye isim vermiyoruz
+			Myclass operator++(int); // sonek operatörü sadece imza farklýlýðý yaratmak için int yazýyoruz bu parametreye argüman geçmeyeceðiz bu yüzden parametreye isim vermiyoruz
 			global operatör olarakta yazýlabilirler ama pek görülmez
 	}
 

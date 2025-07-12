@@ -92,7 +92,7 @@ EXCEPTION HANDLING
 			
 				traditional error handlingte kötü olan durumlar neler?
 					1)forcing(zorlayýcý deðil) yani program sonlanmaz
-					2)hata iþleyen kolda iþ gören kod iç içe geçmiþ olmasý if deyimlerinin çok kullanýlmasý(ne kadar if deyimi varsa o kadar test yazmamýz gerekir)
+					2)hata iþleyen kodla iþ gören kod iç içe geçmiþ olmasý if deyimlerinin çok kullanýlmasý(ne kadar if deyimi varsa o kadar test yazmamýz gerekir)
 					3)programýn akýþý hata olmasý durumunda hatayý tespit eden koddan hatayý iþleyen koda doðrudan yönlendirilmiyor tüm fonksiyonlar kendisini çaðýran fonksiyona hata durumunu bildirebiliyor
 
 			2)exception handling
@@ -108,8 +108,8 @@ EXCEPTION HANDLING
 			
 				exceptionu throw etmek ne demek?
 					exception fýrlatmak run time'da  bir hata durumu oluþtuðunda, bu hatayý bildirmek ve farklý bir yere genelde üst fonksiyonlara iletmek için kullanýlýr
-					hcall chaindeki bir fonksion error durumuna düþtüðü zaman error'a iþarete eden bir hata nesnesþ okuþturuyor büyük çoðnlukla bir polimorfik sýnýfn nesnesi ama olmak zorunda deðil
-					yukarýdaki kodlara gönderilior yukardaýki kodlardan içinde try bloðu olan hatayý yakalýyor hatayý yakalarsa porgramýn akýþý expdetionu throw eden koddan exdeptionu catch eden koda 
+					hcall chaindeki bir fonksion error durumuna düþtüðü zaman error'a iþarete eden bir hata nesnesi oluþturuyor büyük çoðunlukla bir polimorfik sýnýfn nesnesi ama olmak zorunda deðil
+					yukarýdaki kodlara gönderiliyor yukarýdaki kodlardan içinde try bloðu olan hatayý yakalýyor hatayý yakalarsa porgramýn akýþý expdetionu throw eden koddan exceptionu catch eden koda 
 					ilgili catch bloðuna çekiliyor
 
 					void foo()
@@ -196,7 +196,7 @@ EXCEPTION HANDLING
 
 									// try bloðu içerisinde çalýþan kodlardan biri exception throw ederse gönderieln expcetion nesnesinin türüne göre olan catch bloðuna girecek
 								}
-								catch (int) // catch bloklarýda block scope'a sahip ve buradaki tür her hangi bir türden olabilir ve catch parametresini catch bloðu içerisinde kullanmayacaksak i
+								catch (int) // catch bloklarýda block scope'a sahip ve buradaki tür her hangi bir türden olabilir ve catch parametresini catch bloðu içerisinde kullanmayacaksak
 											  //	 isim vermek zorunda deðiliz
 								{
 									// x ismini burada kullanamayýz çünkü try block bir scope oluþturuyor
@@ -223,7 +223,7 @@ EXCEPTION HANDLING
 						catch bloðunda olan türler için sýnýrlý sayýda conversion var
 
 							class Base{};
-							class Der : publiv Base{};
+							class Der : public Base{};
 							
 							void foo()
 							{
@@ -246,7 +246,7 @@ EXCEPTION HANDLING
 								
 								try
 								{
-									baz();
+									bar();
 								}
 								catch(const Base&)
 								{
@@ -256,7 +256,7 @@ EXCEPTION HANDLING
 								std::cout<<"main devam ediyor\n";
 							}
 
-					throw ifadesiyle gönderilen hata nesnesiyle birlikte yukarýdaki kdolara 2 farklý þekilde bilgi vermiþ oluyoruz
+					throw ifadesiyle gönderilen hata nesnesiyle birlikte yukarýdaki kodlara 2 farklý þekilde bilgi vermiþ oluyoruz
 						1)throw edilen nesnenin türü(çoðunlukla sýnýf türünden olacaklar)
 						2)throw edilen hata nesnesinin türü hatanýn neyle ilgili olduðu konusunda bilgi veriyor
 
@@ -269,13 +269,11 @@ EXCEPTION HANDLING
 
 						}
 					
-					gönderilen hata nesnesinin std::exception türünden olmasý
+					gönderilen hata nesnesinin std::exception türünden olmasý ne demek?
 						
 						exception handligte kullanýlan sýnýflarýn polimorfik taban sýnýf hangi hata olursa olsun yakalar
 
-					exception sýnýfýnýn const char* döndüren virtual olan WHAT fonksiyonu
-						
-						türemiþ sýnýflar bu fonksiyonu override ediyorlar 
+					exception sýnýfýnýn const char* döndüren virtual olan WHAT fonksiyonu türemiþ sýnýflar bu fonksiyonu override ediyorlar 
 						
 						try{
 

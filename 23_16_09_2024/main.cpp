@@ -359,7 +359,7 @@ INHERITANCE
 					Car mycar;
 
 					Mercedes* pm = &mycar; // örtülü dönüþüm olmadýðý için sentaks hatasý dönüþümü explicit þekilde yapmamýz gerek
-					//Mercedes* pm = static_cast<Mercedes>(&mycar) 
+					//Mercedes* pm = static_cast<Mercedes*>(&mycar) 
 					
 				}
 
@@ -406,7 +406,7 @@ INHERITANCE
 		};
 
 		SORU:her B bir A'mý dýr? EVET A sýnýfý B sýfýnýn taban sýnýfýdýr
-		SORU:A sýnýfý C sýnýfýnýn taban sýnýfý mýdýr? EVET B sýnýfý C sýnýfýnýn taban sýnýfý mýdýr oda EVET 
+		SORU:A sýnýfý C sýnýfýnýn taban sýnýfý mýdýr? EVET B sýnýfý C sýnýfýnýn taban sýnýfý mýdýr? EVET 
 
 		B ile A'nýn farkýný belirtmek için DIRECT BASE CLASS(doðrudan taban sýnýf) terimini kullanýyoruz B sýnýfý C sýnýfýnýn Direct base class'ý  
 		A sýnýfý C sýnýfýnýn INDIRECT BASE CLASS'I(dolaylý taban sýnýf) olmuþ oluyor

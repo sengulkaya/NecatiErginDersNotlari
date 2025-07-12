@@ -7,7 +7,7 @@ nested typelardan devam
 			class Nec{
 				public:
 					class Nected{
-
+						
 					};
 
 					enum class Pos {On,Off};
@@ -85,7 +85,7 @@ nested typelardan devam
 						void foo()
 						{
 							Nec mynec;
-							auto auto = mynec.sval; // geçerli
+							auto = mynec.sval; // geçerli
 
 							auto sz = sizeof(sval); // uneveluated context olduðu için burada dilin kurallarýna göre bir nesneye ihtiyaç yok
 						}			

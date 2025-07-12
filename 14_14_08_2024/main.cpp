@@ -176,7 +176,7 @@ OPERATOR OVERLODING
 			[] subscript operatörü
 			-> member access operatörü
 			= assignment operatörü
-			type cast operatörü
+			type cast operatörleri
 
 		6)tüm operatör fonksiyonlarý istisnasýz isimleriylede çaðýrýlabilir
 			class Myclass{};
@@ -380,14 +380,14 @@ OPERATOR OVERLODING
 				
 				};
 
-			operator fonksiyonlarýnýn bir kaç istisna dýþýnda çok büyük çoðnlukla geri dönüþ deðerini discard etmek logic bir hata
+			operator fonksiyonlarýnýn bir kaç istisna dýþýnda çok büyük çoðunlukla geri dönüþ deðerini discard etmek logic bir hata
 				class Bigint
 				{
 					public:
 						[[nodiscard]] Bigint operator+(const Bignit&);
 				}
 
-				özellikle side effect olmayan ooeratörlerin nodiscard attribute ile nitelenmesi doðru bir yaklaþýmdýr
+				özellikle side effect olmayan operatörlerin nodiscard attribute ile nitelenmesi doðru bir yaklaþýmdýr
 
 			bir operatörü overload etmek istiyoruz ama free function mý olsun member function mý olsun?
 				bu sorunun net bir cevabý yok fakat bir çok kiþinin uyduðu ilke simetrik operatörleri global operator fonksiyonu yapmak
