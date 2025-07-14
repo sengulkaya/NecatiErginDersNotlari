@@ -130,8 +130,8 @@ STL, iterators, iterator types, const_iterator, bool predicate, unary and binary
 [38:
 local class, lambda expressions, IIFE(Immediatly Invoked Function Expression), mutable, stateless and stateful lambdas, positive lambda idiom, trailing return type, generelized lambda expressions](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/38_11_11_2024)
 
-39: 
-IIFE, lambda expressions, initialization assignment split
+[39: 
+IIFE, lambda expressions, initialization assignment split,transform,advance,distance,iter_swap,next,prev](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/39_13_11_2024)
 
 40:
 copy, copy_n, replace, replace_copy_if, remove, remove_if, unique, erase, remove_copy_if, STL containers, vector, data, front
