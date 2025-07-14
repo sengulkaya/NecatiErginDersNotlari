@@ -128,10 +128,10 @@ unary fold expressions, binary fold expressions, Standard C++ Library, STL(Stand
 STL, iterators, iterator types, const_iterator, bool predicate, unary and binary predicate, lambda expressions, closure type, closure object](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/37_06_11_2024)
 
 [38:
-local class, lambda expressions, IIFE(Immediately Involved Function Expression), mutable, stateless and stateful lambdas, positive lambda idiom, trailing return type, generelized lambda expressions](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/38_11_11_2024)
+local class, lambda expressions, IIFE(Immediatly Invoked Function Expression), mutable, stateless and stateful lambdas, positive lambda idiom, trailing return type, generelized lambda expressions](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/38_11_11_2024)
 
 39: 
-IIFE, labmda expressions, initialization assignment split
+IIFE, lambda expressions, initialization assignment split
 
 40:
 copy, copy_n, replace, replace_copy_if, remove, remove_if, unique, erase, remove_copy_if, STL containers, vector, data, front
