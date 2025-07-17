@@ -133,8 +133,8 @@ local class, lambda expressions, IIFE(Immediatly Invoked Function Expression), m
 [39: 
 IIFE, lambda expressions, initialization assignment split,transform,advance,distance,iter_swap,next,prev](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/39_13_11_2024)
 
-40:
-copy, copy_n, replace, replace_copy_if, remove, remove_if, unique, erase, remove_copy_if, STL containers, vector, data, front
+[40:
+copy, copy_n, replace, replace_copy_if, remove, remove_if, unique, erase, remove_copy_if, STL containers, vector, data, front](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/40_18_11_2024)
 
 41:
 vector functions, capacity, reserve, front, back, at, emplace_bakc, emplace, insert, sort, stable_sort, is_sorted 
