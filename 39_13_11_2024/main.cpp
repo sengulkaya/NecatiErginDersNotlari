@@ -64,7 +64,7 @@ lambdalarda constexpr için C++17 ile değişikler yapıldı
 						if(x > 10)
 							return 1;
 
-						return 3.4; // sentaks hatası
+						return 3.4;
 					};
 
 				}
@@ -122,7 +122,7 @@ sınıfların üye fonksiyonları içinde kullanılan lambda ifadeleri
 
 			0 olmalarının nedeni mx ve my pt'nin mx ve my'si değil kopyalama yoluyla capture ettiğimiz *this'in mx'i
 				
-				[this]() // bu şekilde capture etseydik mutable olmas ıgibi bir zorunluluk olmayacaktı ve nesnenin kendi mx ve my'yi değiştirmiş olacaktık
+				[this]() // bu şekilde capture etseydik mutable olması gibi bir zorunluluk olmayacaktı ve nesnenin kendi mx ve my'yi değiştirmiş olacaktık
 				{
 						mx++;
 						my++;
@@ -196,7 +196,7 @@ IIFE(Immediatly Invoked Function Expression)
 			}
 		}
 
-	ÖRNEK:.operator ile de fonksiyonu çağırabiliriz
+	ÖRNEK: .operator ile de fonksiyonu çağırabiliriz
 
 		auto x = [](){
 
@@ -205,7 +205,6 @@ IIFE(Immediatly Invoked Function Expression)
 INITIALIZATION ASSIGMENT SPLIT
 
 	bir değişken tanımlandıktan sonra daha sonra değer vermek için atama yapıyoruz 
-
 
 	std::string foo();
 
@@ -257,7 +256,6 @@ int main()
 	f.operator()<double>(4.5); // deduction yapılmasını istemiyoruz ve double parametreli fonksiyonun çağırılmasını istiyoruz
 }
 
-
 TRANSFORM ALGORITMASI
 
 	1.overload
@@ -275,7 +273,7 @@ TRANSFORM ALGORITMASI
 	}
 
 	2.overload
-		2 tane range'de ki karşılıklı öğeleri 2 parametreli olan bir fonksiyona argüman olarak göndreceğiz fonksiyonun geri dönüş değerini bir range'e yazacağız
+		2 tane range'de ki karşılıklı öğeleri 2 parametreli olan bir fonksiyona argüman olarak göndereceğiz fonksiyonun geri dönüş değerini bir range'e yazacağız
 		
 		template<typename InIter1, typename InIter2, typename OutIter ,typename BFunc>
 		OutIter Transfrom(InIter1 beg1, InIter1 end,InIter2 beg2, OutIter destebeg, BFunc f)
@@ -374,7 +372,7 @@ belirli fonksiyonlar var ki bu fonksiyonlar iteratörler ilgili iş yapıyorlar 
 			std::cout<<*iter;
 		}
 
-	prev
+	5)prev
 		aldığı iteratör konumundan önceki n uzaklıktaki konumu döndürüyor
 
 		int main()
