@@ -26,7 +26,7 @@ copy_n
 
 		 for (auto x : ilist)
 		 {
-			 std::cout << x << " "; // vectorde bulunan eleman sayýsý kadar tüm elemanlarý listeye kopyalandý 3,9,7,4
+			 std::cout << x << " "; // vectorde bulunan eleman sayýsý kadar tüm elemanlarý listeye kopyalandý 3,9,7
 		 }
 
 		std::copy_n(ivec.begin(), ivec.size(), std::back_inserter(ilist)); // listeye sondan ekleme yaptýk
@@ -308,7 +308,7 @@ SORU:herhangi bir algoritma bir range'i alýp o range'in sahibi olan container'a 
 					std::cout << x << " ";
 				}
 				std::cout << '\n';
-				 { return x % 2 == y % 2; }; // ardýþýk olan x'in ve y'nin 2 ye bölümünden kalanlar eþitse bunlarý silecek 
+				auto fpred = [](int x,int y){ return x % 2 == y % 2; }; // ardýþýk olan x'in ve y'nin 2 ye bölümünden kalanlar eþitse bunlarý silecek
 
 				ivec.erase(std::unique(ivec.begin(), ivec.end(),fpred),ivec.end());
 
