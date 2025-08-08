@@ -304,4 +304,5 @@ ITERATOR INVALIDATION(iteratörün geçersiz hale gelmesi)
 					iter = ivec.end() - 2; // tekrar hesaplarsak ve sorun olmaz // *iter artık geçerli konumu gösterir
 
 				}
+
 */
