@@ -139,8 +139,8 @@ copy, copy_n, replace, replace_copy_if, remove, remove_if, unique, erase, remove
 [41:
 vector functions, capacity, reserve, front, back, at, emplace_bakc, emplace, insert, sort, stable_sort, is_sorted](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/41_20_11_2024)
 
-42:
-partial_sort, partial_sort_copy, partition algorythms, partition, stable_partition, partition_copy, basic structure binding, is_partiotioned, partition_point, heap algorithms, make_heap, pop_heap, sort_heap, deque, iterator invalidation, list
+[42:
+partial_sort, partial_sort_copy, partition algorythms, partition, stable_partition, partition_copy, basic structure binding, is_partiotioned, partition_point, heap algorithms, make_heap, pop_heap, sort_heap, deque, iterator invalidation, list](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/42_25_11_2024)
 
 43:
 list, linked list, doubly linked list, forward list, associative containers, strict weak ordering, set, multiset, lower bound, upper bound, equal range, insert
