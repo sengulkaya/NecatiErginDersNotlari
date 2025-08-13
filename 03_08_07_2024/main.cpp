@@ -291,10 +291,10 @@ Burada `&a` ifadesi, `a` dizisinin tamamýný iþaret eden bir pointer anlamýna gel
 
 Dolayýsýyla `&a + i` ifadesi aslýnda þu anlama gelir:
 - `&a` dizisinin baþlangýç adresi (`int (*)[10]` türünde).
-- `+ i` bu adresin üzerine `i` tane `int[10]` boyutu kadar ekleme yapar. Yani her adýmda 10 * 40 sizeof(int) = 40byte boyutu kadar aralýklarla ilerler.
+- `+ i` bu adresin üzerine `i` tane `int[10]` boyutu kadar ekleme yapar.Yani her adýmda 10 * sizeof(int) bayt kadar ilerlenir. sizeof(int) 4 bayt olduðunda bu mesafe 40 bayt olur.
 
-Bu nedenle, bu döngüde her iterasyonda dizinin her seferinde 40 eleman uzunluðunda bir blok atlayarak ilerlemesini saðlýyoruz.
-Adresleri bastýrýyoruz, bu adresler büyük ihtimalle bellek bloklarý arasýnda büyük aralýklara sahip olacaktýr.
+Bu nedenle, döngü her iterasyonda bellekte 40 bayt (10 elemanlýk bir blok) atlayarak ilerler.
+Adresleri ekrana bastýrdýðýmýzda, aralarýnda bu kadar fark olan adresler görürüz.
 
 ### 2. Döngü
 
