@@ -142,8 +142,8 @@ vector functions, capacity, reserve, front, back, at, emplace_bakc, emplace, ins
 [42:
 partial_sort, partial_sort_copy, partition algorythms, partition, stable_partition, partition_copy, basic structure binding, is_partiotioned, partition_point, heap algorithms, make_heap, pop_heap, sort_heap, deque, iterator invalidation, list](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/42_25_11_2024)
 
-43:
-list, linked list, doubly linked list, forward list, associative containers, strict weak ordering, set, multiset, lower bound, upper bound, equal range, insert
+[43:
+list, linked list, doubly linked list, forward list, associative containers, strict weak ordering, set, multiset, lower bound, upper bound, equal range, insert](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/43_28_11_2024)
 
 44:
 set, multiset, emplace, find, count, contains, erase, extract, copy, inserter, transparent function object, emplace_hint, merge, map, multimap, insert, emplace, make_pair
