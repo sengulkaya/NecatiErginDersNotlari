@@ -19,6 +19,8 @@ https://github.com/umutkotankiran/Cpp_Advanced
 
 https://github.com/CSD-1993/KursNotlari
 
+Notlardaki hataları düzeltmeme yardımcı olduğu için [Şengül Kaya'ya](https://github.com/sengulkaya)teşekkür ederim.
+
 İşlenen Konuların Sırası için Rasul Mammadova teşekkürler
 
 [01:
