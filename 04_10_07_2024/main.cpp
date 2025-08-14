@@ -457,7 +457,7 @@ bu ayrıştırma kuralları hatalı kod ile sonuçlanabilir. Bu nedenle, pointer
             auto& r = foo; r'nin çıkarımı -> int(&r)(int) olur;
 
 
-         typedef int inta5[];
+         typedef int inta5[5];
          int ar[5]{2,5,8,9,4};
          inta5 *p = &ar;
 
