@@ -248,7 +248,7 @@ inline expansion ile inline function çok karıştırılıyor
                 int c = sum_square(a,b);
             }
             derleyici burda gereksiz makina kodlarını çalıştırmak yerine arka planda madem ben bu fonksiyonun kodunu görüyorum
-            o zaman sanki bu kodu şöyle yazılmış gibi ele alabilirim -> c = a * a * * b * b; böyle bir durumda çağırılan bir fonksiyon olmayacağı için
+            o zaman sanki bu kodu şöyle yazılmış gibi ele alabilirim -> c = a * a + b * b; böyle bir durumda çağırılan bir fonksiyon olmayacağı için
             derleyicinin ürettiği kod çok daha etkin olucak ama burda önemli olan derleyicinin fonksiyonun tanımını görmesi bu işlemler compiler timeda olan bir işlem
 
             1)derleyici tanımı görmek zorunda
@@ -288,10 +288,10 @@ inline functions
 
     derleyici inline fonksiyona inline expansion yaparsa fonksiyonun derlenmiş hali derlenmiş kodda bulunmak zorunda değil
 
-    eğer ODR çiğnenseydi oluşacak kötü durum şuydu mesela 3 tane başlık dosyası olsun ahmet.h mehmet.h mert.h derleyici bu başlık dosyasındaki fonksiyonların tanımını gördüğü için
-    bu fonksiyonun kodunu derlemek zorunda olsa yani inline expansion yapmamış olsa kodun derlenmiş halini oluştursa aslında 3 tane ayrı kaynak dosya 3 tane ayrı derlenmiş
-    kod üretecek bu durumda link aşamasında bu fonksiyonlardan 3 ayrı kopya olmuş olacaktı buda aslında şu demek inline expansion yapılmaması durumunda
-    bu fonksiyonların adresi kullanılsa aynı adres kullanılmış olucak
+    Eğer ODR çiğnenseydi oluşacak kötü durum şuydu: Mesela 3 tane başlık dosyası olsun — ahmet.h, mehmet.h, mert.h. Derleyici bu başlık dosyasındaki fonksiyonların tanımını gördüğü için, 
+    inline expansion yapmamışsa, bu fonksiyonun kodunu her çevirim biriminde derlemek zorunda kalır. Yani 3 ayrı kaynak dosyadan 3 ayrı derlenmiş kod üretilir. 
+    Link aşamasında ODR çiğnenmediği durumda bu kopyalar tek kopyaya indirgenir ve fonksiyonun adresi her yerde aynı olur. Ancak ODR çiğnendiğinde farklı kopyalar kalabilir 
+    ve farklı derleyiciler farklı kopyayı seçebilir.
 
     static olarak fonksiyon tanımını yaparsak internal linkage'a sahip olduğu için ODR çiğnenmez ama başlık dosyasını
     include eden her kaynak dosyanın ayrı bir foo fonksiyonu olucaktı ve hepsinin adresi farklı olucaktı
