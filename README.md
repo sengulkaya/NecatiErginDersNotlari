@@ -27,8 +27,11 @@ Differences C and C++](https://github.com/kasimir039/NecatiErginDersNotlari/tree
 [02: 
 Differences C and C++](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/02_03_07_2024)
 
-[03-04:
-references, Value categories, Default Argument, Type Deductions](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/03_08_07_2024)
+[03:
+references, Value categories](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/03_08_07_2024)
+
+[04:
+Default Argument, Type Deductions](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/04_10_07_2024)
 
 [05:
 Scope, Namelookup, Inline functions](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/05_14_07_2024)
