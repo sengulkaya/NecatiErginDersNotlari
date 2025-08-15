@@ -317,16 +317,14 @@ const overloading
 	eğer biri call by value biri call by reference ise bu yine function overloadingtir tipik olarak böyle bir overloading tercih edilmez
 	eğer bu fonksiyonlara l value ile çağrı yaparsak her ikiside viable olur call by value ile call by reference birbirinden üstün değildir bu yüzden ambiguity olur 
 		void func(int);
-		void func(int&);
+		void func(int&); // fonksiyon const int& olsaydı hem l value hem r value değer kabul edeceği için aşağıda iki örnekte ambiguity oluşturacaktı
 
 		int main()
 		{
 			int x{};
 			func(x); //'func': ambiguous call to overloaded function
 
-			func(10); // 'func': ambiguous call to overloaded function
-			
-			void funct(int&) olan fonksiyon const int & olsaydı hem l value hem r value değer kabul ettiği için yine ambiguity oluşacaktı
+			func(10); // geçerli
 		}
 
 	SORU:
