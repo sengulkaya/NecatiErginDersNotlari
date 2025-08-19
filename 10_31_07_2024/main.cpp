@@ -610,6 +610,7 @@ hoca complete type incomplete type konusunu tekrar ediyor
 			Myclass foo(Myclass);
 
 		2)Tür eþ isim bildirimleri
+			class Myclass;
 			using Type = Myclass;
 
 		3)incomplete type türlerden pointer deðiþkenler tanýmlanabilir

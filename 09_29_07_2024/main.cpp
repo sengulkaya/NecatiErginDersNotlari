@@ -6,7 +6,7 @@ non-static member functionlarda kalmýþtýk
 	{
 		public:
 			void func(int x);
-	}
+	};
 	
 	int main()
 	{
@@ -14,9 +14,9 @@ non-static member functionlarda kalmýþtýk
 		Myclass* p = &m;
 
 		(*p).func(35);
-		p->func(354);,
+		p->func(354);
 		 
-		// iki þekildede kullanmak ayný anlama gelir
+		// iki þekilde de kullanmak ayný anlama gelir
 	}
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 GLOBAL FUNCTIONLAR ÝLE MEMBER FUNCTIONLAR ARASINDAKI FARKLILIKLAR
@@ -163,7 +163,7 @@ SORU: Sýnýftan global bir nesne olsa member function içinde o global nesneden pr
 				o nesnesnin private elemanýna deðil her ne þekilde olursa olsun private bölümüne eriþebiliyor 
 			}
 
-			void Myclas::foo(Myclass& r)
+			void Myclass::foo(Myclass& r)
 			{
 				r.mx = r.my;
 
@@ -329,15 +329,14 @@ SINIFIN ÜYE FONKSIYONLARI OLDUÐU ZAMAN BIR FONKSIYONUN SET YADA GET FONKSIYONU O
 			class Nec
 			{
 				public:
-					void foo();
+					void foo(); // void foo/Nec*)
 					void bar()const;
 					int mx;
 			};
 
 			void Nec::foo()
 			{
-				mx = 5; // geçerli
-				p->mx = 5; // gizli parametre ile arka planda olan
+				mx = 5; // geçerli // p->mx = 5; // gizli parametre ile arka planda olan
 			}
 
 			void Nec::bar()const
@@ -529,7 +528,7 @@ THIS KEYWORD
 				{
 					public:
 						Myclass* foo(); // bu fonksiyon hangi nesne için çaðýrýlmýþsa onun adresi
-						Myclass& foobar(); // daha basit ve sýk kullanýlan senaryo bu
+						// Myclass& foobar(); // daha basit ve sýk kullanýlan senaryo referans
 				};
 
 				Myclass* Myclas::foo()

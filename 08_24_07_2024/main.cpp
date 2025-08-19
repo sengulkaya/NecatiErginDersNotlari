@@ -85,16 +85,16 @@ function overloading ile ilgili ilgili bir konu daha var
 							bu headerdaki bildirimleri hem C derleyicisine hemde C++ derleyicisine vermek istiyorum ama C++ derleyicisinin extern "C" bildirimi ile görmesini istiyorum
 							C de de C++ ta da pre-defined macro denen varlýklar var(ön tanýmlý makro)
 
-							ifdef __cplusplus // C++ derleyicisinden çalýþacak
-								extern "C" 
-								{
-									int foo(int,int);
-									int bar(int,int);
-									int baz(int,int);
+							#ifdef __cplusplus
+							extern "C" {
 							#endif
 
-							ifdef __cplusplus
-								}
+								int foo(int,int);
+								int bar(int,int);
+								int baz(int,int);
+
+							#ifdef __cplusplus
+							}
 							#endif
 --------------------------------------------------------------------------------------------------------------------------------------------------
 CLASSES
@@ -162,7 +162,7 @@ CLASSES
 
 			mynec.x // mynec Nec sýnýfýndan nesne olduðu için x deðerine ulaþýr
 
-			nec * necptr= &mynec;
+			Nec * necptr= &mynec;
 
 			necptr->x; // necptr Nec sýnýfý türünden bir adres olduðu için Nec sýnýfýndaki x deðerine ulaþýyor
 
@@ -253,7 +253,7 @@ CLASSES
 
 		SORULAR:
 			1)function overloading var mý yok mu?
-				viod func(int); // namespace scope
+				void func(int); // namespace scope
 
 				class Myclass
 				{

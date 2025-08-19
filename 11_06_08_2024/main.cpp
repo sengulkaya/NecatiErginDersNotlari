@@ -20,8 +20,8 @@ BÝR SINIF NESNESÝNÝN KOPYALANARAK HAYATA GELMESÝ NE DEMEK(COPY CONSTRUCTOR kýsal
 	{
 		Myclass m1;
 		Myclass m2 = m1; // m2 nesnesini hayata getirecek constructor copy ctor
-		Myclass m2(m1); // copy ctor çaðýrýlýr
-		Myclass m2{m1}; // copy ctor çaðýrýlýr
+		Myclass m3(m1); // copy ctor çaðýrýlýr
+		Myclass m4{m1}; // copy ctor çaðýrýlýr
 		auto m5 = m2 // Myclass m5 = m2 çýkarýmý yapýlýr
 
 		sýnýfýn copy constructorý olmak zorunda delete edilmiþ olabilir yada implictly declare edilmiþ olabilir ama kesinlikle olmak zorunda
@@ -121,17 +121,17 @@ BÝR SINIF NESNESÝNÝN KOPYALANARAK HAYATA GELMESÝ NE DEMEK(COPY CONSTRUCTOR kýsal
 		
 		COPY CTORUN ÇAÐIRILDIÐI SENARYOLAR
 			1)
-				Class Myclass{};
+				class Myclass{};
 
 				int main()
 				{
 					Myclass m1;
 					Myclass m2 = m1;// copy initalization
-					Myclass m2(m1); // direct initialization
-					Myclass m2{m1}; // direct list initiazaliton
+					Myclass m3(m1); // direct initialization
+					Myclass m4{m1}; // direct list initiazaliton
 				}
 
-			2)bir fonksiyonun paramtresinin sýnýf türünden olmasý(CALL BY VALUE) ve fonksiyonada sýnýf türünden bir argüman geçilmesi
+			2)bir fonksiyonun parametresinin sýnýf türünden olmasý(CALL BY VALUE) ve fonksiyonada sýnýf türünden bir argüman geçilmesi
 				class Myclass
 				{
 				public:
@@ -143,17 +143,21 @@ BÝR SINIF NESNESÝNÝN KOPYALANARAK HAYATA GELMESÝ NE DEMEK(COPY CONSTRUCTOR kýsal
 					{
 						std::cout << "destructor this = " << this << '\n';
 					}
+					Myclass(const Myclass&)
+					{
+						std::cout << "copy ctor this = " << this << '\n';
+					}
 				};
 
-				void func(Myclass m) 
-				{ 
-					std::cout<<"foo çaðýrýldý\n";
-					std::cout << "&m = " << &m << '\n'; 
+				void func(Myclass m)
+				{
+					std::cout << "foo cagirildi: " << "&m = " << &m << '\n';
+
 				}
 
 				int main()
 				{
-					Myclass m1; 
+					Myclass m1;
 					func(m1); // func fonksiyonunun m parametre deðiþkeni için copy ctor çaðýrýlacak
 
 					std::cout << "&m1 = " << &m1 << '\n';
