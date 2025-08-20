@@ -28,7 +28,8 @@ hoca bu overloading tipini bize tekrar anýmsatýyor
 		void foo(Nec&&); // r value & (r value argümanlarý alýr)
 
 		Nec bar();
-		Nec&& baz();
+		Nec&& baz(); // X value(geri dönüþ deðeri R value olan fonksiyonlara yapýlan çaðrý ifadeleri)
+
 
 		int main()
 		{
@@ -46,7 +47,8 @@ hoca bu overloading tipini bize tekrar anýmsatýyor
 			
 			}	
 
-		void bar(const Nec&&); // primary value kategorisi X value(geri dönüþ deðeri R value olan fonksiyonlara yapýlan çaðrý ifadeleri)
+		void bar(const Nec&&); 
+		
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 MOVE CONSTRUCTOR VE MOVE ASSIGMENT
 	öyle durumlar var ki koda bakarak bir sýnýf nesnesinin artýk kullanýlma olanaðýnýn olmadýðýný o nesnenin kullanbabilecek bir kodun söz konusu olmadýðýný derleyici anlayabilir
@@ -261,29 +263,34 @@ MOVE CONSTRUCTOR VE MOVE ASSIGMENT
 		};
 
 		class String
+		{
+		public:
+			String(String&& other) : mlen(other.mlen), mp(other.mp)
 			{
-			public:
-				String(String&& other) : mlen(other.mlen),mp(other.mp)
-				{
-					other.mp = nullptr;
-					other.mlen = 0; 
-				}
+				other.mp = nullptr;
+				other.mlen = 0;
+			}
 
-				String& operator=(const String&& other)
-				{
-					if(this == &other)
-						retrun *this;
+			String& operator=(String&& other)
+			{
+				if (this == &other)
+					return* this;
 
-					free(mp); // bunu yapmasak kaynak sýzýntýsý olurdu çünkü pointera yeni deðer atanmasý o pointerýn gösterdiði kaynaðýn geri verildiði anlamýna gelmiyor
-					mlen = other.mlen;
-					mp = other.mp;
+				free(mp); // bunu yapmasak kaynak sýzýntýsý olurdu çünkü pointera yeni deðer atanmasý o pointerýn gösterdiði kaynaðýn geri verildiði anlamýna gelmiyor
+				mlen = other.mlen;
+				mp = other.mp;
 
-					other.mp = nullptr;
-					other.mlen = 0;
+				other.mp = nullptr;
+				other.mlen = 0;
 
-					return *this;
-					
-				}
+				return *this;
+
+			}
+
+		private:
+			size_t mlen;
+			char* mp;
+		};
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		MOVED FROM STATE/OBJECT
 			nesne hala hayatta ama kaynaðý çalýnmýþ anlamýna geliyor 

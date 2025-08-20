@@ -329,7 +329,7 @@ SINIFIN ÜYE FONKSIYONLARI OLDUÐU ZAMAN BIR FONKSIYONUN SET YADA GET FONKSIYONU O
 			class Nec
 			{
 				public:
-					void foo(); // void foo/Nec*)
+					void foo(); // void foo(Nec*) Nwec* gizli parametre
 					void bar()const;
 					int mx;
 			};

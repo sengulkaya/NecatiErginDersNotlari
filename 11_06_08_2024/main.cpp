@@ -411,7 +411,7 @@ BÝR SINIF NESNESÝNÝN KOPYALANARAK HAYATA GELMESÝ NE DEMEK(COPY CONSTRUCTOR kýsal
   				sx.print();
 				(void)getchar();
 
-			// burda iki ayrý nesne var derleyicinin yazdýðý copy assignment str'nin mp elemanýna sx'in mp elemanýnýn adresini atýyor bu yüzden dangling pointer oluyor
+			//  burda iki ayrý nesne var derleyicinin yazdýðý copy assignment sx'nin mp elemanýna str'in mp elemanýnýn adresini atýyor bu yüzden dangling pointer oluyor
 
 			}
 
@@ -523,5 +523,5 @@ BÝR SINIF NESNESÝNÝN KOPYALANARAK HAYATA GELMESÝ NE DEMEK(COPY CONSTRUCTOR kýsal
 
 			sýnýf türünden olsalardý operatör overloading sayesinde bu yine geçerli olurdu 
 
-			x.operator=(y.operator=(z.operator=(t.operator=(foo)))) // sýnýf türünden olsaydý bu þekildede yazabilirdik
+			 x.operator=(y.operator=(z.operator=(t.operator=(foo())))); // sýnýf türünden olsaydý bu þekildede yazabilirdik
 */
