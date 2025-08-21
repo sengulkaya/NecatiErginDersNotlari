@@ -150,8 +150,8 @@ partial_sort, partial_sort_copy, partition algorythms, partition, stable_partiti
 [43:
 list, linked list, doubly linked list, forward list, associative containers, strict weak ordering, set, multiset, lower bound, upper bound, equal range, insert](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/43_28_11_2024)
 
-44:
-set, multiset, emplace, find, count, contains, erase, extract, copy, inserter, transparent function object, emplace_hint, merge, map, multimap, insert, emplace, make_pair
+[44:
+set, multiset, emplace, find, count, contains, erase, extract, copy, inserter, transparent function object, emplace_hint, merge, map, multimap, insert, emplace, make_pair](https://github.com/kasimir039/NecatiErginDersNotlari/tree/master/44_02_12_2024)
 
 45:
 try_emplace, insert_or_assign,  unordered associative containers, hash_set, hash_map,  bucket, bucket_count, load_factor, max_load_factor, std::array
