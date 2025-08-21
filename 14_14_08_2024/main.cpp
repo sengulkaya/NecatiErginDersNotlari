@@ -74,7 +74,7 @@ friend bildirimlerinden devam 3 tane maddemiz vardý
 
 		2)Geciþkenlik yok yani A -> B sýnýfýna friendlik versin B sýnýfýda -> C sýnýfýna friendlik versin
 			B sýnýfý A sýnýfýnýn private bölümüne eriþebilir C sýnýfýda B sýnýfýnýn private bölümüne eriþebilir
-			burada hoca inheritance konusuna vurgu yapýyor
+			ama C A'nýn private bölümüne eriþemez burada hoca inheritance konusuna vurgu yapýyor
 		
 		3)bir sýnýfa friendlik vermek istiyoruz ama bütün private bölümüne deðil istediðimiz fonksiyona eriþmesini istiyoruz böyle bir þey mümkün mü? HAYIR
 		bunu gerçekleþtiren doðrudan bir araç yok ama dolaylý olarak idiomatik bazý yapýlarý kullanarak bunu gerçekleþtirmek mümkün buna ATTORNEY-CLIENT IDIOM deniliyor
