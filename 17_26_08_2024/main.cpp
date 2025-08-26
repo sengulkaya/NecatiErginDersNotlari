@@ -28,7 +28,8 @@ bool türüne dönüþüm yapan operator bool fonksiyonunda kaldýk
 			olmuþ oluyor burada integral promotion ile int türüne yükseltilecekler ifadenin türü int olacak ve operator bool fonksiyonunun geri dönüþ deðeri true(1) 
 			ürettiði için x'in deðeri 2 olacak
 			
-			operator bool fonksiyonu explicit olsa bile logic bir ifade gereken yerde dönüþümü yapýyor ama logic baðlam olmayan yerlerde örtülü dönüþüm engellenir
+			operator bool fonksiyonu explicit olsa bile logic bir ifade gereken yerde implicit dönüþümü yapýyor ama logic baðlam olmayan yerlerde örtülü dönüþüm engellenir
+
 				if(n1 && n2){} // geçerli
 				auto b = !n1; // geçerli
 		}
@@ -535,7 +536,9 @@ INLINE VARIABLE
 
 				statix int y;
 		};
-		int Myclass::y = 5; // ODR yine çiðnenmiþ olur 
+		
+		.cpp
+			int Myclass::y = 5; // ODR çiðnenmez ama ayný tanýmý birden fazla dosyada yaparsak ODR çiðnenmiþ olur
 
 	member functionlar içinde static veri elemanýný doðrudan kullanabiliyoruz
 		class Myclass{

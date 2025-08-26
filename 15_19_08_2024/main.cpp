@@ -35,8 +35,8 @@ operator overloadingten devam
 			>=
 			
 	secondary operatörlerin avantajlarý
-		5 < x // x bir sýnýf nesnesi derleyici bunu sanki x < 5 olarak deðiþiklikte yapabiliyor bu sadece secondary operatörlere yönelik bir özellik
-				
+		5 < x // x bir sýnýf nesnesi derleyici bunu sanki x > 5 olarak deðiþiklikte yapabiliyor bu sadece secondary operatörlere yönelik bir özellik
+	
 	RASUL MAMMADOVUN SORUSU ÜZERÝNE
 		class Myclass{
 			friend void func(int);
